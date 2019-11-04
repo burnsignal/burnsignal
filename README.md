@@ -1,4 +1,4 @@
-# Burner Vote
+# Burn Signal
 ## Got an opinion? Burn some ETH to prove it.
 ### A general purpose signaling mechanism built on Ethereum.
 
@@ -12,11 +12,11 @@ Initially, our frontend will interpret the signals quadratically, using BrightID
 
 Currently, all ether collected from signaling is burned so as to prevent feedback. However, future iterations may reallocate collected funds via some fund allocation mechanism.
 
-Burner Vote operates under the premise that any arbitrary definition of stakeholder groups will necessarily disenfranchise some people. Rather than attempting to define stakeholder groups and weight their input against one and other, Burner Vote attempts to create a signaling environment that is permissionless, non-exclusive, collusion resistant, and minimally impacted by plutocracy.
+Burn Signal operates under the premise that any arbitrary definition of stakeholder groups will necessarily disenfranchise some people. Rather than attempting to define stakeholder groups and weight their input against one and other, Burn Signal attempts to create a signaling environment that is permissionless, non-exclusive, collusion resistant, and minimally impacted by plutocracy.
 
 ---
 
-Specification and issues can currently be found in this repo: https://github.com/BurnerVote/BurnerVoteSpec
+Specification and issues can currently be found in this repo: https://github.com/burnSignal/burnSignal-Spec
 
 BurnerVote consists of three main parts:
 
