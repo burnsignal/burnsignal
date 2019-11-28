@@ -23,3 +23,9 @@ BurnerVote consists of three main parts:
 * A smart contract factory that allows users to create new proposals to vote/signal on
 * A GraphQL backend built with [The Graph](https://thegraph.com/) to analyze the contract data; and a React.js frontend
 * An "Ethereum Address Service" web app for [BrightID](https://www.brightid.org/) to allow users to map their BrightID accounts to Ethereum addresses. BrightID aims to be a global, unique identity network uses graph theory to determine the likelihood that an account or individual is unique.
+
+## To Do
+
+VoteHelper.js - Add BrightID check.
+
+NewVote.js - Deadline needs implemented.

@@ -1,0 +1,98 @@
+{[
+  {
+   "constant": false,
+   "inputs": [
+    {
+     "name": "_name",
+     "type": "string"
+    },
+    {
+     "name": "_data",
+     "type": "string"
+    },
+    {
+     "name": "_deadline",
+     "type": "uint64"
+    }
+   ],
+   "name": "newVoteProposal",
+   "outputs": [
+    {
+     "name": "",
+     "type": "uint256"
+    }
+   ],
+   "payable": false,
+   "stateMutability": "nonpayable",
+   "type": "function"
+  },
+  {
+   "inputs": [],
+   "payable": false,
+   "stateMutability": "nonpayable",
+   "type": "constructor"
+  },
+  {
+   "anonymous": false,
+   "inputs": [
+    {
+     "indexed": false,
+     "name": "proposalID",
+     "type": "uint256"
+    },
+    {
+     "indexed": false,
+     "name": "issuer",
+     "type": "address"
+    },
+    {
+     "indexed": false,
+     "name": "deadline",
+     "type": "uint256"
+    },
+    {
+     "indexed": false,
+     "name": "name",
+     "type": "string"
+    },
+    {
+     "indexed": false,
+     "name": "data",
+     "type": "string"
+    }
+   ],
+   "name": "newProposalIssued",
+   "type": "event"
+  },
+  {
+   "constant": true,
+   "inputs": [
+    {
+     "name": "",
+     "type": "uint256"
+    }
+   ],
+   "name": "proposals",
+   "outputs": [
+    {
+     "name": "issuer",
+     "type": "address"
+    },
+    {
+     "name": "deadline",
+     "type": "uint256"
+    },
+    {
+     "name": "name",
+     "type": "string"
+    },
+    {
+     "name": "data",
+     "type": "string"
+    }
+   ],
+   "payable": false,
+   "stateMutability": "view",
+   "type": "function"
+  }
+]}
