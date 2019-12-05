@@ -24,6 +24,21 @@ BurnerVote consists of three main parts:
 * A GraphQL backend built with [The Graph](https://thegraph.com/) to analyze the contract data; and a React.js frontend
 * An "Ethereum Address Service" web app for [BrightID](https://www.brightid.org/) to allow users to map their BrightID accounts to Ethereum addresses. BrightID aims to be a global, unique identity network uses graph theory to determine the likelihood that an account or individual is unique.
 
+## Running the app locally
+
+**Clone this repo**
+using https `git clone https://github.com/burnSignal/burnSignal.git`
+using ssh `git clone git@github.com:burnSignal/burnSignal.git`
+
+**Open the cloned directory**
+`cd burnSignal`
+
+**Install dependencies**
+`npm install`
+
+**Run the app**
+`npm start`
+
 ## To Do
 
 VoteHelper.js - Add BrightID check.
