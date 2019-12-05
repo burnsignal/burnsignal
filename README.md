@@ -27,16 +27,21 @@ BurnerVote consists of three main parts:
 ## Running the app locally
 
 **Clone this repo**
+
 using https `git clone https://github.com/burnSignal/burnSignal.git`
+
 using ssh `git clone git@github.com:burnSignal/burnSignal.git`
 
 **Open the cloned directory**
+
 `cd burnSignal`
 
 **Install dependencies**
+
 `npm install`
 
 **Run the app**
+
 `npm start`
 
 ## To Do
