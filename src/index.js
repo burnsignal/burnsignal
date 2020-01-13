@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from './App.js';
 import NewVote from './components/NewVote';
 import * as serviceWorker from './serviceWorker';
 import { HashRouter, Route } from 'react-router-dom'

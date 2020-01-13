@@ -1,32 +1,93 @@
-.App {
-  text-align: center;
+
+.main-container {
+  padding-top: 64px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+.test-jg {
+  max-width: 960px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+
+.jg-nav {
+  height: 64px;
+}
+
+.jg-title {
+  position: absolute;
+  left: 30px;
+  top: 22px;
+  /* font-family: Poppins; */
+  font-style: normal;
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 25px;
+  letter-spacing: 0.10625px;
+  color: #FFFFFF;
+}
+
+.icon-single-02 {
+  position: absolute;
+
+  top: 22px;
+  right: 44px;
+}
+
+.title.proposal {
+  /*font-family: Poppins;*/
+  font-style: normal;
+  font-weight: normal;
+  font-size: 17px;
+  letter-spacing: 0.10625px;
+  color: #FFFFFF;
+}
+
+.github-detail {
+  /* font-family: Poppins; */
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 13px;
+  color: #FFFFFF;
+}
+
+.buttons {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding-top: 16px;
 }
 
-.App-link {
-  color: #61dafb;
+.btn-simple.vote-yes {
+  /* font-family: Poppins; */
+  position: static;
+  left: 2.67%;
+  right: 2.67%;
+  top: 52.38%;
+  bottom: 30.74%;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 13px;
+  text-align: center;
+  color: #FFFFFF;
+  border: 1px solid #E14ECA;
+  border-radius: 20px;
+  margin-left: 1px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.btn-simple.vote-no {
+  /* font-family: Poppins; */
+  position: static;
+  left: 1%;
+  right: 2.67%;
+  top: 76.19%;
+  bottom: 6.93%;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 13px;
+  text-align: center;
+  color: #FFFFFF;
+  border: 1px solid #E14ECA;
+  border-radius: 20px;
+  margin-left: 1px;
 }
