@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ReactMinimalPieChart from 'react-minimal-pie-chart';
 import { Row, Col } from "reactstrap";
-import { GetProposalData } from "../utils/GraphHelper";
-import { GetVoteInfo, GetQuadraticTotals } from "../utils/VoteHelper";
+import { GetProposalData } from "../../utils/GraphHelper";
+import { GetVoteInfo, GetQuadraticTotals } from "../../utils/VoteHelper";
 var QRCode = require('qrcode.react');
 
 class Proposal extends Component {
@@ -27,7 +27,7 @@ class Proposal extends Component {
 
     // Calculate voting info.
     var proposalQuadraticInfo = await GetQuadraticTotals(voteInfo.voters);
-    
+
     this.setState({
       graphLoaded: true,
       yesCount: proposalQuadraticInfo.yesCount,

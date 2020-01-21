@@ -1,12 +1,14 @@
 import React, { Component } from "react";
-import Proposals from './components/Proposals';
-import Deposits from './components/Deposits';
-import NavBar from './components/NavBar';
-import SideBar from './components/SideBar';
-import "./black-dashboard/assets/css/black-dashboard-react.css";
-import "./black-dashboard/assets/css/nucleo-icons.css";
-import { getProposals } from "./utils/GraphHelper";
 
+import Proposals from './assets/components/Proposals';
+import Deposits from './assets/components/Deposits';
+import SideBar from './assets/components/SideBar';
+import NavBar from './assets/components/NavBar';
+
+import "./libraries/black-dashboard/assets/css/black-dashboard-react.css";
+import "./libraries/black-dashboard/assets/css/nucleo-icons.css";
+
+import { getProposals } from "./utils/GraphHelper";
 
 class App extends Component {
 

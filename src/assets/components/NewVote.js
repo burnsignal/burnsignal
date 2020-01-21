@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar';
 import SideBar from './SideBar';
-import getWeb3 from "../utils/getWeb3";
+import getWeb3 from "../../utils/getWeb3";
 
 class NewVote extends Component {
   // Allows user to create a new Proposal/Question/Vote/Whatever it's agreed to be called.

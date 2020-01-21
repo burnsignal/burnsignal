@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import NewVote from './components/NewVote';
+import NewVote from './assets/components/NewVote';
 import * as serviceWorker from './serviceWorker';
 import { HashRouter, Route } from 'react-router-dom'
 
