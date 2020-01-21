@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ReactMinimalPieChart from 'react-minimal-pie-chart';
 import { Row, Col } from "reactstrap";
-import { GetProposalData } from "../utils/GraphHelper";
-import { GetVoteInfo, GetQuadraticTotals } from "../utils/VoteHelper";
+import { GetProposalData } from "../../utils/GraphHelper";
+import { GetVoteInfo, GetQuadraticTotals } from "../../utils/VoteHelper";
 
 class Proposal extends Component {
   // Old without QR. Retrieves exisiting proposal data, processes and displays.
@@ -28,7 +28,7 @@ class Proposal extends Component {
       voters: voteInfo.voters
     });
 
-    await this.GetQuadraticTotals(voters);
+    await this.GetQuadraticTotals(voteInfo.voters);
 
     console.log('graph() OUT')
   }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar';
-import SideBar from './SideBar';
 import getWeb3 from "../../utils/getWeb3";
 
 class NewVote extends Component {
@@ -64,8 +63,6 @@ class NewVote extends Component {
     return(
 
       <div className="App">
-
-        <SideBar></SideBar>
 
         <div className="main-panel">
           <NavBar></NavBar>

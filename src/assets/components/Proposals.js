@@ -1,20 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { Container, Row, Col } from "reactstrap";
+
 import Proposal from './ProposalQR.js';
 
 class Proposals extends Component {
 
   render() {
-
-    const proposals = this.props.proposals.map(proposal => {
-      return <Proposal key={proposal.id} proposal={proposal}/>
-    })
-
     return (
-      <div>
-        <h2>Proposals</h2>
-        {proposals}
-
-      </div>
+      <Fragment>
+        {this.props.proposals.map((proposal) => (
+          <Proposal key={proposal.id} proposal={proposal}/>
+        ))}
+      </Fragment>
     )
   }
 }

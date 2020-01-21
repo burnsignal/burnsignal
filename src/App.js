@@ -2,13 +2,14 @@ import React, { Component } from "react";
 
 import Proposals from './assets/components/Proposals';
 import Deposits from './assets/components/Deposits';
-import SideBar from './assets/components/SideBar';
 import NavBar from './assets/components/NavBar';
 
 import "./libraries/black-dashboard/assets/css/black-dashboard-react.css";
 import "./libraries/black-dashboard/assets/css/nucleo-icons.css";
+import "./assets/css/navbar.css";
 
 import { getProposals } from "./utils/GraphHelper";
+import { Container } from "reactstrap";
 
 class App extends Component {
 
@@ -28,23 +29,12 @@ class App extends Component {
   };
 
   render() {
-
     return (
       <div className="App">
-
-        <SideBar></SideBar>
-
-        <div className="main-panel">
-          <NavBar></NavBar>
-
-          <div className="content">
-            <div className="container-fluid">
-
-              <Proposals proposals={this.state.proposals} />
-
-            </div>
-          </div>
-        </div>
+        <NavBar/>
+        <Container className='main-container'>
+          <Proposals proposals={this.state.proposals} />
+        </Container>
       </div>
     );
   }

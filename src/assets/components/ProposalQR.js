@@ -3,7 +3,10 @@ import ReactMinimalPieChart from 'react-minimal-pie-chart';
 import { Row, Col } from "reactstrap";
 import { GetProposalData } from "../../utils/GraphHelper";
 import { GetVoteInfo, GetQuadraticTotals } from "../../utils/VoteHelper";
+import "../../assets/css/proposal.css";
+
 var QRCode = require('qrcode.react');
+
 
 class Proposal extends Component {
 
@@ -90,8 +93,7 @@ class Proposal extends Component {
     };
 
     return(
-      <div>
-
+      <div className="proposalComponent">
         <Row>
           <Col className="col-sm">
             <h3 style={quickStyle}>Yes</h3>
@@ -122,7 +124,6 @@ class Proposal extends Component {
             <p>{this.props.proposal.optionBaddr}</p>
           </Col>
         </Row>
-        <hr/>
       </div>
     )
 
