@@ -6,7 +6,8 @@ import NavBar from './assets/components/NavBar';
 
 import "./libraries/black-dashboard/assets/css/black-dashboard-react.css";
 import "./libraries/black-dashboard/assets/css/nucleo-icons.css";
-import "./assets/css/navbar.css";
+
+import "./assets/css/navigation.css";
 
 import { getProposals } from "./utils/GraphHelper";
 import { Container } from "reactstrap";

@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import ReactMinimalPieChart from 'react-minimal-pie-chart';
 import { Row, Col } from "reactstrap";
 import { GetProposalData } from "../../utils/GraphHelper";
 import { GetVoteInfo, GetQuadraticTotals } from "../../utils/VoteHelper";
+
+import "../css/proposal.css";
 
 class Proposal extends Component {
   // Old without QR. Retrieves exisiting proposal data, processes and displays.
@@ -82,28 +84,54 @@ class Proposal extends Component {
     var noUniqueAdresses = this.state.uniqueAddresses.length;
 
     return(
-      <div>
-        <h3>{this.props.proposal.name}</h3>
-        <Row>
-          <Col className="col-sm">
-            <p>ID: {this.props.proposal.id}</p>
-            <p>Issuer: {this.props.proposal.issuer}</p>
-            <p>Deadline: {this.props.proposal.deadline}</p>
-            <p>Name: {this.props.proposal.name}</p>
-            <p>Data: {this.props.proposal.data}</p>
-            <p>optionBaddr: {this.props.proposal.optionBaddr}</p>
-            <p>optionAaddr: {this.props.proposal.optionAaddr}</p>
-            <br/>
-            <p>Yes Votes: {this.state.yesCount}</p>
-            <p>No Votes: {this.state.noCount}</p>
-            <p>uniqueAddresses: {noUniqueAdresses}</p>
-          </Col>
-          <Col className="col-sm">
-            { chart }
-          </Col>
-        </Row>
-        <hr/>
-      </div>
+     <div className="proposalComponent">
+      <Row>
+        <Col sm="12" md={{ size: 8, offset: 2 }}>
+          <div className="card">
+            <div className="card-header">
+              <div className="title proposal">Should Ethereum implement EIR-1057 ProgPow?</div>
+            </div>
+            <div className="card-body">
+              <div className="github-detail">See GitHub for full details:</div>
+              <div className='buttons'>
+                <button className="btn btn-primary btn-simple vote-yes">Yes</button>
+                <button className="btn btn-primary btn-simple vote-no">No</button>
+              </div>
+            </div>
+          </div>
+        </Col>
+      </Row>
+      <Row>
+        <Col sm="12" md={{ size: 8, offset: 2 }}>
+          <div className="card">
+            <div class="card-header">
+              <h5 class="card-category">Results</h5>
+              <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> 763,215</h3>
+            </div>
+            <div className="card-body">
+              <div class="chart-area">
+                <canvas id="CountryChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </Col>
+      </Row>
+      <Row>
+        <Col sm="12" md={{ size: 8, offset: 2 }}>
+          <div className="card">
+            <div class="card-header">
+              <h5 class="card-category">Total Shipments</h5>
+              <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> 763,215</h3>
+            </div>
+            <div class="card-body">
+              <div class="chart-area">
+                <canvas id="chartLinePurple"></canvas>
+              </div>
+            </div>
+          </div>
+        </Col>
+      </Row>
+     </div>
     )
   }
 }

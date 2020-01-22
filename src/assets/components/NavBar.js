@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 
-import "../css/navbar.css";
-
 class NavBar extends Component {
 
   render() {
     return(
-      <nav className="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+      <nav className="navbar navbar-expand-lg fixed-top ">
         <div className="container-fluid">
           <div className="navbar-wrapper">
 

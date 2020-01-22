@@ -1,4 +1,5 @@
 .proposalComponent {
   position: relative;
-  padding: 5em 2.5em;
+  margin-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }

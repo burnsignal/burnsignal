@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Container, Row, Col } from "reactstrap";
 
-import Proposal from './ProposalQR.js';
+import Proposal from './Proposal.js';
 
 class Proposals extends Component {
 
