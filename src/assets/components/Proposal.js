@@ -22,66 +22,24 @@ class Proposal extends Component {
       console.log('MMMhhhh this is weird...')
       return;
     }
-    // Process all the deposit info.
+    // Process all the deposit info for this proposal - BrightID check.
     var voteInfo = await GetVoteInfo(proposalData);
 
+    // Calculate voting info.
+    var proposalQuadraticInfo = await GetQuadraticTotals(voteInfo.voters);
+
     this.setState({
-      totalValue: voteInfo.totalValue,
-      voters: voteInfo.voters
+      graphLoaded: true,
+      yesCount: proposalQuadraticInfo.yesCount,
+      noCount: proposalQuadraticInfo.noCount,
+      noUniqueAdresses: proposalQuadraticInfo.noUniqueAdresses,
+      totalValue: proposalQuadraticInfo.totalValue
     });
-
-    await this.GetQuadraticTotals(voteInfo.voters);
-
-    console.log('graph() OUT')
   }
 
   render() {
-
-    let chart;
-    if(this.state.graphLoaded){
-      chart =  <ReactMinimalPieChart
-                    animate={false}
-                    animationDuration={500}
-                    animationEasing="ease-out"
-                    cx={50}
-                    cy={50}
-                    data={[
-                      {
-                        color: '#E38627',
-                        title: 'Yes',
-                        value: this.state.yesCount
-                      },
-                      {
-                        color: '#C13C37',
-                        title: 'Two',
-                        value: this.state.noCount
-                      }
-                    ]}
-                    label
-                    labelPosition={50}
-                    labelStyle={{
-                      fill: '#121212',
-                      fontFamily: 'sans-serif',
-                      fontSize: '5px'
-                    }}
-                    lengthAngle={360}
-                    lineWidth={100}
-                    onClick={undefined}
-                    onMouseOut={undefined}
-                    onMouseOver={undefined}
-                    paddingAngle={0}
-                    radius={50}
-                    ratio={1}
-                    rounded={false}
-                    startAngle={0}
-                    style={{
-                      height: '300px'
-                    }}
-                  />
-
-    }
-
-    var noUniqueAdresses = this.state.uniqueAddresses.length;
+    const noUniqueAdresses = this.state.uniqueAddresses.length;
+    const { name, optionAaddr, optionBaddr } = this.props.proposal;
 
     return(
      <div className="proposalComponent">
@@ -89,13 +47,13 @@ class Proposal extends Component {
         <Col sm="12" md={{ size: 8, offset: 2 }}>
           <div className="card">
             <div className="card-header">
-              <div className="title proposal">Should Ethereum implement EIR-1057 ProgPow?</div>
+              <div className="proposal-title">{name}</div>
             </div>
             <div className="card-body">
               <div className="github-detail">See GitHub for full details:</div>
-              <div className='buttons'>
-                <button className="btn btn-primary btn-simple vote-yes">Yes</button>
-                <button className="btn btn-primary btn-simple vote-no">No</button>
+              <div className="vote-options">
+                <button className="btn btn-primary btn-simple">Yes</button>
+                <button className="btn btn-primary btn-simple">No</button>
               </div>
             </div>
           </div>
@@ -106,7 +64,9 @@ class Proposal extends Component {
           <div className="card">
             <div class="card-header">
               <h5 class="card-category">Results</h5>
-              <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> 763,215</h3>
+              <h3 class="card-title">
+              <i class="tim-icons icon-bell-55 text-primary"></i>
+              {this.state.totalValue} Wei</h3>
             </div>
             <div className="card-body">
               <div class="chart-area">

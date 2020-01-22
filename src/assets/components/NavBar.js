@@ -26,8 +26,8 @@ class NavBar extends Component {
               </li>
               <li className="nav-item">
                 <a className="nav-link" href={'/'}>
-                  Login <i className="nav-login-icon tim-icons icon-minimal-down"></i>
-                 </a>
+                   Login <i className="nav-login-icon tim-icons icon-minimal-down"></i>
+                </a>
               </li>
             </ul>
           </div>

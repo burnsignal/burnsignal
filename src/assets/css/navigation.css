@@ -1,6 +1,6 @@
 .navbar {
   background: #27293d;
-  border-bottom: solid 5px #1f2131;
+  box-shadow: 0 0 17.5px 0 rgba(0, 0, 0, 0.425);
 }
 
 .navbar-logo {
@@ -17,6 +17,21 @@
   font-size: 15px;
 }
 
+.vote-options {
+  display: block;
+  clear: both;
+}
+
+.btn + .btn {
+  margin: 0;
+}
+
+.btn-simple {
+  border-radius: 20px;
+  padding: 10px 25px;
+  width: 100%;
+  margin: 15px auto;
+}
 
 .navbar-title {
   text-transform: capitalize;
@@ -26,4 +41,11 @@
 
 .container {
   padding: 7.5em 0em;
+}
+
+.proposal-title {
+  font-size: 22.5px;
+  font-weight: 200;
+  color: white;
+
 }
