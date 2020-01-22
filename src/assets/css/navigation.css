@@ -1,3 +1,5 @@
+
+
 .navbar {
   background: #27293d;
   box-shadow: 0 0 17.5px 0 rgba(0, 0, 0, 0.425);
@@ -27,16 +29,28 @@
 }
 
 .btn-simple {
+  border-color: #7533ff !important;
+  background-color: rgba(30, 30, 47, 0.25) !important;
+  box-shadow: 0 .5px 2px .5px rgba(0, 0, 0, 0.2);
+  color: #7533ff !important;
   border-radius: 20px;
+  border-width: 2px;
   padding: 10px 25px;
   width: 100%;
   margin: 15px auto;
 }
 
+
 .navbar-title {
   text-transform: capitalize;
   font-size: 20px;
   margin-left: 12.5px;
+}
+
+.icon-header {
+  font-size: 25px;
+  padding: 12.5px;
+  margin-right: 10px;
 }
 
 .container {

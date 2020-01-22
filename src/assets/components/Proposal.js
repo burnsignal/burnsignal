@@ -3,7 +3,8 @@ import ReactMinimalPieChart from 'react-minimal-pie-chart';
 import { Row, Col } from "reactstrap";
 import { GetProposalData } from "../../utils/GraphHelper";
 import { GetVoteInfo, GetQuadraticTotals } from "../../utils/VoteHelper";
-import Bar from './bar';
+import Bar from './charts/bar';
+import Spline from './charts/spline';
 
 import "../css/proposal.css";
 
@@ -40,8 +41,7 @@ class Proposal extends Component {
 
   render() {
     const { name, optionAaddr, optionBaddr, id } = this.props.proposal;
-    const noUniqueAdresses = this.state.uniqueAddresses.length;
-    const { yesCount, noCount } = this.state;
+    const { noUniqueAdresses, yesCount, noCount } = this.state;
 
     return(
      <div className="proposalComponent">
@@ -65,10 +65,7 @@ class Proposal extends Component {
         <Col sm="12" md={{ size: 8, offset: 2 }}>
           <div className="card">
             <div class="card-header">
-              <h5 class="card-category">Results</h5>
-              <h3 class="card-title">
-              <i class="tim-icons icon-bell-55 text-primary"></i>
-              {this.state.totalValue} Wei</h3>
+              <h3 class="card-category">Results</h3>
             </div>
             <div className="card-body">
               {!isNaN(yesCount) && (
@@ -85,13 +82,11 @@ class Proposal extends Component {
         <Col sm="12" md={{ size: 8, offset: 2 }}>
           <div className="card">
             <div class="card-header">
-              <h5 class="card-category">Total Shipments</h5>
+              <h5 class="card-category">Total ETH</h5>
               <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> 763,215</h3>
             </div>
             <div class="card-body">
-              <div class="chart-area">
-                <canvas id="chartLinePurple"></canvas>
-              </div>
+              <Spline />
             </div>
           </div>
         </Col>
