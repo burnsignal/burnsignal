@@ -3,6 +3,7 @@ import ReactMinimalPieChart from 'react-minimal-pie-chart';
 import { Row, Col } from "reactstrap";
 import { GetProposalData } from "../../utils/GraphHelper";
 import { GetVoteInfo, GetQuadraticTotals } from "../../utils/VoteHelper";
+import Bar from './bar';
 
 import "../css/proposal.css";
 
@@ -38,8 +39,9 @@ class Proposal extends Component {
   }
 
   render() {
+    const { name, optionAaddr, optionBaddr, id } = this.props.proposal;
     const noUniqueAdresses = this.state.uniqueAddresses.length;
-    const { name, optionAaddr, optionBaddr } = this.props.proposal;
+    const { yesCount, noCount } = this.state;
 
     return(
      <div className="proposalComponent">
@@ -69,9 +71,12 @@ class Proposal extends Component {
               {this.state.totalValue} Wei</h3>
             </div>
             <div className="card-body">
-              <div class="chart-area">
-                <canvas id="CountryChart"></canvas>
-              </div>
+              {!isNaN(yesCount) && (
+                <Bar
+                  chartId={`${id.substring(0, 10)}`}
+                  yesCount={yesCount}
+                  noCount={noCount}/>
+              )}
             </div>
           </div>
         </Col>
