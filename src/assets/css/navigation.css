@@ -3,6 +3,27 @@
   border-bottom: solid 5px #1f2131;
 }
 
+.navbar-logo {
+  height: 50px;
+  padding-bottom: 2.5px;
+}
+
+.nav-item {
+  font-size: 17.5px;
+}
+
+.navbar-nav li i  {
+  margin-left: 12.5px;
+  font-size: 15px;
+}
+
+
+.navbar-title {
+  text-transform: capitalize;
+  font-size: 20px;
+  margin-left: 12.5px;
+}
+
 .container {
   padding: 7.5em 0em;
 }
