@@ -1,47 +1,73 @@
 import React, { Component } from 'react';
 import Chart from 'chart.js';
 
+import { PINK_PRIMARY } from "../../../constants/palette.js";
+const WEEKDAYS =  ['Monday', 'Tuesday', 'Wendsday', 'Thursday', 'Friday' ];
+
 class Spline extends Component {
 
-  componentDidMount() {
-          var ctx = document.getElementById(`${this.props.chartId}-spline`).getContext("2d");
+  componentDidMount = () => {
+    const { yesVotes, noVotes } = this.props;
 
-          var gradientStroke = ctx.createLinearGradient(0,337.5,0, 25);
+    const dataArray = this.sortVotes(yesVotes, noVotes);
 
-          gradientStroke.addColorStop(1, 'rgba(255,51,138,0.225)');
-          gradientStroke.addColorStop(0.7, 'rgba(255,51,138,0.2)');
-          gradientStroke.addColorStop(0.5, 'rgba(255,51,138,0.125)');
-          gradientStroke.addColorStop(0.2, 'rgba(255,51,138,0.075)');
-          gradientStroke.addColorStop(0, 'rgba(119,52,169,0)');
+    var ctx = document.getElementById(`${this.props.chartId}-spline`).getContext("2d");
 
-          var data = {
-            labels: ['JUL','AUG','SEP','OCT','NOV','DEC'],
-            datasets: [{
-              label: "Data",
-              fill: true,
-              backgroundColor: gradientStroke,
-              borderColor: '#d048b6',
-              borderWidth: 2,
-              borderDash: [],
-              borderDashOffset: 0.0,
-              pointBackgroundColor: '#d048b6',
-              pointBorderColor:'rgba(255,255,255,0)',
-              pointHoverBackgroundColor: '#d048b6',
-              pointBorderWidth: 20,
-              pointHoverRadius: 4,
-              pointHoverBorderWidth: 15,
-              pointRadius: 4,
-              data: [ 1, 10, 2, 5, 2, 5],
+    var gradientStroke = ctx.createLinearGradient(0,337.5,0, 25);
+
+    gradientStroke.addColorStop(1, 'rgba(255,51,138,0.225)');
+    gradientStroke.addColorStop(0.7, 'rgba(255,51,138,0.2)');
+    gradientStroke.addColorStop(0.5, 'rgba(255,51,138,0.125)');
+    gradientStroke.addColorStop(0.2, 'rgba(255,51,138,0.075)');
+    gradientStroke.addColorStop(0, 'rgba(119,52,169,0)');
+
+    const labelArray = WEEKDAYS.slice(0, dataArray.length);
+
+    var data = {
+      labels: labelArray,
+      datasets: [{
+        label: "Data",
+        fill: true,
+        backgroundColor: gradientStroke,
+        borderColor: PINK_PRIMARY,
+        borderWidth: 2,
+        borderDash: [],
+        borderDashOffset: 0.0,
+        pointBackgroundColor: PINK_PRIMARY,
+        pointBorderColor:'rgba(255,255,255,0)',
+        pointHoverBackgroundColor: PINK_PRIMARY,
+        pointBorderWidth: 20,
+        pointHoverRadius: 4,
+        pointHoverBorderWidth: 15,
+        pointRadius: 4,
+        data: dataArray,
+      }]
+    };
+
+    var myChart = new Chart(ctx, {
+        options: {
+          bezierCurve: true,
+          legend: { display: false },
+          scales: {
+            yAxes: [{
+              display: true,
             }]
-          };
-
-
-        var myChart = new Chart(ctx, {
-              options: { legend: { display: false }},
-              type: 'line',
-              data: data,
-        });
+          },
+        },
+        type: 'line',
+        data: data,
+    });
   }
+
+ sortVotes = (_yesVotes, _noVotes) => {
+   let totalVotes = _yesVotes.concat(_noVotes);
+
+   totalVotes.sort((a,b) => { return a - b });
+
+   totalVotes.unshift(0);
+
+   return totalVotes;
+ }
 
  render() {
    return(

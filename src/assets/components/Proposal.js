@@ -3,6 +3,7 @@ import ReactMinimalPieChart from 'react-minimal-pie-chart';
 import { Row, Col } from "reactstrap";
 import { GetProposalData } from "../../utils/GraphHelper";
 import { GetVoteInfo, GetQuadraticTotals } from "../../utils/VoteHelper";
+import { getTransactions } from "../../constants/calls";
 import Bar from './charts/bar';
 import Spline from './charts/spline';
 
@@ -17,8 +18,9 @@ class Proposal extends Component {
   };
 
   async processVotes(){
+    const { name, optionAaddr, optionBaddr } = this.props.proposal;
     // Retrieve porposal deposit data from Graph.
-    var proposalData = await GetProposalData(this.props.proposal.name);
+    var proposalData = await GetProposalData(name);
 
     if(!proposalData.data){
       console.log('MMMhhhh this is weird...')
@@ -30,18 +32,23 @@ class Proposal extends Component {
     // Calculate voting info.
     var proposalQuadraticInfo = await GetQuadraticTotals(voteInfo.voters);
 
+    var noVotes = await getTransactions(optionBaddr, false);
+    var yesVotes = await getTransactions(optionAaddr, true);
+
     this.setState({
       graphLoaded: true,
       yesCount: proposalQuadraticInfo.yesCount,
       noCount: proposalQuadraticInfo.noCount,
       noUniqueAdresses: proposalQuadraticInfo.noUniqueAdresses,
-      totalValue: proposalQuadraticInfo.totalValue
+      totalValue: proposalQuadraticInfo.totalValue,
+      yesVotes,
+      noVotes
     });
   }
 
   render() {
+    const { yesVotes, noVotes, noUniqueAdresses, yesCount, noCount } = this.state;
     const { name, optionAaddr, optionBaddr, id } = this.props.proposal;
-    const { noUniqueAdresses, yesCount, noCount } = this.state;
 
     return(
      <div className="proposalComponent">
@@ -86,7 +93,13 @@ class Proposal extends Component {
               <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> 763,215</h3>
             </div>
             <div class="card-body">
-              <Spline />
+              {!isNaN(yesVotes) && (
+                <Spline
+                  chartId={`${id.substring(0, 10)}`}
+                  yesVotes={yesVotes}
+                  noVotes={noVotes}
+                />
+              )}
             </div>
           </div>
         </Col>
