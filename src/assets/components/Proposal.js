@@ -47,7 +47,7 @@ class Proposal extends Component {
   }
 
   render() {
-    const { yesVotes, noVotes, noUniqueAdresses, yesCount, noCount } = this.state;
+    const { totalValue, yesVotes, noVotes, noUniqueAdresses, yesCount, noCount } = this.state;
     const { name, optionAaddr, optionBaddr, id } = this.props.proposal;
 
     return(
@@ -89,8 +89,7 @@ class Proposal extends Component {
         <Col sm="12" md={{ size: 8, offset: 2 }}>
           <div className="card">
             <div class="card-header">
-              <h5 class="card-category">Total ETH</h5>
-              <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> 763,215</h3>
+              <h3 class="card-category">History</h3>
             </div>
             <div class="card-body">
               {!isNaN(yesVotes) && (

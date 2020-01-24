@@ -40,7 +40,6 @@
   margin: 15px auto;
 }
 
-
 .navbar-title {
   text-transform: capitalize;
   font-size: 20px;
@@ -55,11 +54,4 @@
 
 .container {
   padding: 7.5em 0em;
-}
-
-.proposal-title {
-  font-size: 22.5px;
-  font-weight: 200;
-  color: white;
-
 }

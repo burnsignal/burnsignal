@@ -3,3 +3,13 @@
   margin-top: 2.5rem;
   padding-bottom: 2.5rem;
 }
+
+.card .card-header .card-category  {
+  font-size: 17.5px;
+}
+
+.proposal-title {
+  font-size: 22.5px;
+  font-weight: 200;
+  color: white;
+}

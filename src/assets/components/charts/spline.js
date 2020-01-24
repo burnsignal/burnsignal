@@ -13,6 +13,13 @@ class Spline extends Component {
 
     var ctx = document.getElementById(`${this.props.chartId}-spline`).getContext("2d");
 
+    const maxValue = Math.max(...dataArray);
+    const minValue = Math.min(...dataArray);
+    const maximumValue = Math.ceil((((maxValue * 0.2) + maxValue) /10 ) * 10);
+    const minimumValue = Math.ceil((((minValue * 0.2) + minValue) /10 ) * 10);
+
+    const range = (minimumValue * -1) > maximumValue ? (minimumValue * -1) : maximumValue;
+
     var gradientStroke = ctx.createLinearGradient(0,337.5,0, 25);
 
     gradientStroke.addColorStop(1, 'rgba(255,51,138,0.225)');
@@ -46,11 +53,34 @@ class Spline extends Component {
 
     var myChart = new Chart(ctx, {
         options: {
+          lineTension: 100,
           bezierCurve: true,
           legend: { display: false },
           scales: {
             yAxes: [{
-              display: true,
+              id:'yAxis1',
+              scaleLabel: {
+                display: true,
+                labelString: "Wei (ETH)"
+              },
+              ticks: {
+                min: (range * -1),
+                max: range,
+                callback: function(label, index, labels) {
+                  if(label > 1e8 || label < (-1 * 1e8)){
+                     return label.toExponential()
+                  } else return label;
+                }
+              }
+            },
+            {
+              id:'yAxis2',
+              labels: ['', 'Yes', '', 'No', ''],
+              type:"category",
+              gridLines: {
+                display: false,
+                 drawOnChartArea: false,
+               },
             }]
           },
         },
@@ -63,7 +93,6 @@ class Spline extends Component {
    let totalVotes = _yesVotes.concat(_noVotes);
 
    totalVotes.sort((a,b) => { return a - b });
-
    totalVotes.unshift(0);
 
    return totalVotes;

@@ -28,10 +28,18 @@ class Bar extends Component {
           legend: { display: false },
           scales: {
             xAxes: [{
-              display: true,
+              scaleLabel: {
+                display: true,
+                labelString: "Wei (ETH)"
+              },
               ticks: {
                 suggestedMin: 0,
-                max: maximumRange
+                max: maximumRange,
+                callback: function(label, index, labels) {
+                  if(label > 1e8 || label < (-1 * 1e8)){
+                     return label.toExponential()
+                  } else return label;
+                }
               }
             }]
           },
