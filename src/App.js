@@ -1,46 +1,44 @@
-import React, { Component } from "react";
-
-import Proposals from './assets/components/Proposals';
-import Deposits from './assets/components/Deposits';
-import NavBar from './assets/components/NavBar';
-
-import "./libraries/black-dashboard/assets/css/black-dashboard-react.css";
-import "./libraries/black-dashboard/assets/css/nucleo-icons.css";
-
-import "./assets/css/navigation.css";
-
-import { getProposals } from "./utils/GraphHelper";
+import React, { Fragment, useContext, useEffect } from "react";
+import {  Route } from 'react-router-dom'
 import { Container } from "reactstrap";
 
-class App extends Component {
+import "./assets/libs/black-dashboard/assets/css/black-dashboard-react.css";
+import "./assets/libs/black-dashboard/assets/css/nucleo-icons.css";
+import "./assets/css/navigation.css";
 
-  state = { proposals: [], deposits: [] };
+import Navigation from './assets/components/navigation';
 
-  componentDidMount = async () => {
-    try {
-      // Loads all proposals using the subgraph
-      var proposals = await getProposals();
-      this.setState({ proposals: proposals });
-    } catch (error) {
-      alert(
-        'Error loading The Graph',
-      );
-      console.error(error);
-    }
-  }
+import { getProposals } from "./utils/GraphHelper"
+import { store } from './assets/state'
 
-  render() {
-    const { proposals } = this.state;
+import Poll from './routes/poll';
+import Feed from './routes/feed';
+import New from './routes/new';
 
-    return (
-      <div className="App">
-        <NavBar/>
-        <Container className='main-container'>
-          <Proposals proposals={proposals} />
-        </Container>
-      </div>
-    );
-  }
+function App() {
+  let { dispatch, state } = useContext(store)
+
+  console.log(state);
+
+  useEffect(async() => {
+    let proposalStream = await getProposals()
+    dispatch({
+      payload: proposalStream,
+      type: "PROPOSAL"
+    })
+  }, [ ])
+
+  return (
+    <main>
+      <Container>
+        <Navigation>
+          <Route path="/poll/:address" component={Poll} />
+          <Route exact path="/" component={Feed} />
+          <Route path="/new" component={New} />
+        </Navigation>
+      </Container>
+    </main>
+  );
 }
 
 export default App;

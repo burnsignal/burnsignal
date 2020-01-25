@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import ReactMinimalPieChart from 'react-minimal-pie-chart';
 import { Row, Col } from "reactstrap";
-import { GetProposalData } from "../../utils/GraphHelper";
-import { GetVoteInfo, GetQuadraticTotals } from "../../utils/VoteHelper";
-import { getTransactions } from "../../constants/calls";
-import Bar from './charts/bar';
-import Spline from './charts/spline';
+import { GetProposalData } from "../utils/GraphHelper";
+import { GetVoteInfo, GetQuadraticTotals } from "../utils/VoteHelper";
+import { getTransactions } from "../constants/calls";
+import Bar from '../assets/components/charts/bar';
+import Spline from '../assets/components/charts/spline';
 
-import "../css/proposal.css";
+import "../assets/css/proposal.css";
 
 class Proposal extends Component {
   // Old without QR. Retrieves exisiting proposal data, processes and displays.
