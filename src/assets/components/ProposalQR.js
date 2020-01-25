@@ -7,7 +7,6 @@ import "../../assets/css/proposal.css";
 
 var QRCode = require('qrcode.react');
 
-
 class Proposal extends Component {
 
   state = { deposits: [], uniqueAddresses: [], graphLoaded: false };

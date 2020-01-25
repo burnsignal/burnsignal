@@ -27,14 +27,16 @@ class App extends Component {
       );
       console.error(error);
     }
-  };
+  }
 
   render() {
+    const { proposals } = this.state;
+
     return (
       <div className="App">
         <NavBar/>
         <Container className='main-container'>
-          <Proposals proposals={this.state.proposals} />
+          <Proposals proposals={proposals} />
         </Container>
       </div>
     );

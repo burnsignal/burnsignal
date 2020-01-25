@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+
+import Proposal from './assets/components/Proposal';
 import NewVote from './assets/components/NewVote';
+import App from './App';
+
 import * as serviceWorker from './serviceWorker';
 import { HashRouter, Route } from 'react-router-dom'
-
+import { getProposals } from "./utils/GraphHelper";
 
 const Profile = ({match}) => (
   <div>
@@ -12,24 +15,38 @@ const Profile = ({match}) => (
   </div>
 )
 
-// ReactDOM.render(<App />, document.getElementById('root'));
+class Index extends Component {
+  state = { proposals: [] }
 
-ReactDOM.render(
-  <HashRouter basename='/'>
-      <div>
-        <main>
-          <Route exact path="/" component={App} />
-          <Route path="/home" component={App} />
-          <Route path="/newVote" component={NewVote} />
-          <Route exact path="/profile/:address" component={Profile} />
-        </main>
-      </div>
-  </HashRouter>,
-  document.getElementById('root')
-);
+  componentDidMount = async () => {
+    try {
+      // Loads all proposals using the subgraph
+      var proposals = await getProposals();
+      this.setState({ proposals: proposals });
+    } catch (error) {
+      alert(
+        'Error loading The Graph',
+      );
+      console.error(error);
+    }
+  }
 
+  render() {
+    const { proposals } = this.state;
+    return(
+     <HashRouter basename='/'>
+       <Fragment>
+         <main>
+           <Route path="/profile/:address" component={Profile} />
+           <Route path="/poll/:address" component={Proposal} />
+           <Route path="/new" component={NewVote} />
+           <Route exact path="/" component={App} />
+         </main>
+       </Fragment>
+     </HashRouter>
+    )
+  }
+}
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
+ReactDOM.render(<Index />, document.getElementById('root'));
 serviceWorker.unregister();
