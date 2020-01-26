@@ -12,6 +12,8 @@ class Bar extends Component {
       const maximumValue = yesCount > noCount ? yesCount : noCount;
       const maximumRange = ( maximumValue * 0.20 ) + maximumValue;
 
+      console.log(yesCount, noCount);
+
       var myChart = new Chart(ctx, {
         type: 'horizontalBar',
         responsive: true,

@@ -1,62 +1,52 @@
-import React, { Component, Fragment } from 'react';
-import ReactMinimalPieChart from 'react-minimal-pie-chart';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Row, Col } from "reactstrap";
-import { GetProposalData } from "../utils/GraphHelper";
+
 import { GetVoteInfo, GetQuadraticTotals } from "../utils/VoteHelper";
+import { GetProposalData } from "../utils/GraphHelper";
 import { getTransactions } from "../constants/calls";
-import Bar from '../assets/components/charts/bar';
+
 import Spline from '../assets/components/charts/spline';
+import Bar from '../assets/components/charts/bar';
 
 import "../assets/css/proposal.css";
 
-class Proposal extends Component {
-  // Old without QR. Retrieves exisiting proposal data, processes and displays.
-  state = { deposits: [], uniqueAddresses: [], graphLoaded: false };
+function Poll(props){
+  const [ pollRecords, setRecords ] = useState({ yes: [], no: [] })
+  const [ pollCount, setCount ] = useState({ yes: [], no: [] })
+  const [ graphState, setGraphState ] = useState(false)
+  const [ uniqueAddresses, setUnique ] = useState(0)
+  const [ totalPledged, setPledged ] = useState(0)
+  const [ pollTopic , setTopic ] = useState("")
 
-  componentDidMount = async () => {
-      await this.processVotes();
-  };
+  useEffect(() => {
+    const getMetadata = async() => {
+      let { name, optionAaddr, optionBaddr } = props.proposal;
 
-  async processVotes(){
-    const { name, optionAaddr, optionBaddr } = this.props.proposal;
-    // Retrieve porposal deposit data from Graph.
-    var proposalData = await GetProposalData(name);
+      var proposalData = await GetProposalData(name);
+      var voteInfo = await GetVoteInfo(proposalData);
+      var quadraticInfo = await GetQuadraticTotals(voteInfo.voters);
+      var noVotes = await getTransactions(optionBaddr, false);
+      var yesVotes = await getTransactions(optionAaddr, true);
 
-    if(!proposalData.data){
-      console.log('MMMhhhh this is weird...')
-      return;
+      let { noCount, yesCount, uniqueAddresses, totalValue } = quadraticInfo;
+
+      setRecords({ yes: yesVotes, no: noVotes })
+      setCount({ yes: yesCount, no: noCount })
+      setUnique(uniqueAddresses)
+      setPledged(totalValue)
+      setGraphState(true)
+      setTopic(name)
     }
-    // Process all the deposit info for this proposal - BrightID check.
-    var voteInfo = await GetVoteInfo(proposalData);
+    getMetadata()
+  }, [ ])
 
-    // Calculate voting info.
-    var proposalQuadraticInfo = await GetQuadraticTotals(voteInfo.voters);
-
-    var noVotes = await getTransactions(optionBaddr, false);
-    var yesVotes = await getTransactions(optionAaddr, true);
-
-    this.setState({
-      graphLoaded: true,
-      yesCount: proposalQuadraticInfo.yesCount,
-      noCount: proposalQuadraticInfo.noCount,
-      noUniqueAdresses: proposalQuadraticInfo.noUniqueAdresses,
-      totalValue: proposalQuadraticInfo.totalValue,
-      yesVotes,
-      noVotes
-    });
-  }
-
-  render() {
-    const { totalValue, yesVotes, noVotes, noUniqueAdresses, yesCount, noCount } = this.state;
-    const { name, optionAaddr, optionBaddr, id } = this.props.proposal;
-
-    return(
+  return(
      <div className="proposalComponent">
       <Row>
         <Col sm="12" md={{ size: 8, offset: 2 }}>
           <div className="card">
             <div className="card-header">
-              <div className="proposal-title">{name}</div>
+              <div className="proposal-title">{pollTopic}</div>
             </div>
             <div className="card-body">
               <div className="github-detail">See GitHub for full details:</div>
@@ -75,11 +65,11 @@ class Proposal extends Component {
               <h3 class="card-category">Results</h3>
             </div>
             <div className="card-body">
-              {!isNaN(yesCount) && (
+              {graphState && (
                 <Bar
-                  chartId={`${id.substring(0, 10)}`}
-                  yesCount={yesCount}
-                  noCount={noCount}/>
+                  chartId={`${props.proposal.id.substring(0, 10)}`}
+                  yesCount={pollCount.yes}
+                  noCount={pollCount.no}/>
               )}
             </div>
           </div>
@@ -92,11 +82,11 @@ class Proposal extends Component {
               <h3 class="card-category">History</h3>
             </div>
             <div class="card-body">
-              {!isNaN(yesVotes) && (
+              {graphState && (
                 <Spline
-                  chartId={`${id.substring(0, 10)}`}
-                  yesVotes={yesVotes}
-                  noVotes={noVotes}
+                  chartId={`${props.proposal.id.substring(0, 10)}`}
+                  yesVotes={pollRecords.yes}
+                  noVotes={pollRecords.no}
                 />
               )}
             </div>
@@ -104,8 +94,7 @@ class Proposal extends Component {
         </Col>
       </Row>
      </div>
-    )
-  }
+  )
 }
 
-export default Proposal
+export default Poll

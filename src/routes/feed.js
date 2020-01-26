@@ -1,18 +1,16 @@
-import React, { Component, Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 import { Route, Link } from 'react-router-dom'
 
 import { store } from '../assets/state'
 import Proposal from './poll';
 
 function Feed() {
-  let { proposals } = useContext(store)
+  let { state } = useContext(store)
 
   return (
     <Fragment>
-      {proposals.map((proposal) => (
-        <Link to={`/poll/${proposal.id}`}>
-          <Proposal key={proposal.id} proposal={proposal}/>
-        </Link>
+      {state.proposals.map((proposal) => (
+        <Proposal key={proposal.id} proposal={proposal}/>
       ))}
     </Fragment>
   )

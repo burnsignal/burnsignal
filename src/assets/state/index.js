@@ -8,7 +8,7 @@ const StateProvider = ( { children } ) => {
   const [state, dispatch] = useReducer((state, action) => {
     switch(action.type) {
       case 'PROPOSAL':
-        return { ...action.payload }
+        return { ...state, proposals: action.payload }
       default:
         return state
     };

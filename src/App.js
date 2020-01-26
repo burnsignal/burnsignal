@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useEffect } from "react";
-import {  Route } from 'react-router-dom'
+import {  Route, HashRouter } from 'react-router-dom'
 import { Container } from "reactstrap";
 
 import "./assets/libs/black-dashboard/assets/css/black-dashboard-react.css";
@@ -18,24 +18,24 @@ import New from './routes/new';
 function App() {
   let { dispatch, state } = useContext(store)
 
-  console.log(state);
-
-  useEffect(async() => {
-    let proposalStream = await getProposals()
-    dispatch({
-      payload: proposalStream,
-      type: "PROPOSAL"
-    })
+  useEffect(() => {
+    const retrieveProposals = async() => {
+      var proposalStream = await getProposals()
+      dispatch({
+        payload: proposalStream,
+        type: "PROPOSAL"
+      })
+    }
+    retrieveProposals()
   }, [ ])
 
   return (
     <main>
       <Container>
-        <Navigation>
-          <Route path="/poll/:address" component={Poll} />
-          <Route exact path="/" component={Feed} />
-          <Route path="/new" component={New} />
-        </Navigation>
+        <Navigation />
+        <Route path="/poll/:address" component={Poll} />
+        <Route exact path="/" component={Feed} />
+        <Route path="/new" component={New} />
       </Container>
     </main>
   );
