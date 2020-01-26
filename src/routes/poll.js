@@ -10,6 +10,8 @@ import Bar from '../assets/components/charts/bar';
 
 import "../assets/css/proposal.css";
 
+const createId = str => [...str.substring(0, 10)].reduceRight((res,_,__,arr) => [...res,arr.splice(~~(Math.random()*arr.length),1)[0]],[]).join('');
+
 function Poll(props){
   const [ pollRecords, setRecords ] = useState({ yes: [], no: [] })
   const [ pollCount, setCount ] = useState({ yes: [], no: [] })
@@ -38,7 +40,7 @@ function Poll(props){
       setTopic(name)
     }
     getMetadata()
-  }, [ ])
+  }, [ props ])
 
   return(
      <div className="proposalComponent">
@@ -67,7 +69,7 @@ function Poll(props){
             <div className="card-body">
               {graphState && (
                 <Bar
-                  chartId={`${props.proposal.id.substring(0, 10)}`}
+                  chartId={createId(props.proposal.id)}
                   yesCount={pollCount.yes}
                   noCount={pollCount.no}/>
               )}
@@ -84,7 +86,7 @@ function Poll(props){
             <div class="card-body">
               {graphState && (
                 <Spline
-                  chartId={`${props.proposal.id.substring(0, 10)}`}
+                  chartId={createId(props.proposal.id)}
                   yesVotes={pollRecords.yes}
                   noVotes={pollRecords.no}
                 />

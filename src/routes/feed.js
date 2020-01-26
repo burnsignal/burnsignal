@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useEffect } from 'react';
 import { Route, Link } from 'react-router-dom'
 
-import { store } from '../assets/state'
+import { store } from '../state'
 import Proposal from './poll';
 
 function Feed() {

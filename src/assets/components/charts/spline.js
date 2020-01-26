@@ -1,110 +1,54 @@
-import React, { Component } from 'react';
-import Chart from 'chart.js';
+import React, { Fragment, useEffect, useState } from 'react'
+import Chart from 'chart.js'
 
-import { PINK_PRIMARY } from "../../../constants/palette.js";
-const WEEKDAYS =  ['Monday', 'Tuesday', 'Wendsday', 'Thursday', 'Friday' ];
+import { WEEKDAYS, CHARTS } from "../../../constants/parameters.js"
+import { sortVotes } from "../../../constants/operatives.js"
 
-class Spline extends Component {
+function Spline(props){
+  let { chartId } = props
 
-  componentDidMount = () => {
-    const { yesVotes, noVotes } = this.props;
+  useEffect(() => {
+    const composeAndRender = () => {
+      let { yesVotes, noVotes } = props
 
-    const dataArray = this.sortVotes(yesVotes, noVotes);
+      const dataArray = sortVotes(yesVotes, noVotes)
 
-    var ctx = document.getElementById(`${this.props.chartId}-spline`).getContext("2d");
+      var maxValue = Math.max(...dataArray)
+      var minValue = Math.min(...dataArray)
+      var maxRange = Math.ceil((((maxValue * 0.2) + maxValue) /10 ) * 10)
+      var minRange = Math.ceil((((minValue * 0.2) + minValue) /10 ) * 10) * -1
 
-    const maxValue = Math.max(...dataArray);
-    const minValue = Math.min(...dataArray);
-    const maximumValue = Math.ceil((((maxValue * 0.2) + maxValue) /10 ) * 10);
-    const minimumValue = Math.ceil((((minValue * 0.2) + minValue) /10 ) * 10);
+      const ctx = document.getElementById(chartId).getContext("2d")
 
-    const range = (minimumValue * -1) > maximumValue ? (minimumValue * -1) : maximumValue;
+      let range = minRange > maxRange ? minRange : maxRange
 
-    var gradientStroke = ctx.createLinearGradient(0,337.5,0, 25);
+      var gradientStroke = ctx.createLinearGradient(0,337.5,0, 25)
+      var labelArray = WEEKDAYS.slice(0, dataArray.length)
 
-    gradientStroke.addColorStop(1, 'rgba(255,51,138,0.225)');
-    gradientStroke.addColorStop(0.7, 'rgba(255,51,138,0.2)');
-    gradientStroke.addColorStop(0.5, 'rgba(255,51,138,0.125)');
-    gradientStroke.addColorStop(0.2, 'rgba(255,51,138,0.075)');
-    gradientStroke.addColorStop(0, 'rgba(119,52,169,0)');
+      gradientStroke.addColorStop(1, 'rgba(255,51,138,0.225)')
+      gradientStroke.addColorStop(0.7, 'rgba(255,51,138,0.2)')
+      gradientStroke.addColorStop(0.5, 'rgba(255,51,138,0.125)')
+      gradientStroke.addColorStop(0.2, 'rgba(255,51,138,0.075)')
+      gradientStroke.addColorStop(0, 'rgba(119,52,169,0)')
 
-    const labelArray = WEEKDAYS.slice(0, dataArray.length);
+      var data = {
+        labels: labelArray,
+        datasets: [{
+          ...CHARTS.SPLINE_STYLE(gradientStroke),
+          data: dataArray,
+        }]
+      }
 
-    var data = {
-      labels: labelArray,
-      datasets: [{
-        label: "Data",
-        fill: true,
-        backgroundColor: gradientStroke,
-        borderColor: PINK_PRIMARY,
-        borderWidth: 2,
-        borderDash: [],
-        borderDashOffset: 0.0,
-        pointBackgroundColor: PINK_PRIMARY,
-        pointBorderColor:'rgba(255,255,255,0)',
-        pointHoverBackgroundColor: PINK_PRIMARY,
-        pointBorderWidth: 20,
-        pointHoverRadius: 4,
-        pointHoverBorderWidth: 15,
-        pointRadius: 4,
-        data: dataArray,
-      }]
-    };
+      new Chart(ctx, { ...CHARTS.SPLINE_CONFIG(data, range) })
+    }
+    composeAndRender()
+  }, [ props ])
 
-    var myChart = new Chart(ctx, {
-        options: {
-          lineTension: 100,
-          bezierCurve: true,
-          legend: { display: false },
-          scales: {
-            yAxes: [{
-              id:'yAxis1',
-              scaleLabel: {
-                display: true,
-                labelString: "Wei (ETH)"
-              },
-              ticks: {
-                min: (range * -1),
-                max: range,
-                callback: function(label, index, labels) {
-                  if(label > 1e8 || label < (-1 * 1e8)){
-                     return label.toExponential()
-                  } else return label;
-                }
-              }
-            },
-            {
-              id:'yAxis2',
-              labels: ['', 'Yes', '', 'No', ''],
-              type:"category",
-              gridLines: {
-                display: false,
-                 drawOnChartArea: false,
-               },
-            }]
-          },
-        },
-        type: 'line',
-        data: data,
-    });
-  }
-
- sortVotes = (_yesVotes, _noVotes) => {
-   let totalVotes = _yesVotes.concat(_noVotes);
-
-   totalVotes.sort((a,b) => { return a - b });
-   totalVotes.unshift(0);
-
-   return totalVotes;
- }
-
- render() {
-   return(
-      <div class="chart-area">
-        <canvas id={`${this.props.chartId}-spline`}> </canvas>
-      </div>
-    );
-  }
+  return(
+    <Fragment>
+      <canvas id={chartId}> </canvas>
+    </Fragment>
+  )
 }
 
 export default Spline;

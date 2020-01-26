@@ -9,7 +9,7 @@ import "./assets/css/navigation.css";
 import Navigation from './assets/components/navigation';
 
 import { getProposals } from "./utils/GraphHelper"
-import { store } from './assets/state'
+import { store } from './state'
 
 import Poll from './routes/poll';
 import Feed from './routes/feed';

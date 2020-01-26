@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { HashRouter, Route } from 'react-router-dom'
 import * as serviceWorker from './serviceWorker'
 
-import { StateProvider } from './assets/state'
+import { StateProvider } from './state'
 import App from './App';
 
 
