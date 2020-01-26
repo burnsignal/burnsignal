@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useEffect } from "react";
-import {  Route, HashRouter } from 'react-router-dom'
+import {  Route, HashRouter, withRouter } from 'react-router-dom'
 import { Container } from "reactstrap"
 
 import "./assets/libs/black-dashboard/assets/css/black-dashboard-react.css"
@@ -41,4 +41,4 @@ function App() {
   );
 }
 
-export default App;
+export default withRouter(App);

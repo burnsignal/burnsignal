@@ -1,10 +1,12 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { Row, Col } from "reactstrap";
+import React, { Fragment, useContext, useState, useEffect } from 'react';
+import { useParams } from "react-router-dom"
+import { Row, Col } from "reactstrap"
 
 import { getVoteInfo, getQuadraticTotals } from '../constants/operatives'
 import { getProposalData } from "../constants/calls/GraphQL"
 import { getTransactions } from "../constants/calls/REST"
 import { chartId } from "../constants/operatives"
+import { store } from '../state'
 
 import Spline from '../assets/components/charts/spline'
 import Bar from '../assets/components/charts/bar'
@@ -19,24 +21,31 @@ function Poll(props){
   const [ totalPledged, setPledged ] = useState(0)
   const [ pollTopic , setTopic ] = useState("")
 
+  let { state } = useContext(store)
+  let { address } = useParams()
+
+  const id = props.location !== undefined ? address : props.id
+
   useEffect(() => {
     const getMetadata = async() => {
-      let { name, optionAaddr, optionBaddr } = props.proposal;
+      if(Object.keys(state.proposals).length > 0){
+        let { name, optionAaddr, optionBaddr } = state.proposals[id]
 
-      var proposalData = await getProposalData(name);
-      var voteInfo = await getVoteInfo(proposalData);
-      var quadraticInfo = await getQuadraticTotals(voteInfo.voters);
-      var noVotes = await getTransactions(optionBaddr, false);
-      var yesVotes = await getTransactions(optionAaddr, true);
+        var proposalData = await getProposalData(name)
+        var voteInfo = await getVoteInfo(proposalData)
+        var quadraticInfo = await getQuadraticTotals(voteInfo.voters)
+        var noVotes = await getTransactions(optionBaddr, false)
+        var yesVotes = await getTransactions(optionAaddr, true)
 
-      let { noCount, yesCount, uniqueAddresses, totalValue } = quadraticInfo;
+        let { noCount, yesCount, uniqueAddresses, totalValue } = quadraticInfo
 
-      setRecords({ yes: yesVotes, no: noVotes })
-      setCount({ yes: yesCount, no: noCount })
-      setUnique(uniqueAddresses)
-      setPledged(totalValue)
-      setGraphState(true)
-      setTopic(name)
+        setRecords({ yes: yesVotes, no: noVotes })
+        setCount({ yes: yesCount, no: noCount })
+        setUnique(uniqueAddresses)
+        setPledged(totalValue)
+        setGraphState(true)
+        setTopic(name)
+      }
     }
     getMetadata()
   }, [ props ])
@@ -68,7 +77,7 @@ function Poll(props){
             <div className="card-body">
               {graphState && (
                 <Bar
-                  chartId={chartId(props.proposal.id)}
+                  chartId={chartId(id)}
                   yesCount={pollCount.yes}
                   noCount={pollCount.no}/>
               )}
@@ -85,7 +94,7 @@ function Poll(props){
             <div class="card-body">
               {graphState && (
                 <Spline
-                  chartId={chartId(props.proposal.id)}
+                  chartId={chartId(id)}
                   yesVotes={pollRecords.yes}
                   noVotes={pollRecords.no}
                 />

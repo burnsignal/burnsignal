@@ -31,7 +31,17 @@ export async function getProposals() {
     })
   }).then(r => r.json()).then(data => data).catch(error => console.log(error))
   console.log('TheGraph - got Proposals.');
-  return result.data.newProposalIssueds;
+
+  const indexedObject = {}
+
+  result.data.newProposalIssueds.forEach(obj => {
+    indexedObject[obj.id] = {
+      ...obj
+    }
+    delete indexedObject.id;
+  });
+
+  return indexedObject;
 };
 
 export async function getProposalData(ProposalName){
