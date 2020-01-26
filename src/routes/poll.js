@@ -1,16 +1,15 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Row, Col } from "reactstrap";
 
-import { GetVoteInfo, GetQuadraticTotals } from "../utils/VoteHelper";
-import { GetProposalData } from "../utils/GraphHelper";
-import { getTransactions } from "../constants/calls";
+import { getVoteInfo, getQuadraticTotals } from '../constants/operatives'
+import { getProposalData } from "../constants/calls/GraphQL"
+import { getTransactions } from "../constants/calls/REST"
+import { chartId } from "../constants/operatives"
 
-import Spline from '../assets/components/charts/spline';
-import Bar from '../assets/components/charts/bar';
+import Spline from '../assets/components/charts/spline'
+import Bar from '../assets/components/charts/bar'
 
-import "../assets/css/proposal.css";
-
-const createId = str => [...str.substring(0, 10)].reduceRight((res,_,__,arr) => [...res,arr.splice(~~(Math.random()*arr.length),1)[0]],[]).join('');
+import "../assets/css/proposal.css"
 
 function Poll(props){
   const [ pollRecords, setRecords ] = useState({ yes: [], no: [] })
@@ -24,9 +23,9 @@ function Poll(props){
     const getMetadata = async() => {
       let { name, optionAaddr, optionBaddr } = props.proposal;
 
-      var proposalData = await GetProposalData(name);
-      var voteInfo = await GetVoteInfo(proposalData);
-      var quadraticInfo = await GetQuadraticTotals(voteInfo.voters);
+      var proposalData = await getProposalData(name);
+      var voteInfo = await getVoteInfo(proposalData);
+      var quadraticInfo = await getQuadraticTotals(voteInfo.voters);
       var noVotes = await getTransactions(optionBaddr, false);
       var yesVotes = await getTransactions(optionAaddr, true);
 
@@ -69,7 +68,7 @@ function Poll(props){
             <div className="card-body">
               {graphState && (
                 <Bar
-                  chartId={createId(props.proposal.id)}
+                  chartId={chartId(props.proposal.id)}
                   yesCount={pollCount.yes}
                   noCount={pollCount.no}/>
               )}
@@ -86,7 +85,7 @@ function Poll(props){
             <div class="card-body">
               {graphState && (
                 <Spline
-                  chartId={createId(props.proposal.id)}
+                  chartId={chartId(props.proposal.id)}
                   yesVotes={pollRecords.yes}
                   noVotes={pollRecords.no}
                 />

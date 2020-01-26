@@ -34,7 +34,7 @@ export async function getProposals() {
   return result.data.newProposalIssueds;
 };
 
-export async function GetProposalData(ProposalName){
+export async function getProposalData(ProposalName){
   // Get information for specific Proposal identified by name.
   console.log('GetProposalData(): ' + ProposalName)
 

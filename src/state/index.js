@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 
 const initialState = { proposals: [] }
-const store = createContext(initialState);
+const store = createContext(initialState)
 const { Provider } = store
 
 const StateProvider = ( { children } ) => {
@@ -12,7 +12,7 @@ const StateProvider = ( { children } ) => {
       default:
         return state
     };
-  }, initialState);
+  }, initialState)
 
   return <Provider value={{ state, dispatch }}>{children}</Provider>;
 };

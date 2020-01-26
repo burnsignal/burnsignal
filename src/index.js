@@ -7,7 +7,6 @@ import * as serviceWorker from './serviceWorker'
 import { StateProvider } from './state'
 import App from './App';
 
-
 ReactDOM.render(
   <StateProvider>
     <HashRouter basename='/'>
