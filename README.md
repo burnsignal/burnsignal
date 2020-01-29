@@ -2,7 +2,7 @@
 ## Got an opinion? Burn some ETH to prove it.
 ### A general purpose signaling mechanism built on Ethereum.
 
-Anyone can create an issue on which anyone can signal their preference for or against by sending any amount of ETH to the corresponding Ethereum address.
+Anyone can create an poll on which anyone can signal their preference for or against by sending any amount of ETH to the corresponding Ethereum address.
 
 Signals are interpreted client-side.
 
@@ -16,21 +16,22 @@ Burn Signal operates under the premise that any arbitrary definition of stakehol
 
 ---
 
-Specification and issues can currently be found in this repo: https://github.com/burnSignal/burnSignal-Spec
+PoC Specification: https://github.com/burnsignal/burnSignal-Spec/blob/master/PoCSpec.md
 
-BurnerVote consists of three main parts:
+BurnerVote consists of four main parts:
 
-* A smart contract factory that allows users to create new proposals to vote/signal on
-* A GraphQL backend built with [The Graph](https://thegraph.com/) to analyze the contract data; and a React.js frontend
-* An "Ethereum Address Service" web app for [BrightID](https://www.brightid.org/) to allow users to map their BrightID accounts to Ethereum addresses. BrightID aims to be a global, unique identity network uses graph theory to determine the likelihood that an account or individual is unique.
+* A smart contract factory that allows users to create new polls to vote in.
+* A GraphQL backend built with [The Graph](https://thegraph.com/) to analyze the contract data.
+* A React.js frontend.
+* An [Ethereum Address Service](https://ethereum.brightid.org/index) web app for [BrightID](https://www.brightid.org/) to allow users to map their BrightID accounts to Ethereum addresses. BrightID aims to be a global, unique identity network uses graph theory to determine the likelihood that an account or individual is unique.
 
 ## Run Burn Singal Locally
 
 **Clone this repo**
 
-using https `git clone https://github.com/burnSignal/burnSignal.git`
+using https `git clone https://github.com/burnsignal/burnsignal.git`
 
-using ssh `git clone git@github.com:burnSignal/burnSignal.git`
+using ssh `git clone git@github.com:burnsignal/burnsignal.git`
 
 **Open the cloned directory**
 
@@ -49,3 +50,8 @@ using ssh `git clone git@github.com:burnSignal/burnSignal.git`
 VoteHelper.js - Add BrightID check.
 
 NewVote.js - Deadline needs implemented.
+
+## Want to contribute?
+Burn Signal operates on a novel and meritocratic funding model. We aim to reward all contributions with non-transferable fire🧧 tokens on a 1:1 ratio with the equivalent USD value of their work. When we hit milestones, you can claim a relative portion of the grant funding that we have received.
+
+[Learn More](https://github.com/burnsignal/contribute)
