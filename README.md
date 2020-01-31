@@ -52,6 +52,6 @@ VoteHelper.js - Add BrightID check.
 NewVote.js - Deadline needs implemented.
 
 ## Want to contribute?
-Burn Signal operates on a novel and meritocratic funding model. We aim to reward all contributions with non-transferable fire🧧 tokens on a 1:1 ratio with the equivalent USD value of their work. When we hit milestones, you can claim a relative portion of the grant funding that we have received.
+Burn Signal operates on a novel and meritocratic funding model. We aim to reward all contributions with non-transferable 🔥🧧 tokens on a 1:1 ratio with the equivalent USD value of their work. When we hit milestones, you can claim a relative portion of the grant funding that we have received.
 
 [Learn More](https://github.com/burnsignal/contribute)
