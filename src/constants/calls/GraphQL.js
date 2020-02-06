@@ -41,5 +41,7 @@ export async function getPolls() {
 
 export async function getPollMetadata(pollName){
   const result = await makeRequest(QUERY_POLL(pollName))
-  return result;
+  if(result.data.polls.length == 0){
+    return { yes: 0, no: 0, users: [] }
+  } else return result.data.polls[0]
 }

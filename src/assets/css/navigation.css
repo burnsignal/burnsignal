@@ -1,8 +1,22 @@
+@media (min-width: 1366px)  {
+  .col-md-7 {
+    flex: 0 0 55%;
+    max-width: 55%;
+  }
+}
 
+@media (min-width: 1440px)  {
+  .col-md-7 {
+    flex: 0 0 52%;
+    max-width: 52.5%;
+  }
+}
 
 .navbar {
   background: #27293d;
   box-shadow: 0 0 17.5px 0 rgba(0, 0, 0, 0.425);
+  left: inherit;
+  right: inherit;
 }
 
 .navbar-logo {
@@ -43,7 +57,7 @@
 .navbar-title {
   text-transform: capitalize;
   font-size: 20px;
-  margin-left: 12.5px;
+  margin-left: 10px;
 }
 
 .icon-header {

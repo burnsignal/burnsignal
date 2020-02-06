@@ -14,7 +14,8 @@ import "../assets/css/proposal.css"
 
 function Poll(props){
   const [ pollRecords, setRecords ] = useState({ yes: [], no: [] })
-  const [ pollCount, setCount ] = useState({ yes: [], no: [] })
+  const [ pollCount, setCount ] = useState({ yes: 0, no: 0 })
+  const [ pollDescription , setDescription ] = useState("")
   const [ graphState, setGraphState ] = useState(false)
   const [ uniqueAddresses, setUnique ] = useState(0)
   const [ totalPledged, setPledged ] = useState(0)
@@ -28,10 +29,14 @@ function Poll(props){
   useEffect(() => {
     const getMetadata = async() => {
       if(Object.keys(state.polls).length > 0){
-        let { title, optionAaddr, optionBaddr } = state.polls[id]
+        let { title, body, issuer, optionAaddr, optionBaddr } = state.polls[id]
 
-        var proposalData = await getPollMetadata(title)
+        var pollMetadata = await getPollMetadata(title)
 
+        let { yes, users, no } = pollMetadata
+
+        setCount({ yes: parseInt(yes), no: parseInt(no) })
+        setDescription(body)
         setGraphState(true)
         setTopic(title)
       }
@@ -48,7 +53,7 @@ function Poll(props){
               <div className="proposal-title">{pollTopic}</div>
             </div>
             <div className="card-body">
-              <div className="github-detail">See GitHub for full details:</div>
+              <div className="github-detail">{pollDescription}</div>
               <div className="vote-options">
                 <button className="btn btn-primary btn-simple">Yes</button>
                 <button className="btn btn-primary btn-simple">No</button>

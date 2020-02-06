@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import { Dropdown, DropdownToggle } from "reactstrap"
+import { Col, Row } from "reactstrap"
 
 import logo from "../images/logo.png"
 
 function Navigation() {
 
   return(
-    <nav className="navbar navbar-expand-lg fixed-top ">
-      <div className="container-fluid">
+    <Row>
+      <Col sm="12" md={{ size: 8, offset: 2 }}>
+        <nav className="navbar navbar-expand-lg fixed-top col-sm-12 col-md-7">
         <div className="navbar-wrapper">
           <a className="navbar-brand" href={'/'}>
             <img className="navbar-logo" src={logo} />
@@ -28,8 +30,9 @@ function Navigation() {
             </li>
           </ul>
         </div>
-      </div>
     </nav>
+    </Col>
+   </Row>
   )
 }
 
