@@ -1,7 +1,6 @@
-// Code to retrieve info from The Graph. Should make easier to change to TypeScript.
-// Exisiting subgraph at: https://thegraph.com/explorer/subgraph/madhur4444/imgovdynamic
-// https://api.thegraph.com/subgraphs/name/madhur4444/imgovdynamic
-// Useful docs: https://thegraph.com/docs/graphql-api
+const QUERY_POLL = poll => `{ polls(where: { id: "${poll}" }) { yes no users { id yes { contributions timestamps total value sqrt } no { contributions timestamps total value sqrt } } } }`
+const QUERY_ISSUES = `{ issues(where: { title_not_contains: "fae" }) { id body title issuer deadline optionBaddr optionAaddr } }`
+const BURN_SUBGRAPH_ENDPOINT = "https://api.thegraph.com/subgraphs/name/burnsignal/proof-of-concept"
 
 const createURL = string => {
   string = string.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '');
@@ -12,91 +11,35 @@ const createURL = string => {
   } return string.replace('?', '');
 }
 
-export async function getProposals() {
-  // Gets all issued proposals
-  // Currently name_not_contains: "fae" to avoid old proposals with unrealistic votes.
-  console.log('TheGraph - getProposals()');
-  const query = `{
-    newProposalIssueds(where: { name_not_contains: "fae" }) {
-      id
-      issuer
-      deadline
-      name
-      data
-      optionBaddr
-      optionAaddr
-    }
-  }`;
+const requestHeaders = body => ({
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  }, body: JSON.stringify({
+    query: body
+  })
+})
 
-  const result = await fetch('https://api.thegraph.com/subgraphs/name/madhur4444/imgovdynamic', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
-    body: JSON.stringify({
-      query
-    })
-  }).then(r => r.json()).then(data => data).catch(error => console.log(error))
-  console.log('TheGraph - got Proposals.');
-
-  const indexedObject = {}
-
-  result.data.newProposalIssueds.forEach(obj => {
-    indexedObject[createURL(obj.name)] = { ...obj }
-  });
-
-  return indexedObject;
-};
-
-export async function getProposalData(ProposalName){
-  // Get information for specific Proposal identified by name.
-  console.log('GetProposalData(): ' + ProposalName)
-
-  // Gets all deposits for this proposal
-  const query = `{ anonymousDeposits (where: {PropName: "` + ProposalName + `"}) {
-      id
-      SenderAddr
-      ContriValue
-      PropName
-      Choice
-    }
-  }`;
-
-  const result = await fetch('https://api.thegraph.com/subgraphs/name/madhur4444/imgovdynamic', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
-    body: JSON.stringify({
-      query
-    })
-  }).then(r => r.json()).then(data => data).catch(error => console.log(error))
-
-  return result;
+const makeRequest = async(query) => {
+  return await fetch(BURN_SUBGRAPH_ENDPOINT,
+    { ...requestHeaders(query)})
+    .then(response =>
+      response.json())
+    .then(data => data)
+    .catch(console.log)
 }
 
-export async function getQuadraticTotals(ProposalName){
+export async function getPolls() {
+  const result = await makeRequest(QUERY_ISSUES)
+  const routeObject = {}
 
-  const query = `{ QuadraticTotals (where: {proposal: "` + ProposalName + `"}) {
-      proposal
-      appprove
-      decline
-      total
-    }
-  }`;
+  result.data.issues.forEach(obj => {
+    routeObject[createURL(obj.title)] = { ...obj }
+  }); return routeObject;
+}
 
-  const result = await fetch('https://api.thegraph.com/subgraphs/name/madhur4444/imgovdynamic', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
-    body: JSON.stringify({
-      query
-    })
-  }).then(r => r.json()).then(data => data).catch(error => console.log(error))
-
+export async function getPollMetadata(pollName){
+  const result = await makeRequest(QUERY_POLL(pollName))
   return result;
 }

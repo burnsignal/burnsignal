@@ -9,7 +9,7 @@ function Feed() {
 
   return (
     <Fragment>
-      {Object.keys(state.proposals).map((proposalId, index) => (
+      {Object.keys(state.polls).map((proposalId, index) => (
         <Link to={`/poll/${proposalId}`}>
           <Proposal key={proposalId} id={proposalId}/>
         </Link>

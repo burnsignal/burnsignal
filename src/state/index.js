@@ -1,14 +1,14 @@
 import React, { createContext, useReducer } from 'react';
 
-const initialState = { proposals: [] }
+const initialState = { polls: [] }
 const store = createContext(initialState)
 const { Provider } = store
 
 const StateProvider = ( { children } ) => {
   const [state, dispatch] = useReducer((state, action) => {
     switch(action.type) {
-      case 'PROPOSAL':
-        return { ...state, proposals: action.payload }
+      case 'POLL':
+        return { ...state, polls: action.payload }
       default:
         return state
     };

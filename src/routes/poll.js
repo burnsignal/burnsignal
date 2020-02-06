@@ -2,9 +2,8 @@ import React, { Fragment, useContext, useState, useEffect } from 'react';
 import { useParams } from "react-router-dom"
 import { Row, Col } from "reactstrap"
 
-import { getVoteInfo, getQuadraticTotals } from '../constants/operatives'
-import { getProposalData } from "../constants/calls/GraphQL"
-import { getTransactions } from "../constants/calls/REST"
+import { getPollMetadata } from "../constants/calls/GraphQL"
+import { getVoteInfo } from '../constants/operatives'
 import { chartId } from "../constants/operatives"
 import { store } from '../state'
 
@@ -28,23 +27,13 @@ function Poll(props){
 
   useEffect(() => {
     const getMetadata = async() => {
-      if(Object.keys(state.proposals).length > 0){
-        let { name, optionAaddr, optionBaddr } = state.proposals[id]
+      if(Object.keys(state.polls).length > 0){
+        let { title, optionAaddr, optionBaddr } = state.polls[id]
 
-        var proposalData = await getProposalData(name)
-        var voteInfo = await getVoteInfo(proposalData)
-        var quadraticInfo = await getQuadraticTotals(voteInfo.voters)
-        var noVotes = await getTransactions(optionBaddr, false)
-        var yesVotes = await getTransactions(optionAaddr, true)
+        var proposalData = await getPollMetadata(title)
 
-        let { noCount, yesCount, uniqueAddresses, totalValue } = quadraticInfo
-
-        setRecords({ yes: yesVotes, no: noVotes })
-        setCount({ yes: yesCount, no: noCount })
-        setUnique(uniqueAddresses)
-        setPledged(totalValue)
         setGraphState(true)
-        setTopic(name)
+        setTopic(title)
       }
     }
     getMetadata()

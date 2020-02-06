@@ -8,7 +8,7 @@ import "./assets/css/navigation.css"
 
 import Navigation from './assets/components/navigation'
 
-import { getProposals } from "./constants/calls/GraphQL"
+import { getPolls } from "./constants/calls/GraphQL"
 import { store } from './state'
 
 import Poll from './routes/poll'
@@ -19,14 +19,14 @@ function App() {
   let { dispatch, state } = useContext(store)
 
   useEffect(() => {
-    const retrieveProposals = async() => {
-      var proposalStream = await getProposals()
+    const retrievePolls = async() => {
+      var pollStream = await getPolls()
       dispatch({
-        payload: proposalStream,
-        type: "PROPOSAL"
+        payload: pollStream,
+        type: "POLL"
       })
     }
-    retrieveProposals()
+    retrievePolls()
   }, [])
 
   return (
