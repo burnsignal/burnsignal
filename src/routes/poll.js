@@ -12,25 +12,24 @@ import Bar from '../assets/components/charts/bar'
 
 import "../assets/css/proposal.css"
 
-const getRecords = async(users) => {
-  console.log(users);
-
+const getRecords = async(users, type) => {
   var history = { yes: [], no: [] }
-  await Object.entries(users)
-    .map(([ index, value ]) => {
+ await Object.entries(users)
+       .map(([ index, value ]) => {
         let { id, yes, no } = value
 
+        console.log(id)
         yes.value.forEach((value, index) => {
-          value = parseInt(value)
+          value = parseFloat(value)
           if(isNaN(value)) value = 0
           history.yes.push(value)
         })
         no.value.forEach((value, index) => {
-          value = parseInt(value) * -1
+          value = parseFloat(value) * -1
           if(isNaN(value)) value = 0
           history.no.push(value)
         })
-     })
+    })
   return history
 }
 
@@ -52,14 +51,15 @@ function Poll(props){
     const getMetadata = async() => {
       if(state.polls[id] !== undefined){
         let { title, body, issuer, optionAaddr, optionBaddr } = state.polls[id]
-
         var pollMetadata = await getPollMetadata(title)
 
         let { yes, users, no } = pollMetadata
-        let contributons = await getRecords(users)
+        let records = await getRecords(users)
+
+        console.log(pollMetadata)
 
         setCount({ yes: parseInt(yes), no: parseInt(no) })
-        setRecords(contributons)
+        setRecords({ ...records })
         setDescription(body)
         setGraphState(true)
         setTopic(title)

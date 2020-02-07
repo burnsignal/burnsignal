@@ -4,6 +4,9 @@ import Chart from 'chart.js'
 import { WEEKDAYS, CHARTS } from "../../../constants/parameters.js"
 import { sortVotes } from "../../../constants/operatives.js"
 
+const makeRepeated = (arr, repeats) =>
+  [].concat(...Array.from({ length: repeats }, () => arr));
+
 function Spline(props){
   let { chartId } = props
 
@@ -18,14 +21,15 @@ function Spline(props){
       var maxRange = Math.ceil((((maxValue * 0.2) + maxValue) /10 ) * 10)
       var minRange = Math.ceil((((minValue * 0.2) + minValue) /10 ) * 10) * -1
 
-      console.log(chartId)
-
       const ctx = document.getElementById(chartId).getContext("2d")
 
       let range = minRange > maxRange ? minRange : maxRange
 
+      const labelArray = dataArray.length > WEEKDAYS.length ?
+      makeRepeated(WEEKDAYS, parseInt(dataArray.length/WEEKDAYS.length)) :
+      WEEKDAYS.slice(0, dataArray.length)
+
       var gradientStroke = ctx.createLinearGradient(0,337.5,0, 25)
-      var labelArray = WEEKDAYS.slice(0, dataArray.length)
 
       gradientStroke.addColorStop(1, 'rgba(255,51,138,0.225)')
       gradientStroke.addColorStop(0.7, 'rgba(255,51,138,0.2)')
