@@ -6,6 +6,8 @@ export const sortVotes = (_yesVotes, _noVotes) => {
   totalVotes.sort((a,b) => { return a - b });
   totalVotes.unshift(0);
 
+  console.log(totalVotes)
+
   return totalVotes;
 }
 

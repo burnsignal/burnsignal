@@ -18,6 +18,8 @@ function Spline(props){
       var maxRange = Math.ceil((((maxValue * 0.2) + maxValue) /10 ) * 10)
       var minRange = Math.ceil((((minValue * 0.2) + minValue) /10 ) * 10) * -1
 
+      console.log(chartId)
+
       const ctx = document.getElementById(chartId).getContext("2d")
 
       let range = minRange > maxRange ? minRange : maxRange
