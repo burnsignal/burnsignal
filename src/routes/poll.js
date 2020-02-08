@@ -81,8 +81,8 @@ function Poll(props){
             <div className="card-body">
               <div className="poll-description">{pollDescription}</div>
               <div className="vote-options">
-                <button data-target="#yes" className="btn btn-primary btn-simple">Yes</button>
-                <button data-target="#no" className="btn btn-primary btn-simple">No</button>
+                <button type="button" data-target="#yes" data-toggle="modal" className="btn btn-primary btn-simple">Yes</button>
+                <button type="button" data-target="#no" data-toggle="modal" className="btn btn-primary btn-simple">No</button>
               </div>
             </div>
           </div>
