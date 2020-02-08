@@ -7,6 +7,7 @@ import "./assets/libs/black-dashboard/assets/css/nucleo-icons.css"
 import "./assets/css/navigation.css"
 
 import Navigation from './assets/components/navigation'
+import Option from './assets/components/option'
 
 import { getPolls } from "./constants/calls/GraphQL"
 import { store } from './state'
@@ -33,6 +34,7 @@ function App() {
     <main>
       <Container>
         <Navigation />
+        <Route path="/poll/:address/:option" component={Poll} />
         <Route path="/poll/:address" component={Poll} />
         <Route exact path="/" component={Feed} />
         <Route path="/new" component={New} />

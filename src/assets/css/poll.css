@@ -8,8 +8,14 @@
   font-size: 17.5px;
 }
 
-.proposal-title {
+.poll-title {
+  position: relative;
   font-size: 22.5px;
   font-weight: 200;
+  color: white;
+  clear: both;
+}
+
+a .card {
   color: white;
 }

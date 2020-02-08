@@ -1,4 +1,4 @@
-const QUERY_POLL = poll => `{ polls(where: { id: "${poll}" }) { yes no users { id yes { contributions timestamps total value sqrt } no { contributions timestamps total value sqrt } } } }`
+const QUERY_POLL = poll => `{ polls(where: { id: "${poll}" }) { yes no users { address yes { contributions timestamps total value sqrt } no { contributions timestamps total value sqrt } } } }`
 const QUERY_ISSUES = `{ issues(where: { title_not_contains: "fae" }) { id body title issuer deadline optionBaddr optionAaddr } }`
 const BURN_SUBGRAPH_ENDPOINT = "https://api.thegraph.com/subgraphs/name/burnsignal/proof-of-concept"
 

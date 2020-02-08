@@ -8,17 +8,18 @@ import { chartId } from "../constants/operatives"
 import { store } from '../state'
 
 import Spline from '../assets/components/charts/spline'
+import Option from '../assets/components/option'
 import Bar from '../assets/components/charts/bar'
 
-import "../assets/css/proposal.css"
+import "../assets/css/poll.css"
 
 const getRecords = async(users, type) => {
-  var history = { yes: [], no: [] }
+  var history = { yes: [], no: [], voters: [] }
  await Object.entries(users)
        .map(([ index, value ]) => {
-        let { id, yes, no } = value
+        let { address, yes, no } = value
 
-        console.log(id)
+        history.voters.push(address)
         yes.value.forEach((value, index) => {
           value = parseFloat(value)
           if(isNaN(value)) value = 0
@@ -35,6 +36,7 @@ const getRecords = async(users, type) => {
 
 function Poll(props){
   const [ pollRecords, setRecords ] = useState({ yes: [], no: [] })
+  const [ pollOptions, setOptions ] = useState({ yes: "", no: "" })
   const [ pollCount, setCount ] = useState({ yes: 0, no: 0 })
   const [ pollDescription , setDescription ] = useState("")
   const [ graphState, setGraphState ] = useState(false)
@@ -56,9 +58,9 @@ function Poll(props){
         let { yes, users, no } = pollMetadata
         let records = await getRecords(users)
 
-        console.log(pollMetadata)
-
         setCount({ yes: parseInt(yes), no: parseInt(no) })
+        setOptions({ yes: optionAaddr, no: optionBaddr })
+        setUnique(records.voters.length)
         setRecords({ ...records })
         setDescription(body)
         setGraphState(true)
@@ -74,13 +76,13 @@ function Poll(props){
         <Col sm="12" md={{ size: 8, offset: 2 }}>
           <div className="card">
             <div className="card-header">
-              <div className="proposal-title">{pollTopic}</div>
+              <div className="poll-title">{pollTopic}</div>
             </div>
             <div className="card-body">
-              <div className="github-detail">{pollDescription}</div>
+              <div className="poll-description">{pollDescription}</div>
               <div className="vote-options">
-                <button className="btn btn-primary btn-simple">Yes</button>
-                <button className="btn btn-primary btn-simple">No</button>
+                <button data-target="#yes" className="btn btn-primary btn-simple">Yes</button>
+                <button data-target="#no" className="btn btn-primary btn-simple">No</button>
               </div>
             </div>
           </div>
@@ -121,6 +123,8 @@ function Poll(props){
           </div>
         </Col>
       </Row>
+      <Option address={pollOptions.yes} option="yes" />
+      <Option address={pollOptions.no} option="no" />
      </div>
   )
 }

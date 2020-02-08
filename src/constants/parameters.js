@@ -1,4 +1,4 @@
-import { PINK_PRIMARY, BLUE_PRIMARY, RED_PRIMARY } from "./palette.js"
+import { PINK_PRIMARY } from "./palette.js"
 
 export const WEEKDAYS =  ['Monday', 'Tuesday', 'Wendsday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ]
 
@@ -10,7 +10,7 @@ export const CHARTS = {
       labels: ['Yes','No' ],
       datasets: [{
         data: _data,
-        borderColor: [ BLUE_PRIMARY, RED_PRIMARY ],
+        borderColor: PINK_PRIMARY,
         borderWidth: 2,
         fill: true
       }]
