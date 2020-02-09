@@ -48,7 +48,7 @@ function Spline(props){
       new Chart(ctx, { ...CHARTS.SPLINE_CONFIG(data, range) })
     }
     composeAndRender()
-  }, [ props ])
+  }, [ ])
 
   return(
     <Fragment>

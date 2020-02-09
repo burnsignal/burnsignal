@@ -22,7 +22,6 @@ function Poll(props){
   const [ uniqueAddresses, setUnique ] = useState(0)
   const [ totalPledged, setPledged ] = useState(0)
   const [ pollTopic , setTopic ] = useState("")
-  const route = props.location.pathname
 
   let { state } = useContext(store)
   let { address } = useParams()

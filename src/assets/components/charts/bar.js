@@ -18,7 +18,7 @@ function Bar(props) {
       new Chart(ctx, { ...CHARTS.BAR_CONFIG(data, range) })
     }
     composeAndRender()
-  }, [ props ])
+  }, [ ])
 
   return(
     <Fragment>
