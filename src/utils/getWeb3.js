@@ -1,50 +1,36 @@
 import Web3 from "web3";
+import Web3Connect from "web3connect";
+import WalletConnectProvider from "@walletconnect/web3-provider";
+import Authereum from "authereum";
 
-const getWeb3 = () =>
-  new Promise((resolve, reject) => {
-
-    // This is to get round routing issue
-    if(document.readyState === "complete"){
-      loadWeb3(resolve, reject);
-      console.log('Web3 Loaded Ok');
+const providerOptions = {
+  walletconnect: {
+    package: WalletConnectProvider,
+    options: {
+      infuraId: "INFURA_ID"
     }
+  },
+  authereum: {
+    package: Authereum,
+    options: {}
+  }
+};
 
-    // Wait for loading completion to avoid race conditions with web3 injection timing.
-    window.addEventListener("load", async () => {
-      loadWeb3(resolve, reject);
-      console.log('Web3 Loaded.');
-    });
-  });
-
-async function loadWeb3(resolve, reject){
-  // Modern dapp browsers...
-  if (window.ethereum) {
-    const web3 = new Web3(window.ethereum);
+const getWeb3 = () => (
+  new Promise(async(resolve, reject) => {
     try {
-      // Request account access if needed
-      await window.ethereum.enable();
-      // Acccounts now exposed
-      resolve(web3);
-    } catch (error) {
-      reject(error);
+      const web3Connect = new Web3Connect.Core({
+        network: "mainnet",
+        cacheProvider: true,
+        providerOptions
+      })
+      const provider = await web3Connect.connect()
+      const web3 = new Web3(provider)
+      resolve(web3)
+    } catch(e){
+      resolve(e)
     }
-  }
-  // Legacy dapp browsers...
-  else if (window.web3) {
-    // Use Mist/MetaMask's provider.
-    const web3 = window.web3;
-    console.log("Injected web3 detected.");
-    resolve(web3);
-  }
-  // Fallback to localhost; use dev console port by default...
-  else {
-    const provider = new Web3.providers.HttpProvider(
-      "http://127.0.0.1:8545"
-    );
-    const web3 = new Web3(provider);
-    console.log("No web3 instance injected, using Local web3.");
-    resolve(web3);
-  }
-}
+  })
+);
 
 export default getWeb3;

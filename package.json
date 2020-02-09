@@ -8,6 +8,8 @@
     "@types/node": "^12.12.11",
     "@types/react": "^16.9.11",
     "@types/react-dom": "^16.9.4",
+    "@walletconnect/web3-provider": "^1.0.0-beta.47",
+    "authereum": "0.0.4-beta.93",
     "bignumber.js": "^9.0.0",
     "chart.js": "^2.9.3",
     "classnames": "^2.2.6",
@@ -29,7 +31,8 @@
     "require": "^2.4.20",
     "truffle-hdwallet-provider": "^1.0.17",
     "typescript": "^3.7.2",
-    "web3": "^1.0.0-beta.37"
+    "web3": "^1.0.0-beta.37",
+    "web3connect": "^1.0.0-beta.29"
   },
   "scripts": {
     "predeploy": "npm run build",
