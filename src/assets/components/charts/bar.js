@@ -8,12 +8,12 @@ function Bar(props) {
 
   useEffect(() => {
     const composeAndRender = () => {
-      let { yesCount, noCount } = props;
+      let { yes, no } = props.pollCount;
 
       const ctx = document.getElementById(chartId).getContext("2d")
-      const maximumValue = yesCount > noCount ? yesCount : noCount
+      const maximumValue = yes > no ? yes : no
       const range = ( maximumValue * 0.20 ) + maximumValue
-      const data = [ yesCount, noCount];
+      const data = [ yes, no ]
 
       new Chart(ctx, { ...CHARTS.BAR_CONFIG(data, range) })
     }

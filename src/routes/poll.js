@@ -1,9 +1,9 @@
 import React, { Fragment, useContext, useState, useEffect } from 'react';
-import { useParams } from "react-router-dom"
+import { useParams, useHistory } from "react-router-dom"
 import { Row, Col } from "reactstrap"
 
+import { getVoteInfo, getRecords } from '../constants/operatives'
 import { getPollMetadata } from "../constants/calls/GraphQL"
-import { getVoteInfo } from '../constants/operatives'
 import { chartId } from "../constants/operatives"
 import { store } from '../state'
 
@@ -13,41 +13,32 @@ import Bar from '../assets/components/charts/bar'
 
 import "../assets/css/poll.css"
 
-const getRecords = async(users, type) => {
-  var history = { yes: [], no: [], voters: [] }
- await Object.entries(users)
-       .map(([ index, value ]) => {
-        let { address, yes, no } = value
-
-        history.voters.push(address)
-        yes.value.forEach((value, index) => {
-          value = parseFloat(value)
-          if(isNaN(value)) value = 0
-          history.yes.push(value)
-        })
-        no.value.forEach((value, index) => {
-          value = parseFloat(value) * -1
-          if(isNaN(value)) value = 0
-          history.no.push(value)
-        })
-    })
-  return history
-}
-
 function Poll(props){
   const [ pollRecords, setRecords ] = useState({ yes: [], no: [] })
-  const [ pollOptions, setOptions ] = useState({ yes: "", no: "" })
+  const [ pollOptions, setOptions ] = useState({ yes: "", no : "" })
   const [ pollCount, setCount ] = useState({ yes: 0, no: 0 })
   const [ pollDescription , setDescription ] = useState("")
   const [ graphState, setGraphState ] = useState(false)
   const [ uniqueAddresses, setUnique ] = useState(0)
   const [ totalPledged, setPledged ] = useState(0)
   const [ pollTopic , setTopic ] = useState("")
+  const route = props.location.pathname
 
   let { state } = useContext(store)
   let { address } = useParams()
+  let history = useHistory()
 
   const id = props.location !== undefined ? address : props.id
+
+  function selection(option) {
+    history.push(`${props.location.pathname}/${option}`)
+  }
+
+  function dismiss() {
+    let route = props.location.pathname.replace('/yes', '')
+    route = route.replace('/no', '')
+    history.push(route)
+  }
 
   useEffect(() => {
     const getMetadata = async() => {
@@ -68,7 +59,7 @@ function Poll(props){
         }
      }
     getMetadata()
-  }, [ props ])
+  }, [ state ])
 
   return(
      <div className="proposalComponent">
@@ -81,8 +72,8 @@ function Poll(props){
             <div className="card-body">
               <div className="poll-description">{pollDescription}</div>
               <div className="vote-options">
-                <button type="button" data-target="#yes" data-toggle="modal" className="btn btn-primary btn-simple">Yes</button>
-                <button type="button" data-target="#no" data-toggle="modal" className="btn btn-primary btn-simple">No</button>
+                <button type="button" data-target="#yes" data-toggle="modal" className="btn btn-primary btn-simple" onClick={() => selection("yes")}>Yes</button>
+                <button type="button" data-target="#no" data-toggle="modal" className="btn btn-primary btn-simple" onClick={() => selection("no")}>No</button>
               </div>
             </div>
           </div>
@@ -96,10 +87,7 @@ function Poll(props){
             </div>
             <div className="card-body">
               {graphState && (
-                <Bar
-                  chartId={chartId(id)}
-                  yesCount={pollCount.yes}
-                  noCount={pollCount.no}/>
+                <Bar chartId={chartId(id)} pollCount={pollCount}/>
               )}
             </div>
           </div>
@@ -113,19 +101,14 @@ function Poll(props){
             </div>
             <div class="card-body">
               {graphState && (
-                <Spline
-                  chartId={chartId(id)}
-                  yesVotes={pollRecords.yes}
-                  noVotes={pollRecords.no}
-                />
+                <Spline chartId={chartId(id)} pollRecords={pollRecords} />
               )}
             </div>
           </div>
         </Col>
       </Row>
-      <Option address={pollOptions.yes} option="yes" />
-      <Option address={pollOptions.no} option="no" />
-     </div>
+      <Option dismiss={dismiss} title={pollTopic} address={pollOptions} />
+    </div>
   )
 }
 

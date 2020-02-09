@@ -12,9 +12,9 @@ function Spline(props){
 
   useEffect(() => {
     const composeAndRender = () => {
-      let { yesVotes, noVotes } = props
+      let { yes, no } = props.pollRecords
 
-      const dataArray = sortVotes(yesVotes, noVotes)
+      const dataArray = sortVotes(yes, no)
 
       var maxValue = Math.max(...dataArray)
       var minValue = Math.min(...dataArray)

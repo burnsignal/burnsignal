@@ -16,8 +16,10 @@ import Poll from './routes/poll'
 import Feed from './routes/feed'
 import New from './routes/new'
 
-function App() {
+function App(props) {
   let { dispatch, state } = useContext(store)
+
+  useEffect(() => window.scrollTo(0, 0), [ props.location ])
 
   useEffect(() => {
     const retrievePolls = async() => {
@@ -34,7 +36,6 @@ function App() {
     <main>
       <Container>
         <Navigation />
-        <Route path="/poll/:address/:option" component={Poll} />
         <Route path="/poll/:address" component={Poll} />
         <Route exact path="/" component={Feed} />
         <Route path="/new" component={New} />

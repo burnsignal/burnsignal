@@ -1,15 +1,8 @@
+import { createURL } from '../operatives'
+
 const QUERY_POLL = poll => `{ polls(where: { id: "${poll}" }) { yes no users { address yes { contributions timestamps total value sqrt } no { contributions timestamps total value sqrt } } } }`
 const QUERY_ISSUES = `{ issues(where: { title_not_contains: "fae" }) { id body title issuer deadline optionBaddr optionAaddr } }`
 const BURN_SUBGRAPH_ENDPOINT = "https://api.thegraph.com/subgraphs/name/burnsignal/proof-of-concept"
-
-const createURL = string => {
-  string = string.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '');
-  string = string.replace(/ /g, '-').toLowerCase();
-
-  if(string.substring(string.length-1, string.length) === "-"){
-    string = string.slice(0, string.length-1)
-  } return string.replace('?', '');
-}
 
 const requestHeaders = body => ({
   method: 'POST',
