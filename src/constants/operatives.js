@@ -75,28 +75,3 @@ export async function getVoteInfo(proposalData){
 
   return { voters: voters, totalValue: totalValue}
 }
-
-export async function getQuadraticTotals(voters){
-  // Quadratic method.
-  // Calculate quadratic total for each voter
-  var yes = 0;
-  var no = 0;
-  var noUniqueAdresses = 0;
-  var totalValue = 0;
-  for(var key in voters){
-    // skip loop if the property is from prototype
-    if (!voters.hasOwnProperty(key)) continue;
-
-    var voter = voters[key];
-    yes += Math.sqrt(voter.yesTotalValue);
-    no += Math.sqrt(voter.noTotalValue);
-    noUniqueAdresses += 1;
-    totalValue = totalValue + voter.yesTotalValue + voter.noTotalValue;
-  }
-  return {
-    yesCount: yes,
-    noCount: no,
-    noUniqueAdresses: noUniqueAdresses,
-    totalValue: totalValue
-  };
-}

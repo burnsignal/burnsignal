@@ -30,7 +30,7 @@ function Poll(props){
   const id = props.location !== undefined ? address : props.id
 
   function selection(option) {
-    history.push(`${props.location.pathname}/${option}`)
+    history.push(`/poll/${id}/${option}`)
   }
 
   function dismiss() {

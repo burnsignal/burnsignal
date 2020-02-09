@@ -59,7 +59,7 @@ a .card {
   line-height: 25px;
   letter-spacing: 0.10625px;
   mix-blend-mode: normal;
-  opacity: 0.8;
+  opacity: 80%;
   flex: none;
   order: 0;
 }

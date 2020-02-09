@@ -13,6 +13,7 @@
     "classnames": "^2.2.6",
     "dotenv": "^8.2.0",
     "eslint-plugin-react-hooks": "^2.3.0",
+    "ethereum-blockies-base64": "^1.0.2",
     "gh-pages": "^2.1.1",
     "node-sass": "^4.13.0",
     "qrcode.react": "^1.0.0",

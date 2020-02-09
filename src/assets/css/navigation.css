@@ -73,3 +73,9 @@ a {
 .container {
   padding: 7.5em 0em;
 }
+
+.nav-profile {
+  width: 30px;
+  height: 30px;
+  border-radius: 20px;
+}

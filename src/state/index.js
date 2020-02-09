@@ -1,6 +1,6 @@
 import React, { createContext, useReducer } from 'react';
 
-const initialState = { polls: [] }
+const initialState = { polls: [], web3: undefined }
 const store = createContext(initialState)
 const { Provider } = store
 
@@ -9,6 +9,8 @@ const StateProvider = ( { children } ) => {
     switch(action.type) {
       case 'POLL':
         return { ...state, polls: action.payload }
+      case 'WEB3':
+        return { ...state, web3: action.payload }
       default:
         return state
     };
