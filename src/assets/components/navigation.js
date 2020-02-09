@@ -57,7 +57,7 @@ function Navigation() {
         <div className="collapse navbar-collapse justify-content-end">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="nav-link" href={'/'}>
+              <Link className="nav-link" to="/">
                  Notifications <i className="nav-icon tim-icons icon-bell-55"></i>
               </Link>
             </li>
@@ -66,8 +66,8 @@ function Navigation() {
             </li>
           </ul>
         </div>
-    </nav>
-    </Col>
+      </nav>
+     </Col>
    </Row>
   )
 }

@@ -11,19 +11,19 @@ function Option(props) {
 
   return (
     <Fragment>
-      <div class="modal fade" id="yes" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">{props.title}</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close" onClick={props.dismiss}>
+      <div className="modal fade" id="yes" tabIndex="-1" role="dialog" aria-hidden="true">
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">{props.title}</h5>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={props.dismiss}>
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               Vote <span id="pink">YES</span> by sending any amount of ETH to <br/>
               <a href='https://etherscan.io'><span id="pink">yes</span>.{ENS}</a>
-              <div class="poll-qr">
+              <div className="poll-qr">
                 <QRCode value={props.address.yes} />
               </div>
             To ensure that you vote counts, please link your ethereum account
@@ -32,19 +32,19 @@ function Option(props) {
           </div>
         </div>
       </div>
-      <div class="modal fade" id="no" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">{props.title}</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close" onClick={props.dismiss}>
+      <div className="modal fade" id="no" tabIndex="-1" role="dialog" aria-hidden="true">
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">{props.title}</h5>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={props.dismiss}>
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               Vote <span id="pink">NO</span> by sending any amount of ETH to <br/>
               <a href='https://etherscan.io'><span id="pink">no</span>.{ENS}</a>
-              <div class="poll-qr">
+              <div className="poll-qr">
                 <QRCode value={props.address.no} />
               </div>
             To ensure that you vote counts, please link your ethereum account

@@ -30,7 +30,10 @@ function Poll(props){
   const id = props.location !== undefined ? address : props.id
 
   function selection(option) {
-    history.push(`/poll/${id}/${option}`)
+    const route = `/poll/${id}/${option}`
+    if(history[history.length-1] !== route){
+      history.push(route)
+    }
   }
 
   function dismiss() {
@@ -81,8 +84,8 @@ function Poll(props){
       <Row>
         <Col sm="12" md={{ size: 8, offset: 2 }}>
           <div className="card">
-            <div class="card-header">
-              <h3 class="card-category">Results</h3>
+            <div className="card-header">
+              <h3 className="card-category">Results</h3>
             </div>
             <div className="card-body">
               {graphState && (
@@ -95,10 +98,10 @@ function Poll(props){
       <Row>
         <Col sm="12" md={{ size: 8, offset: 2 }}>
           <div className="card">
-            <div class="card-header">
-              <h3 class="card-category">History</h3>
+            <div className="card-header">
+              <h3 className="card-category">History</h3>
             </div>
-            <div class="card-body">
+            <div className="card-body">
               {graphState && (
                 <Spline chartId={chartId(id)} pollRecords={pollRecords} />
               )}

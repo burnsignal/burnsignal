@@ -19,7 +19,7 @@ import New from './routes/new'
 function App(props) {
   let { dispatch, state } = useContext(store)
 
-  useEffect(() => window.scrollTo(0, 0), [ props.location ])
+  useEffect(() => window.scrollTo(0, 0), [ props.location.pathname ])
 
   useEffect(() => {
     const retrievePolls = async() => {
