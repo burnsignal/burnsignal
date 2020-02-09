@@ -76,3 +76,7 @@ a .card {
 .modal-body a {
   font-weight: 500;
 }
+
+.btn-verify {
+  margin-left: auto !important;
+}

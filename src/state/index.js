@@ -1,6 +1,6 @@
 import React, { createContext, useReducer } from 'react';
 
-const initialState = { polls: [], web3: undefined }
+const initialState = { polls: [], web3: undefined, auth: false, verified: false }
 const store = createContext(initialState)
 const { Provider } = store
 
