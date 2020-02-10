@@ -31,7 +31,7 @@ function Navigation() {
   function Login() {
     return(
       <a className="nav-link" onClick={() => initialiseWeb3()} href="#">
-        Login <i className="nav-login-icon tim-icons icon-minimal-down"></i>
+         <i className="nav-icon tim-icons icon-wallet-43"></i>
       </a>
     )
   }
@@ -40,6 +40,7 @@ function Navigation() {
     return(
       <Link className="nav-link" to={`/profile/${account}`}>
         <img className="nav-profile" src={makeBlockie(account)} />
+        <i className="nav-login-icon tim-icons icon-minimal-down"></i>
       </Link>
     )
   }
@@ -58,7 +59,7 @@ function Navigation() {
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link className="nav-link" to="/">
-                 Notifications <i className="nav-icon tim-icons icon-bell-55"></i>
+                  <i className="nav-icon tim-icons icon-bell-55"></i>
               </Link>
             </li>
             <li className="nav-item">

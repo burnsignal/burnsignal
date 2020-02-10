@@ -61,7 +61,7 @@ function Poll(props){
         }
      }
     getMetadata()
-  }, [ state ])
+  }, [ state.polls ])
 
   return(
      <div className="proposalComponent">
@@ -108,8 +108,8 @@ function Poll(props){
             </div>
           </div>
         </Col>
+        <Option dismiss={dismiss} title={pollTopic} address={pollOptions} />
       </Row>
-      <Option dismiss={dismiss} title={pollTopic} address={pollOptions} />
     </div>
   )
 }

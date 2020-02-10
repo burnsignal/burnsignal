@@ -80,3 +80,9 @@ a .card {
 .btn-verify {
   margin-left: auto !important;
 }
+
+.vote-selection {
+  float: left;
+  font-size: 16.75px;
+  letter-spacing: 0.075px;
+}

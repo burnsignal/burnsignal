@@ -44,8 +44,8 @@ function Option(props) {
           </button>
         </div>
         <div className="modal-body">
-          How much ETH will you burn to cast your vote?
-          <input label="Amount" placeholder="0.5 ETH"/>
+          <span className="vote-selection"> How much ETH will you burn to cast your vote? </span>
+          <input className="modal-input" placeholder="0.5 ETH"/>
         </div>
         <div class="modal-footer">
           <button type="button" className="btn btn-primary btn-verify" data-dismiss="modal">
