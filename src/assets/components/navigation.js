@@ -1,5 +1,5 @@
-import React, { Component , useContext, useState, useEffect } from 'react'
-import { Dropdown, DropdownToggle } from "reactstrap"
+import React, { Fragment, useContext, useState, useEffect } from 'react'
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import makeBlockie from 'ethereum-blockies-base64'
 import { Link } from 'react-router-dom'
 import { Col, Row } from "reactstrap"
@@ -9,8 +9,12 @@ import logo from "../images/logo.png"
 import { store } from '../../state'
 
 function Navigation() {
-  const [ navComponent, setNav ] = useState(<Login />)
+  const [ dropdownComponent, setDropdown ] = useState(<Login />)
+  const [ dropdownOpen, setDropdownOpen ] = useState(false);
+  const [ navComponent, setNav ] = useState(<Fragment />)
   const [ address, setAddress ] = useState("")
+
+  const toggle = () => setDropdownOpen(prevState => !prevState);
 
   let { dispatch, state } = useContext(store)
 
@@ -19,6 +23,7 @@ function Navigation() {
       const web3 = await getWeb3()
       const accounts = await web3.eth.getAccounts()
       setNav(<LoggedIn account={accounts[0]}/>)
+      setDropdown(<Logout />)
       dispatch({
         payload: web3,
         type: "WEB3"
@@ -30,9 +35,16 @@ function Navigation() {
 
   function Login() {
     return(
-      <a className="nav-link" onClick={() => initialiseWeb3()} href="#">
-         <i className="nav-icon tim-icons icon-wallet-43"></i>
-      </a>
+      <DropdownItem onClick={() => initialiseWeb3()}>Login</DropdownItem>
+    )
+  }
+
+  function Logout() {
+    return(
+      <Fragment>
+        <DropdownItem>Create</DropdownItem>
+        <DropdownItem>Logout</DropdownItem>
+      </Fragment>
     )
   }
 
@@ -40,7 +52,6 @@ function Navigation() {
     return(
       <Link className="nav-link" to={`/profile/${account}`}>
         <img className="nav-profile" src={makeBlockie(account)} />
-        <i className="nav-login-icon tim-icons icon-minimal-down"></i>
       </Link>
     )
   }
@@ -58,12 +69,19 @@ function Navigation() {
         <div className="collapse navbar-collapse justify-content-end">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="nav-link" to="/">
-                  <i className="nav-icon tim-icons icon-bell-55"></i>
-              </Link>
-            </li>
-            <li className="nav-item">
               {navComponent}
+              <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+                 <DropdownToggle caret>
+                   <i className="nav-login-icon tim-icons icon-minimal-down"></i>
+                 </DropdownToggle>
+                 <DropdownMenu>
+                   <DropdownItem>Home</DropdownItem>
+                   {dropdownComponent}
+                   <DropdownItem divider />
+                   <DropdownItem>About</DropdownItem>
+                   <DropdownItem>Blog</DropdownItem>
+                 </DropdownMenu>
+               </Dropdown>
             </li>
           </ul>
         </div>

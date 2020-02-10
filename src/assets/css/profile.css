@@ -1,6 +1,9 @@
+.profileComponent .card-body {
+  padding: .5em;
+}
 
 .card ul  {
-  list-style: none; /* Remove default bullets */
+  list-style: none; 
   padding-bottom: -20px;
 }
 

@@ -1,5 +1,53 @@
-.profileComponent .card-body {
-  padding: .5em;
+@media (min-width: 1366px)  {
+  .col-md-7 {
+    flex: 0 0 55%;
+    max-width: 55%;
+  }
+}
+
+@media (min-width: 1440px)  {
+  .col-md-7 {
+    flex: 0 0 52%;
+    max-width: 52.5%;
+  }
+}
+
+.nav-item .nav-link {
+  float: left;
+}
+
+.nav-item .dropdown {
+  float: right;
+}
+
+.nav-link {
+  display: inline;
+  clear: both;
+  z-index: 10;
+}
+
+.dropdown-menu  {
+  left: 7.5px !important;
+}
+
+.dropdown-toggle  {
+  background: rgba(0,0,0,0) !important;
+  background-image: none !important;
+  width: 5px !important;
+  z-index: 5;
+}
+
+.dropdown .btn {
+  padding: 11px 22px 11px 0px !important;
+}
+
+.dropdown .btn:hover, .show  .btn:hover,
+.dropdown .btn, .show .btn {
+  background: rgba(0,0,0,0) !important;
+  background-image: none !important;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 
 a {
@@ -7,7 +55,7 @@ a {
   transition: 0.35s;
 }
 
-a:hover {
+i:hover {
   color: #d048b6 !important;
 }
 
@@ -25,20 +73,6 @@ input:hover {
   outline: 0;
 }
 
-@media (min-width: 1366px)  {
-  .col-md-7 {
-    flex: 0 0 55%;
-    max-width: 55%;
-  }
-}
-
-@media (min-width: 1440px)  {
-  .col-md-7 {
-    flex: 0 0 52%;
-    max-width: 52.5%;
-  }
-}
-
 .navbar {
   background: #27293d;
   box-shadow: 0 0 17.5px 0 rgba(0, 0, 0, 0.425);
@@ -53,10 +87,11 @@ input:hover {
 
 .nav-item {
   font-size: 17.5px;
+  margin-left: auto;
 }
 
 .navbar-nav li i  {
-  margin-left: 12.5px;
+  margin-left: 5px;
   font-size: 15px;
 }
 
@@ -111,6 +146,7 @@ input:hover {
   width: 30px;
   height: 30px;
   border-radius: 20px;
+  float: left;
 }
 
 .nav-icon {
