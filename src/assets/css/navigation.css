@@ -108,3 +108,56 @@ input:hover {
   font-size: 1.25em !important;
   padding-top: 2.5px;
 }
+
+.modal-body a {
+  font-weight: 500;
+}
+
+.btn-verify {
+  margin-left: auto !important;
+}
+
+.vote-selection {
+  float: left;
+  font-size: 16.75px;
+  letter-spacing: 0.075px;
+}
+
+.modal {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background: #27293d;
+  color: white;
+}
+
+.modal-content .modal-body {
+  line-height: normal;
+}
+
+.modal-body {
+  font-size: 20px;
+  font-weight: normal;
+  text-align: center;
+  color: #9A9A9A;
+  mix-blend-mode: normal;
+  opacity: 0.8;
+  align-self: center;
+}
+
+.modal-title {
+  font-size: 25px;
+  color: white !important;
+  max-width: 75%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 25px;
+  letter-spacing: 0.10625px;
+  mix-blend-mode: normal;
+  flex: none;
+  order: 0;
+}

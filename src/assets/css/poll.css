@@ -4,8 +4,8 @@
 
 .proposalComponent {
   position: relative;
-  margin-top: 2.5rem;
-  padding-bottom: 2.5rem;
+  padding-bottom: 1em;
+  padding-top: .25em;
 }
 
 .card .card-header .card-category  {
@@ -13,55 +13,14 @@
 }
 
 .poll-title {
-  position: relative;
-  font-size: 22.5px;
+  padding-top: 2.5px;
+  font-size: 25px;
   font-weight: 200;
   color: white;
-  clear: both;
 }
 
 a .card {
   color: #525f7f;
-}
-
-.modal {
-  background: rgba(0, 0, 0, 0.5);
-}
-
-.modal-content {
-  background: #27293d;
-  color: white;
-}
-
-.modal-content .modal-body {
-  line-height: normal;
-}
-
-.modal-body {
-  font-size: 20px;
-  font-weight: normal;
-  text-align: center;
-  color: #9A9A9A;
-  mix-blend-mode: normal;
-  opacity: 0.8;
-  align-self: center;
-}
-
-.modal-title {
-  font-size: 25px;
-  color: white !important;
-  max-width: 75%;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  font-style: normal;
-  font-weight: 300;
-  line-height: 25px;
-  letter-spacing: 0.10625px;
-  mix-blend-mode: normal;
-  opacity: 80%;
-  flex: none;
-  order: 0;
 }
 
 .poll-qr {
@@ -73,16 +32,19 @@ a .card {
   margin-right: 62.5px;
 }
 
-.modal-body a {
-  font-weight: 500;
+.poll-profile {
+  width: 37.5px;
+  height: 37.5px;
+  border-radius: 30px;
 }
 
-.btn-verify {
-  margin-left: auto !important;
+.poll-title .poll-issuer {
+  display: block;
 }
 
-.vote-selection {
+.poll-issuer {
+  border: solid 2px rgba(255, 0, 0, 0);
+  border-radius: 30px;
+  margin-right: 25px;
   float: left;
-  font-size: 16.75px;
-  letter-spacing: 0.075px;
 }

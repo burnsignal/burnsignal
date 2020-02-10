@@ -11,6 +11,7 @@ const QRCode = require('qrcode.react')
 function Option(props) {
   const ENS = `${createURL(props.title)}.burnsignal.eth`
   let { state } = useContext(store)
+  let { title } = props
 
   function Unauthenticated({ option }){
     return(
@@ -66,7 +67,7 @@ function Option(props) {
           </button>
         </div>
         <div className="modal-body">
-          Before casting your vote, you should verify your Ethereum account using BrightId.
+          Before casting your vote, you should verify your Ethereum account using BrightID.
         </div>
         <div class="modal-footer">
           <button type="button" className="btn btn-primary btn-verify" data-dismiss="modal">

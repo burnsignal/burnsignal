@@ -1,3 +1,5 @@
+import { keccak_256, sha3_256 } from 'js-sha3'
+
 export const chartId = str => [...str.substring(0, 10)].reduceRight((res,_,__,arr) => [...res,arr.splice(~~(Math.random()*arr.length),1)[0]],[]).join('');
 
 export const sortVotes = (_yesVotes, _noVotes) => {
@@ -75,3 +77,46 @@ export async function getVoteInfo(proposalData){
 
   return { voters: voters, totalValue: totalValue}
 }
+
+export const toChecksumAddress = (address) => {
+  address = address.toLowerCase().replace('0x', '')
+  var hash = keccak_256(address);
+  var ret = '0x'
+
+  for (var i = 0; i < address.length; i++) {
+    if (parseInt(hash[i], 16) >= 8) {
+      ret += address[i].toUpperCase()
+    } else {
+      ret += address[i]
+    }
+  }
+
+  return ret
+}
+
+export const isAddress = (address) => {
+    if (!/^(0x)?[0-9a-f]{40}$/i.test(address)) {
+        // check if it has the basic requirements of an address
+        return false;
+    } else if (/^(0x)?[0-9a-f]{40}$/.test(address) || /^(0x)?[0-9A-F]{40}$/.test(address)) {
+        // If it's all small caps or all all caps, return true
+        return true;
+    } else {
+        // Otherwise check each case
+        return isChecksumAddress(address);
+    }
+};
+
+export const isChecksumAddress = (address) => {
+    // Check each case
+    address = address.replace('0x','');
+    //var addressHash = sha3(address.toLowerCase());
+	var addressHash = sha3_256(address.toLowerCase());
+    for (var i = 0; i < 40; i++ ) {
+        // the nth letter should be uppercase if the nth digit of casemap is 1
+        if ((parseInt(addressHash[i], 16) > 7 && address[i].toUpperCase() !== address[i]) || (parseInt(addressHash[i], 16) <= 7 && address[i].toLowerCase() !== address[i])) {
+            return false;
+        }
+    }
+    return true;
+};

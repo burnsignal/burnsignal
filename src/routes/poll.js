@@ -1,10 +1,11 @@
 import React, { Fragment, useContext, useState, useEffect } from 'react';
-import { useParams, useHistory } from "react-router-dom"
+import { Link, useParams, useHistory } from "react-router-dom"
+import makeBlockie from 'ethereum-blockies-base64'
 import { Row, Col } from "reactstrap"
 
 import { getVoteInfo, getRecords } from '../constants/operatives'
 import { getPollMetadata } from "../constants/calls/GraphQL"
-import { chartId } from "../constants/operatives"
+import { chartId, toChecksumAddress } from "../constants/operatives"
 import { store } from '../state'
 
 import Spline from '../assets/components/charts/spline'
@@ -21,6 +22,7 @@ function Poll(props){
   const [ graphState, setGraphState ] = useState(false)
   const [ uniqueAddresses, setUnique ] = useState(0)
   const [ totalPledged, setPledged ] = useState(0)
+  const [ pollAuthor, setAuthor ] = useState("0x")
   const [ pollTopic , setTopic ] = useState("")
 
   let { state } = useContext(store)
@@ -53,6 +55,7 @@ function Poll(props){
 
         setCount({ yes: parseInt(yes), no: parseInt(no) })
         setOptions({ yes: optionAaddr, no: optionBaddr })
+        setAuthor(toChecksumAddress(issuer))
         setUnique(records.voters.length)
         setRecords({ ...records })
         setDescription(body)
@@ -69,6 +72,9 @@ function Poll(props){
         <Col sm="12" md={{ size: 8, offset: 2 }}>
           <div className="card">
             <div className="card-header">
+              <Link className="poll-issuer" to={`/profile/${pollAuthor}`}>
+                <img className="poll-profile" src={makeBlockie(pollAuthor)} />
+              </Link>
               <div className="poll-title">{pollTopic}</div>
             </div>
             <div className="card-body">
