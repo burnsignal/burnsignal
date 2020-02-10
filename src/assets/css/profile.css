@@ -1,3 +1,31 @@
+
+.card ul  {
+  list-style: none; /* Remove default bullets */
+  padding-bottom: -20px;
+}
+
+.stat-icon {
+  margin-right: 5px;
+  color: #d048b6;
+}
+
+.card li {
+  transition: 0.35s;
+}
+
+.card li:hover {
+  color: #d048b6;
+}
+
+.card li:before {
+  content: "\2022";
+  color: #d048b6;
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
 .profile-blockie {
   border-radius: 75px;
   width: 100px;
@@ -10,11 +38,30 @@
 
 .profile-stats {
   position: relative;
+  color: #525f7f;
   float: right;
   clear: both;
+  padding: 5px;
 }
 
 .profile-address {
   font-size: 22.5px;
-  margin-right: 25px;
+  margin-right: 22.5px;
+  color: white;
+  padding-bottom: 7.5px;
+}
+
+.profile-address a {
+  color: white;
+}
+
+.profile-stats .profile-stat {
+  margin-right: 50px;
+}
+
+.profile-verified {
+  color: #525f7f !important;
+  padding-top: 12.5px;
+  padding-bottom: 7.5px;
+  font-weight: 400;
 }

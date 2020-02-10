@@ -1,5 +1,14 @@
+.profileComponent .card-body {
+  padding: .5em;
+}
+
 a {
   color: #017afc;
+  transition: 0.35s;
+}
+
+a:hover {
+  color: #d048b6 !important;
 }
 
 input {
