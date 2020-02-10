@@ -2,6 +2,16 @@ import { keccak_256, sha3_256 } from 'js-sha3'
 
 export const chartId = str => [...str.substring(0, 10)].reduceRight((res,_,__,arr) => [...res,arr.splice(~~(Math.random()*arr.length),1)[0]],[]).join('');
 
+export const ETH = wei => {
+  if(parseInt(wei) >= 1000000000000000) {
+    return `${parseFloat(wei/Math.pow(10,18)).toFixed(3)} ETH`
+  } else if(parseInt(wei) >= 1000000){
+    return `${(wei/1000000000).toFixed(3)} GWEI`
+  } else if(parseInt(wei) < 1000000) {
+    return `${wei} WEI`
+  }
+}
+
 export const sortVotes = (_yesVotes, _noVotes) => {
   let totalVotes = _yesVotes.concat(_noVotes);
 
@@ -39,43 +49,6 @@ export const createURL = string => {
   if(string.substring(string.length-1, string.length) === "-"){
     string = string.slice(0, string.length-1)
   } return string.replace('?', '');
-}
-
-// Code to process vote info. Should be easy to replace.
-// This is where BrightID check will be added.
-
-export async function getVoteInfo(proposalData){
-  var anonymousDeposits = proposalData.data.anonymousDeposits;
-  var noDeposits = anonymousDeposits.length;
-  var voters = {};
-  var totalValue = 0;
-
-  // Check all the deposits for proposal
-  for(var i = 0;i < noDeposits;i++){
-
-    var yesValue = 0, noValue = 0;
-
-    // Add BrightID check. Don't count vote if not.??
-
-    if(anonymousDeposits[i].Choice === 'yes'){
-      yesValue = parseFloat(anonymousDeposits[i].ContriValue);
-    } else {
-      noValue = parseFloat(anonymousDeposits[i].ContriValue);
-    }
-
-    // Check if address has already been counted & initialise if not
-    if(voters[anonymousDeposits[i].SenderAddr] === undefined){
-      voters[anonymousDeposits[i].SenderAddr] = { yesTotalValue: yesValue, noTotalValue: noValue };
-    }else{
-      var newYesValue = voters[anonymousDeposits[i].SenderAddr].yesTotalValue + yesValue;
-      var newNoValue = voters[anonymousDeposits[i].SenderAddr].noTotalValue + noValue;
-      voters[anonymousDeposits[i].SenderAddr] = { yesTotalValue: newYesValue, noTotalValue: newNoValue };
-    }
-
-    totalValue += parseFloat(anonymousDeposits[i].ContriValue);
-  }
-
-  return { voters: voters, totalValue: totalValue}
 }
 
 export const toChecksumAddress = (address) => {
@@ -120,3 +93,41 @@ export const isChecksumAddress = (address) => {
     }
     return true;
 };
+
+
+// Code to process vote info. Should be easy to replace.
+// This is where BrightID check will be added.
+
+export async function getVoteInfo(proposalData){
+  var anonymousDeposits = proposalData.data.anonymousDeposits;
+  var noDeposits = anonymousDeposits.length;
+  var voters = {};
+  var totalValue = 0;
+
+  // Check all the deposits for proposal
+  for(var i = 0;i < noDeposits;i++){
+
+    var yesValue = 0, noValue = 0;
+
+    // Add BrightID check. Don't count vote if not.??
+
+    if(anonymousDeposits[i].Choice === 'yes'){
+      yesValue = parseFloat(anonymousDeposits[i].ContriValue);
+    } else {
+      noValue = parseFloat(anonymousDeposits[i].ContriValue);
+    }
+
+    // Check if address has already been counted & initialise if not
+    if(voters[anonymousDeposits[i].SenderAddr] === undefined){
+      voters[anonymousDeposits[i].SenderAddr] = { yesTotalValue: yesValue, noTotalValue: noValue };
+    }else{
+      var newYesValue = voters[anonymousDeposits[i].SenderAddr].yesTotalValue + yesValue;
+      var newNoValue = voters[anonymousDeposits[i].SenderAddr].noTotalValue + noValue;
+      voters[anonymousDeposits[i].SenderAddr] = { yesTotalValue: newYesValue, noTotalValue: newNoValue };
+    }
+
+    totalValue += parseFloat(anonymousDeposits[i].ContriValue);
+  }
+
+  return { voters: voters, totalValue: totalValue}
+}

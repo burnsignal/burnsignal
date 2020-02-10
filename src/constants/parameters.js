@@ -1,7 +1,6 @@
 import { PINK_PRIMARY } from "./palette.js"
 
-export const WEEKDAYS =  ['Monday', 'Tuesday', 'Wendsday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ]
-
+export const WEEKDAYS = ['Monday', 'Tuesday', 'Wendsday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ]
 export const CHARTS = {
   BAR_CONFIG: (_data, _range) => ({
     type: 'horizontalBar',

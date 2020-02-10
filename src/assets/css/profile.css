@@ -4,14 +4,17 @@
   height: 100px;
 }
 
-.profile-address .profile-blockie  {
+.profile-stats .profile-blockie  {
   display: block;
 }
 
-.profile-address {
+.profile-stats {
   position: relative;
-  font-size: 22.5px;
-  margin-right: 25px;
   float: right;
   clear: both;
+}
+
+.profile-address {
+  font-size: 22.5px;
+  margin-right: 25px;
 }
