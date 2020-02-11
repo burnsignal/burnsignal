@@ -11,8 +11,10 @@ import { store } from '../../state'
 
 function Navigation() {
   const [ dropdownComponent, setDropdown ] = useState(<Login />)
-  const [ dropdownOpen, setDropdownOpen ] = useState(false);
+  const [ dropdownOpen, setDropdownOpen ] = useState(false)
   const [ navComponent, setNav ] = useState(<Fragment />)
+  const [ description, setDescription ] = useState("")
+  const [ question, setQuestion ] = useState("")
   const [ address, setAddress ] = useState("")
 
   const toggle = () => setDropdownOpen(prevState => !prevState);
@@ -94,6 +96,57 @@ function Navigation() {
     )
   }
 
+  function Create() {
+    return(
+      <div className="modal fade" id="create" tabIndex="-1" role="dialog" aria-hidden="true">
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title align-left">Create</h5>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body about">
+              <input onChange={handleQuestion} placeholder="What question is on your mind?" className="create-poll-question" />
+              <textarea onChange={handleDescription} placeholder="Description" className="create-poll-description" />
+              <button className="btn btn-primary button-poll" onClick={clearValues}> Create </button>
+            </div>
+          </div>
+        </div>
+      </div>
+     )
+  }
+
+  const clearValues = () => {
+    document.getElementsByClassName("create-poll-description")[0].value = ""
+    document.getElementsByClassName("create-poll-question")[0].value = ""
+  }
+
+  const handleDescription = (event) => {
+    setDescription(event.target.value)
+  }
+
+  const handleQuestion = (event) => {
+    setQuestion(event.target.value)
+  }
+
+  const createPoll = async() => {
+    let { web3, instance, accounts } = state
+
+    const recentBlock = await web3.eth.getBlock("latest")
+    const deadline = recentBlock.timestamp + 604800
+
+    await instance.methods.newVoteProposal(question,
+      description,
+      deadline
+    ).send({
+      from: accounts[0]
+    }).on('transactionHash', (hash) => {
+      clearValues()
+    })
+  }
+
   return(
     <Row>
       <Col sm="12" md={{ size: 8, offset: 2 }}>
@@ -128,6 +181,7 @@ function Navigation() {
       </nav>
      </Col>
     <About />
+    <Create />
    </Row>
   )
 }

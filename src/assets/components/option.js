@@ -83,18 +83,17 @@ function Option(props) {
   const makeTransaction = async(option) => {
     let { web3 } = state
 
+    props.dismiss()
+
     const burn = burnAmount % 1 === 0 ?
       web3.utils.toBN(parseFloat(burnAmount)).mul(web3.utils.toBN(1e18)) :
       parseInt(burnAmount*Math.pow(10,18))
 
-    await new Promise(resolve =>
-      web3.eth.sendTransaction({
+    await web3.eth.sendTransaction({
         to: props.address[option],
         from: state.accounts[0],
         value: burn
-      }).on('transactionHash', (hash) => {
-       resolve(hash);
-     }))
+      })
   }
 
   const handleInput = (event) => {
