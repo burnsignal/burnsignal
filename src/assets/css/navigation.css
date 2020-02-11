@@ -33,18 +33,25 @@
   border-radius: 40px;
 }
 
-.create-poll-field {
+.modal-content .create-poll-question, .modal-content .create-poll-description {
+  width: 100%;
+}
+
+.create-poll-question, .create-poll-description {
   width: 90%;
   border: 2px solid #2B3553;
   box-sizing: border-box;
   background: rgba(255, 255, 255, 0);
   border-radius: 6px;
   padding: .5em;
-  height: 3.75em;
   font-size: 17.5px;
   text-align: left;
   float: right;
-  margin-top: -7.5px;
+}
+
+.create-poll-description {
+  margin-top: 10px;
+  height: 3.75em;
 }
 
 .dropdown-item {

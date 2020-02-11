@@ -1,5 +1,7 @@
 import { PINK_PRIMARY } from "./palette.js"
 
+export const CONTRACT_ADDRESS = "0x6936b81d7629378aabddcf882b2a7fdfff1cd962"
+
 export const WEEKDAYS = ['Monday', 'Tuesday', 'Wendsday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ]
 export const CHARTS = {
   BAR_CONFIG: (_data, _range) => ({
@@ -88,3 +90,102 @@ export const CHARTS = {
     pointRadius: 4,
   })
 }
+
+export const CONTRACT_ABI = [
+  {
+   "constant": false,
+   "inputs": [
+    {
+     "name": "_name",
+     "type": "string"
+    },
+    {
+     "name": "_data",
+     "type": "string"
+    },
+    {
+     "name": "_deadline",
+     "type": "uint64"
+    }
+   ],
+   "name": "newVoteProposal",
+   "outputs": [
+    {
+     "name": "",
+     "type": "uint256"
+    }
+   ],
+   "payable": false,
+   "stateMutability": "nonpayable",
+   "type": "function"
+  },
+  {
+   "inputs": [],
+   "payable": false,
+   "stateMutability": "nonpayable",
+   "type": "constructor"
+  },
+  {
+   "anonymous": false,
+   "inputs": [
+    {
+     "indexed": false,
+     "name": "proposalID",
+     "type": "uint256"
+    },
+    {
+     "indexed": false,
+     "name": "issuer",
+     "type": "address"
+    },
+    {
+     "indexed": false,
+     "name": "deadline",
+     "type": "uint256"
+    },
+    {
+     "indexed": false,
+     "name": "name",
+     "type": "string"
+    },
+    {
+     "indexed": false,
+     "name": "data",
+     "type": "string"
+    }
+   ],
+   "name": "newProposalIssued",
+   "type": "event"
+  },
+  {
+   "constant": true,
+   "inputs": [
+    {
+     "name": "",
+     "type": "uint256"
+    }
+   ],
+   "name": "proposals",
+   "outputs": [
+    {
+     "name": "issuer",
+     "type": "address"
+    },
+    {
+     "name": "deadline",
+     "type": "uint256"
+    },
+    {
+     "name": "name",
+     "type": "string"
+    },
+    {
+     "name": "data",
+     "type": "string"
+    }
+   ],
+   "payable": false,
+   "stateMutability": "view",
+   "type": "function"
+  }
+ ]

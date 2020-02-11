@@ -4,6 +4,7 @@ import makeBlockie from 'ethereum-blockies-base64'
 import { Link } from 'react-router-dom'
 import { Col, Row } from "reactstrap"
 
+import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../../constants/parameters"
 import getWeb3 from "../../utils/getWeb3"
 import logo from "../images/logo.png"
 import { store } from '../../state'
@@ -22,12 +23,16 @@ function Navigation() {
     try {
       const web3 = await getWeb3()
       const accounts = await web3.eth.getAccounts()
-      setDropdown(<Logout account={accounts[0]}/>)
-      setNav(<LoggedIn account={accounts[0]}/>)
+      const instance = new web3.eth.Contract(
+        CONTRACT_ABI, CONTRACT_ADDRESS)
       dispatch({
-        payload: { web3, accounts },
+        payload: {
+          web3, accounts, instance
+        },
         type: "WEB3"
       })
+      setDropdown(<Logout account={accounts[0]}/>)
+      setNav(<LoggedIn account={accounts[0]}/>)
     } catch(e) {
       alert("Web3 login could not be detected")
     }
@@ -72,12 +77,10 @@ function Navigation() {
   function Logout({ account }) {
     return(
       <Fragment>
-        <DropdownItem>
-          <Link to="/"> Create </Link>
-        </DropdownItem>
-        <DropdownItem>
-          <Link to={`/profile/${account}`}> Profile </Link>
-        </DropdownItem>
+        <DropdownItem type="button" data-target="#create" data-toggle="modal"> Create </DropdownItem>
+        <Link to={`/profile/${account}`}>
+          <DropdownItem> Profile </DropdownItem>
+        </Link>
         <DropdownItem>Logout</DropdownItem>
       </Fragment>
     )
@@ -110,9 +113,9 @@ function Navigation() {
                    <i className="nav-login-icon tim-icons icon-minimal-down"></i>
                  </DropdownToggle>
                  <DropdownMenu>
-                   <DropdownItem>
-                      <Link to="/"> Home </Link>
-                   </DropdownItem>
+                   <Link to="/">
+                     <DropdownItem> Home </DropdownItem>
+                   </Link>
                    {dropdownComponent}
                    <DropdownItem divider />
                    <DropdownItem type="button" data-target="#about" data-toggle="modal">About</DropdownItem>
