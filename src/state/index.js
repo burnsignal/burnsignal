@@ -10,7 +10,7 @@ const StateProvider = ( { children } ) => {
       case 'POLL':
         return { ...state, polls: action.payload }
       case 'WEB3':
-        return { ...state, web3: action.payload, auth: true }
+        return { ...state, ...action.payload, auth: true, verified: true }
       default:
         return state
     };

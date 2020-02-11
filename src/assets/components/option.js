@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useContext } from 'react'
+import React, { Fragment, useState, useContext, useEffect } from 'react'
 import { Dropdown, DropdownToggle } from "reactstrap"
 import { Col, Row } from "reactstrap"
 
@@ -10,6 +10,8 @@ const QRCode = require('qrcode.react')
 
 function Option(props) {
   const ENS = `${createURL(props.title)}.burnsignal.eth`
+  const [ burnAmount, setBurn ] = useState(0)
+
   let { state } = useContext(store)
   let { title } = props
 
@@ -24,12 +26,12 @@ function Option(props) {
         </div>
         <div className="modal-body">
           Vote <span id="pink">{option}</span> by sending any amount of ETH to <br/>
-          <a href='https://etherscan.io'><span id="pink">{option}</span>.{ENS}</a>
+          <a target="_" href='https://etherscan.io'><span id="pink">{option}</span>.{ENS}</a>
           <div className="poll-qr">
             <QRCode value={props.address[option]} />
           </div>
           To ensure that you vote counts, please link your ethereum account
-          to your BrightID account at  <a href="https://ethereum.brightid.org">ethereum.brightid.org</a>
+          to your BrightID account at  <a target="_" href="https://ethereum.brightid.org">ethereum.brightid.org</a>
         </div>
       </div>
      )
@@ -46,10 +48,10 @@ function Option(props) {
         </div>
         <div className="modal-body">
           <span className="vote-selection"> How much ETH will you burn to cast your vote? </span>
-          <input className="modal-input" placeholder="0.5 ETH"/>
+          <input type="number" value={burnAmount} onChange={handleInput} className="modal-input" placeholder="0.5 ETH"/>
         </div>
         <div class="modal-footer">
-          <button type="button" className="btn btn-primary btn-verify" data-dismiss="modal">
+          <button type="button" className="btn btn-primary btn-verify" data-dismiss="modal" onClick={() => makeTransaction(option)}>
             Vote {option}
           </button>
         </div>
@@ -76,6 +78,27 @@ function Option(props) {
         </div>
       </div>
      )
+  }
+
+  const makeTransaction = async(option) => {
+    let { web3 } = state
+
+    const burn = burnAmount % 1 === 0 ?
+      web3.utils.toBN(parseFloat(burnAmount)).mul(web3.utils.toBN(1e18)) :
+      parseInt(burnAmount*Math.pow(10,18))
+
+    await new Promise(resolve =>
+      web3.eth.sendTransaction({
+        to: props.address[option],
+        from: state.accounts[0],
+        value: burn
+      }).on('transactionHash', (hash) => {
+       resolve(hash);
+     }))
+  }
+
+  const handleInput = (event) => {
+    setBurn(event.target.value)
   }
 
   return (

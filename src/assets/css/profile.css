@@ -3,13 +3,8 @@
 }
 
 .card ul  {
-  list-style: none; 
+  list-style: none;
   padding-bottom: -20px;
-}
-
-.stat-icon {
-  margin-right: 5px;
-  color: #d048b6;
 }
 
 .card li {
@@ -56,6 +51,10 @@
 
 .profile-address a {
   color: white;
+}
+
+.profile-address a:hover {
+  color: #d048b6;
 }
 
 .profile-stats .profile-stat {

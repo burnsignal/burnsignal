@@ -22,10 +22,10 @@ function Navigation() {
     try {
       const web3 = await getWeb3()
       const accounts = await web3.eth.getAccounts()
+      setDropdown(<Logout account={accounts[0]}/>)
       setNav(<LoggedIn account={accounts[0]}/>)
-      setDropdown(<Logout />)
       dispatch({
-        payload: web3,
+        payload: { web3, accounts },
         type: "WEB3"
       })
     } catch(e) {
@@ -39,10 +39,45 @@ function Navigation() {
     )
   }
 
-  function Logout() {
+  function About() {
+    return(
+      <div className="modal fade" id="about" tabIndex="-1" role="dialog" aria-hidden="true">
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title align-left">About</h5>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body about">
+              <p>Burn Signal is an experiment in distributed preference signaling where verified unique
+              users burn ETH to signal their opinion.</p>
+              <p>Votes are weighted quadratically.</p>
+              <p>We use <a target="_" href="https://brightid.org">BrightID</a> as our proof of uniqueness, only votes
+              cast by ethereum addresses that are verified unique by BrightID count towards the outcome of
+              a burn signals.</p><br/>
+              <p>Burn Signal is funded by grants and community contributions. If you would like to contribute
+              funds, check out our <a target="_" href="https://gitcoin.co/grants/138/burner-vote">Gitcoin Grants campaign</a>,
+              if you would like to contribute code or other work, check out our <a target="_" href="https://github.com/burnsignal">
+              GitHub</a> and our <a target="_" href="https://colony.io/colony/burn">Colony</a>.</p><br/>
+              <p>Check out our <a target="_" href="https://blog.burnsignal.io"> blog </a> for more information.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+     )
+  }
+
+  function Logout({ account }) {
     return(
       <Fragment>
-        <DropdownItem>Create</DropdownItem>
+        <DropdownItem>
+          <Link to="/"> Create </Link>
+        </DropdownItem>
+        <DropdownItem>
+          <Link to={`/profile/${account}`}> Profile </Link>
+        </DropdownItem>
         <DropdownItem>Logout</DropdownItem>
       </Fragment>
     )
@@ -75,11 +110,13 @@ function Navigation() {
                    <i className="nav-login-icon tim-icons icon-minimal-down"></i>
                  </DropdownToggle>
                  <DropdownMenu>
-                   <DropdownItem>Home</DropdownItem>
+                   <DropdownItem>
+                      <Link to="/"> Home </Link>
+                   </DropdownItem>
                    {dropdownComponent}
                    <DropdownItem divider />
-                   <DropdownItem>About</DropdownItem>
-                   <DropdownItem>Blog</DropdownItem>
+                   <DropdownItem type="button" data-target="#about" data-toggle="modal">About</DropdownItem>
+                   <DropdownItem target="_" href="https://blog.burnsignal.io">Blog</DropdownItem>
                  </DropdownMenu>
                </Dropdown>
             </li>
@@ -87,6 +124,7 @@ function Navigation() {
         </div>
       </nav>
      </Col>
+    <About />
    </Row>
   )
 }
