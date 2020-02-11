@@ -15,6 +15,7 @@ import { store } from './state'
 import Profile from './routes/profile'
 import Poll from './routes/poll'
 import Feed from './routes/feed'
+import New from './routes/new'
 
 function App(props) {
   let { dispatch, state } = useContext(store)
@@ -39,6 +40,7 @@ function App(props) {
         <Route path="/profile/:address" component={Profile} />
         <Route path="/poll/:address" component={Poll} />
         <Route exact path="/" component={Feed} />
+        <Route path="/new" component={New} />
       </Container>
     </main>
   );

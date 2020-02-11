@@ -12,9 +12,52 @@
   }
 }
 
+.new-poll {
+  margin-top: -3.5em;
+}
+
+.new-poll .card {
+  padding-left: 22.5px;
+  padding-right: 22.5px;
+  padding-top: 7.5px;
+}
+
+.new-poll .card-header .card-category {
+  color: white;
+}
+
+.new-poll-profile {
+  float: left;
+  width: 50px;
+  height: 50px;
+  border-radius: 40px;
+}
+
+.create-poll-field {
+  width: 90%;
+  border: 2px solid #2B3553;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0);
+  border-radius: 6px;
+  padding: .5em;
+  height: 3.75em;
+  font-size: 17.5px;
+  text-align: left;
+  float: right;
+  margin-top: -7.5px;
+}
+
 .dropdown-item {
   color: #2B3553 !important;
   font-weight: 500 !important;
+}
+
+.button-poll {
+  border-radius: 25px;
+  padding: 10px 30px;
+  font-size: 14px;
+  margin-top: 12.5px;
+  float: right;
 }
 
 .navbar-nav li a {
@@ -69,16 +112,16 @@ i:hover {
   color: #d048b6 !important;
 }
 
-input {
+input, textarea {
   color: white;
 }
 
-input:focus {
+input:focus, textarea:focus {
   border-color: #DD2A95;
   outline: 0;
 }
 
-input:hover {
+input:hover, textarea:hover {
   border-color: #DD2A95;
   outline: 0;
 }

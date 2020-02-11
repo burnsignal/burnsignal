@@ -33,12 +33,14 @@ function Profile() {
   , [])
 
   return (
-    <div className="profileComponent">
+    <div className="profile">
       <Row>
         <Col sm="12" md={{ size: 8, offset: 2 }}>
           <div className="card">
             <div className="card-header">
-              <img className="profile-blockie" src={makeBlockie(address)} />
+              <Link to={`/profile/${address}`}>
+                <img className="profile-blockie" src={makeBlockie(address)} />
+              </Link>
               <div className="profile-stats">
                 <div className="profile-address">
                   <a href={`https://etherscan.io/address/${address}`}>{toChecksumAddress(address)}</a>

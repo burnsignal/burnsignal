@@ -67,7 +67,7 @@ function Poll(props){
   }, [ state.polls ])
 
   return(
-     <div className="proposalComponent">
+     <div className="poll">
       <Row>
         <Col sm="12" md={{ size: 8, offset: 2 }}>
           <div className="card">
