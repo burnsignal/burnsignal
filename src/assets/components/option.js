@@ -15,6 +15,10 @@ function Option(props) {
   let { state } = useContext(store)
   let { title } = props
 
+  const handleBurn = (e) => {
+    setBurn(e.target.value)
+  }
+
   function Unauthenticated({ option }){
     return(
       <div className="modal-content">
@@ -48,7 +52,7 @@ function Option(props) {
         </div>
         <div className="modal-body">
           <span className="vote-selection"> How much ETH will you burn to cast your vote? </span>
-          <input type="number" value={burnAmount} onChange={handleInput} className="modal-input" placeholder="0.5 ETH"/>
+          <input type="number" autoFocus onChange={handleBurn} value={burnAmount} className="modal-input" placeholder="0.5 ETH"/>
         </div>
         <div class="modal-footer">
           <button type="button" className="btn btn-primary btn-verify" data-dismiss="modal" onClick={() => makeTransaction(option)}>

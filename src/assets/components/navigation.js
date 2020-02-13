@@ -16,8 +16,7 @@ function Navigation() {
   const [ description, setDescription ] = useState("")
   const [ question, setQuestion ] = useState("")
   const [ address, setAddress ] = useState("")
-
-  const toggle = () => setDropdownOpen(prevState => !prevState);
+  const [ focus, setFocus ] = useState({})
 
   let { dispatch, state } = useContext(store)
 
@@ -108,8 +107,8 @@ function Navigation() {
               </button>
             </div>
             <div className="modal-body about">
-              <input onChange={handleQuestion} placeholder="What question is on your mind?" className="create-poll-question" />
-              <textarea onChange={handleDescription} placeholder="Description" className="create-poll-description" />
+              <input autoFocus={focus.question} onMouseEnter={triggerFocus} onMouseLeave={leaveFocus} name="question" value={question} onChange={handleQuestion} placeholder="What question is on your mind?" className="create-poll-question" />
+              <textarea autoFocus={focus.description} name="description" onMouseEnter={triggerFocus} onMouseLeave={leaveFocus} value={description} onChange={handleDescription} placeholder="Description" className="create-poll-description" />
               <button className="btn btn-primary button-poll" onClick={clearValues}> Create </button>
             </div>
           </div>
@@ -121,14 +120,6 @@ function Navigation() {
   const clearValues = () => {
     document.getElementsByClassName("create-poll-description")[0].value = ""
     document.getElementsByClassName("create-poll-question")[0].value = ""
-  }
-
-  const handleDescription = (event) => {
-    setDescription(event.target.value)
-  }
-
-  const handleQuestion = (event) => {
-    setQuestion(event.target.value)
   }
 
   const createPoll = async() => {
@@ -145,6 +136,24 @@ function Navigation() {
     }).on('transactionHash', (hash) => {
       clearValues()
     })
+  }
+  
+  const toggle = () => setDropdownOpen(prevState => !prevState);
+
+  const handleDescription = (e) => {
+    setDescription(e.target.value)
+  }
+
+  const handleQuestion = (e) => {
+    setQuestion(e.target.value)
+  }
+
+  const triggerFocus = (e) => {
+    setFocus({ [e.target.name]: true })
+  }
+
+  const leaveFocus = (e) => {
+    setFocus({ [e.target.name]: false })
   }
 
   return(
