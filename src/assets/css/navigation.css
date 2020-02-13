@@ -12,6 +12,10 @@
   }
 }
 
+a button {
+  pointer-events: none;
+}
+
 .new-poll {
   margin-top: -3.5em;
 }

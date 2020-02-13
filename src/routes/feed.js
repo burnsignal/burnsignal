@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { Row, Col } from "reactstrap"
 
 import { store } from '../state'
-import Proposal from './poll';
+import Poll from './poll';
 
  const useInputChange = () => {
   const [input, setInput] = useState({})
@@ -92,7 +92,7 @@ function Feed() {
       )}
       {Object.keys(state.polls).reverse().map((id, index) => (
         <Link to={`/poll/${id}`}>
-          <Proposal key={id} id={id}/>
+          <Poll key={id} id={id}/>
         </Link>
       ))}
     </Fragment>
