@@ -10,7 +10,7 @@ const QRCode = require('qrcode.react')
 
 function Option(props) {
   const ENS = `${createURL(props.title)}.burnsignal.eth`
-  const [ burnAmount, setBurn ] = useState(0)
+  const [ burnAmount, setBurn ] = useState("")
 
   let { state } = useContext(store)
   let { title } = props
