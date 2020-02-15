@@ -4,7 +4,7 @@ import { useParams, Link } from 'react-router-dom'
 import { Row, Col } from "reactstrap"
 
 import { ETH, toChecksumAddress, createURL } from '../constants/operatives'
-import { getProfileMetadata } from '../constants/calls/GraphQL'
+import { getProfileMetadata, getPollAddress } from '../constants/calls/GraphQL'
 import { store } from '../state'
 
 import '../assets/css/profile.css'
@@ -20,13 +20,23 @@ function Profile() {
   useEffect(() => {
     const gatherProfile = async() => {
       var profileMetadata = await getProfileMetadata(address)
+      var records = []
 
       let { burned, polls, burns } = profileMetadata
+
+      for(var x = 0; x < polls.length; x++){
+        var route = await getPollAddress(polls[x])
+        if(polls[x] != 'question'){
+          records.push({
+           address: route , title: polls[x]
+         })
+        }
+      }
 
       setAvg(ETH(parseInt(burned)/burns.length))
       setVotes(burns.length)
       setBurned(ETH(burned))
-      setPolls(polls)
+      setPolls(records)
     }
     gatherProfile()
    }
@@ -63,8 +73,8 @@ function Profile() {
             <div className="card-body" />
               <ul>
               {userPolls.map(value => (
-                <Link to={`/poll/${createURL(value)}`}>
-                  <li> {value} </li>
+                <Link to={`/poll/${value.address}`}>
+                  <li> {value.title} </li>
                 </Link>
               ))}
               </ul>

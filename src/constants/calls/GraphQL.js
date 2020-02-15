@@ -2,6 +2,7 @@ import { createURL } from '../operatives'
 
 const QUERY_POLL = poll => `{ polls(where: { id: "${poll}" }) { yes no users { address yes { contributions timestamps total value sqrt } no { contributions timestamps total value sqrt } } } }`
 const QUERY_ISSUES = `{ issues(where: { title_not_contains: "question" }) { id poll body title issuer deadline optionBaddr optionAaddr } }`
+const QUERY_ISSUE = title => `{ issues(where: { title: "${title}" }) { poll } }`
 const BURN_SUBGRAPH_ENDPOINT = "https://api.thegraph.com/subgraphs/name/burnsignal/proof-of-concept"
 const QUERY_USER = user => `{ user(id: "${user.toLowerCase()}") { burns polls burned } }`
 
@@ -31,6 +32,13 @@ export async function getPolls() {
   result.data.issues.forEach(obj => {
     routeObject[createURL(obj.poll)] = { ...obj }
   }); return routeObject;
+}
+
+export async function getPollAddress(issueName){
+  const result = await makeRequest(QUERY_ISSUE(issueName))
+  if(result.data.issues.length == 0){
+    return { id: "" }
+  } else return result.data.issues[0].poll
 }
 
 export async function getPollMetadata(pollName){
