@@ -109,7 +109,7 @@ function Navigation() {
             <div className="modal-body about">
               <input autoFocus={focus.question} onMouseEnter={triggerFocus} onMouseLeave={leaveFocus} name="question" value={question} onChange={handleQuestion} placeholder="What question is on your mind?" className="create-poll-question" />
               <textarea autoFocus={focus.description} name="description" onMouseEnter={triggerFocus} onMouseLeave={leaveFocus} value={description} onChange={handleDescription} placeholder="Description" className="create-poll-description" />
-              <button className="btn btn-primary button-poll" onClick={clearValues}> Create </button>
+              <button className="btn btn-primary button-poll" onClick={createPoll}> Create </button>
             </div>
           </div>
         </div>
@@ -137,7 +137,7 @@ function Navigation() {
       clearValues()
     })
   }
-  
+
   const toggle = () => setDropdownOpen(prevState => !prevState);
 
   const handleDescription = (e) => {

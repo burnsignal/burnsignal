@@ -20,7 +20,7 @@ import Poll from './poll';
 function Feed() {
   const [ description, setDescription ] = useState("")
   const [ question, setQuestion ] = useState("")
-  const [ focus, setFocus ] = useState({})
+  const [ focus, setFocus ] = useState({ })
 
   let { state } = useContext(store)
 
@@ -61,8 +61,8 @@ function Feed() {
     const recentBlock = await web3.eth.getBlock("latest")
     const deadline = recentBlock.timestamp + 604800
 
-    await instance.methods.newVoteProposal("question",
-      "description",
+    await instance.methods.newVoteProposal(question,
+      description,
       deadline
     ).send({
       from: accounts[0]
