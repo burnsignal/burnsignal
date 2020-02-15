@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react'
 import { Dropdown, DropdownToggle } from "reactstrap"
-import { Col, Row } from "reactstrap"
+import { Col, Row, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 import { createURL } from "../../constants/operatives"
 import { PINK_PRIMARY } from "../../constants/palette.js"
@@ -21,14 +21,14 @@ function Option(props) {
 
   function Unauthenticated({ option }){
     return(
-      <div className="modal-content">
-        <div className="modal-header">
+      <Fragment>
+        <ModalHeader>
           <h5 className="modal-title">{props.title}</h5>
-          <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={props.dismiss}>
+          <button type="button" className="close" onClick={props.modalToggle}>
             <span aria-hidden="true">&times;</span>
           </button>
-        </div>
-        <div className="modal-body">
+        </ModalHeader>
+        <ModalBody>
           Vote <span id="pink">{option}</span> by sending any amount of ETH to <br/>
           <a target="_" href='https://etherscan.io'><span id="pink">{option}</span>.{ENS}</a>
           <div className="poll-qr">
@@ -36,51 +36,51 @@ function Option(props) {
           </div>
           To ensure that you vote counts, please link your ethereum account
           to your BrightID account at  <a target="_" href="https://ethereum.brightid.org">ethereum.brightid.org</a>
-        </div>
-      </div>
+        </ModalBody>
+      </Fragment>
      )
    }
 
   function AuthenticatedAndVerified({ option }){
     return(
-      <div className="modal-content">
-        <div className="modal-header">
+      <Fragment>
+        <ModalHeader>
           <h5 className="modal-title">{props.title}</h5>
-          <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={props.dismiss}>
+          <button type="button" className="close" onClick={props.modalToggle}>
             <span aria-hidden="true">&times;</span>
           </button>
-        </div>
-        <div className="modal-body">
+        </ModalHeader>
+        <ModalBody>
           <span className="vote-selection"> How much ETH will you burn to cast your vote? </span>
           <input type="number" autoFocus onChange={handleBurn} value={burnAmount} className="modal-input" placeholder="0.5 ETH"/>
-        </div>
-        <div class="modal-footer">
+        </ModalBody>
+        <ModalFooter>
           <button type="button" className="btn btn-primary btn-verify" data-dismiss="modal" onClick={() => makeTransaction(option)}>
             Vote {option}
           </button>
-        </div>
-      </div>
+        </ModalFooter>
+      </Fragment>
     )
   }
 
   function AuthenticatedAndUnverified(){
     return(
-      <div className="modal-content">
-        <div className="modal-header">
+      <Fragment>
+        <ModalHeader>
           <h5 className="modal-title">Please verify your account</h5>
           <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={props.dismiss}>
             <span aria-hidden="true">&times;</span>
           </button>
-        </div>
-        <div className="modal-body">
+        </ModalHeader>
+        <ModalBody>
           Before casting your vote, you should verify your Ethereum account using BrightID.
-        </div>
-        <div class="modal-footer">
+        </ModalBody>
+        <ModalFooter>
           <button type="button" className="btn btn-primary btn-verify" data-dismiss="modal">
             Verify
           </button>
-        </div>
-      </div>
+        </ModalFooter>
+      </Fragment>
      )
   }
 
@@ -105,20 +105,11 @@ function Option(props) {
   }
   return (
     <Fragment>
-      <div className="modal fade" id="yes" tabIndex="-1" role="dialog" aria-hidden="true">
-        <div className="modal-dialog" role="document">
-          { state.web3 && state.verified && (<AuthenticatedAndVerified option="yes" />) }
-          { !state.web3 && !state.verified && (< Unauthenticated option="yes"/>) }
-          { state.web3 && !state.verified && (<AuthenticatedAndUnverified />) }
-        </div>
-      </div>
-      <div className="modal fade" id="no" tabIndex="-1" role="dialog" aria-hidden="true">
-        <div className="modal-dialog" role="document">
-          { state.web3 && state.verified && (<AuthenticatedAndVerified option="no" />) }
-          { !state.web3 && !state.verified && (< Unauthenticated option="no"/>) }
-          { state.web3 && !state.verified && (<AuthenticatedAndUnverified />) }
-        </div>
-      </div>
+      <Modal isOpen={props.modalState}>
+        { state.web3 && state.verified && (<AuthenticatedAndVerified option={props.modalOption} />) }
+        { !state.web3 && !state.verified && (< Unauthenticated option={props.modalOption} />) }
+        { state.web3 && !state.verified && (<AuthenticatedAndUnverified />) }
+      </Modal>
     </Fragment>
   )
 }

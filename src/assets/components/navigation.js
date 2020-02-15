@@ -1,22 +1,25 @@
 import React, { Fragment, useContext, useState, useEffect } from 'react'
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Dropdown, DropdownToggle, DropdownItem, DropdownMenu, DropdownItemButton,
+   Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import makeBlockie from 'ethereum-blockies-base64'
 import { Link, useHistory, withRouter } from "react-router-dom"
 import { Col, Row } from "reactstrap"
 
 import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../../constants/parameters"
-import getWeb3 from "../../utils/getWeb3"
-import logo from "../images/logo.png"
 import { store } from '../../state'
 
+import getWeb3 from "../../utils/getWeb3"
+import logo from "../images/logo.png"
+
 function Navigation(props) {
+  const [ focus, setFocus ] = useState({ question: false, description: false })
+  const [ modal, setModal ] = useState({ create: false, about: false })
   const [ dropdownComponent, setDropdown ] = useState(<Login />)
   const [ dropdownOpen, setDropdownOpen ] = useState(false)
   const [ navComponent, setNav ] = useState(<Fragment />)
   const [ description, setDescription ] = useState("")
   const [ question, setQuestion ] = useState("")
   const [ address, setAddress ] = useState("")
-  const [ focus, setFocus ] = useState({})
 
   let { dispatch, state } = useContext(store)
   let history = useHistory()
@@ -29,7 +32,8 @@ function Navigation(props) {
         CONTRACT_ABI, CONTRACT_ADDRESS)
       dispatch({
         payload: {
-          web3, accounts, instance
+          web3, accounts, instance,
+          auth: true, verified: true
         },
         type: "WEB3"
       })
@@ -40,61 +44,77 @@ function Navigation(props) {
     }
   }
 
-  function selection(option) {
-  const route = `/${option}`
-  if(history[history.length-1] !== route){
-      history.push(route)
-    }
+  function Signout() {
+    dispatch({
+      payload: {
+        web3: false, auth: false, verified: false
+      },
+      type: "WEB3"
+    })
+    setDropdown(<Login />)
+    setNav(<Fragment />)
   }
 
-  function dismiss() {
-    console.log('testing')
+  function selection(option) {
+  let route = `/${option}`
+  if(history[history.length-1] !== route){
+      history.push(route)
+  } setModal({
+      ...modal, [option]: true
+    })
+  }
+
+  function dismiss(option) {
+    history.push('/')
+    setModal({
+        ...modal, [option]: false
+    })
   }
 
   function Login() {
     return(
-      <DropdownItem onClick={() => initialiseWeb3()}>Login</DropdownItem>
+      <Link to="/login">
+        <DropdownItem>Login</DropdownItem>
+      </Link>
     )
   }
 
   function About() {
     return(
-      <div className="modal fade" id="about" tabIndex="-1" role="dialog" aria-hidden="true">
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title align-left">About</h5>
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={dismiss}>
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body about">
-              <p>Burn Signal is an experiment in distributed preference signaling where verified unique
-              users burn ETH to signal their opinion.</p>
-              <p>Votes are weighted quadratically.</p>
-              <p>We use <a target="_" href="https://brightid.org">BrightID</a> as our proof of uniqueness, only votes
-              cast by ethereum addresses that are verified unique by BrightID count towards the outcome of
-              a burn signals.</p><br/>
-              <p>Burn Signal is funded by grants and community contributions. If you would like to contribute
-              funds, check out our <a target="_" href="https://gitcoin.co/grants/138/burner-vote">Gitcoin Grants campaign</a>,
-              if you would like to contribute code or other work, check out our <a target="_" href="https://github.com/burnsignal">
-              GitHub</a> and our <a target="_" href="https://colony.io/colony/burn">Colony</a>.</p><br/>
-              <p>Check out our <a target="_" href="https://blog.burnsignal.io"> blog </a> for more information.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Modal isOpen={modal.about}>
+        <ModalHeader>
+           <h5 className="modal-title align-left">About</h5>
+            <button type="button" className="close" onClick={() => dismiss('about')}>
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </ModalHeader>
+        <ModalBody>
+          <p>Burn Signal is an experiment in distributed preference signaling where verified unique
+          users burn ETH to signal their opinion.</p>
+          <p>Votes are weighted quadratically.</p>
+          <p>We use <a target="_" href="https://brightid.org">BrightID</a> as our proof of uniqueness, only votes
+          cast by ethereum addresses that are verified unique by BrightID count towards the outcome of
+          a burn signals.</p><br/>
+          <p>Burn Signal is funded by grants and community contributions. If you would like to contribute
+          funds, check out our <a target="_" href="https://gitcoin.co/grants/138/burner-vote">Gitcoin Grants campaign</a>,
+          if you would like to contribute code or other work, check out our <a target="_" href="https://github.com/burnsignal">
+          GitHub</a> and our <a target="_" href="https://colony.io/colony/burn">Colony</a>.</p><br/>
+          <p>Check out our <a target="_" href="https://blog.burnsignal.io"> blog </a> for more information.</p>
+        </ModalBody>
+      </Modal>
      )
   }
 
   function Logout({ account }) {
     return(
       <Fragment>
-        <DropdownItem id="create-modal" type="button" data-target="#create" data-toggle="modal" onClick={() => selection('create')}> Create </DropdownItem>
+        <DropdownItem type="button" onClick={() => selection('create')}> Create </DropdownItem>
         <Link to={`/profile/${account}`}>
           <DropdownItem> Profile </DropdownItem>
         </Link>
-        <DropdownItem>Logout</DropdownItem>
+        <Link to="/logout">
+          <DropdownItem>Logout</DropdownItem>
+        </Link>
       </Fragment>
     )
   }
@@ -109,23 +129,19 @@ function Navigation(props) {
 
   function Create() {
     return(
-      <div className="modal fade" id="create" tabIndex="-1" role="dialog" aria-hidden="true">
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title align-left">Create</h5>
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={dismiss}>
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body about">
-              <input autoFocus={focus.question} onMouseEnter={triggerFocus} onMouseLeave={leaveFocus} name="question" value={question} onChange={handleQuestion} placeholder="What question is on your mind?" className="create-poll-question" />
-              <textarea autoFocus={focus.description} name="description" onMouseEnter={triggerFocus} onMouseLeave={leaveFocus} value={description} onChange={handleDescription} placeholder="Description" className="create-poll-description" />
-              <button className="btn btn-primary button-poll" onClick={createPoll}> Create </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Modal isOpen={modal.create}>
+        <ModalHeader>
+          <h5 className="modal-title align-left">Create</h5>
+          <button type="button" className="close" onClick={() => dismiss('create')}>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </ModalHeader>
+        <ModalBody>
+          <input autoFocus={focus.question} onMouseEnter={triggerFocus} onMouseLeave={leaveFocus} name="question" value={question} onChange={handleQuestion} placeholder="What question is on your mind?" className="create-poll-question" />
+          <textarea autoFocus={focus.description} name="description" onMouseEnter={triggerFocus} onMouseLeave={leaveFocus} value={description} onChange={handleDescription} placeholder="Description" className="create-poll-description" />
+          <button className="btn btn-primary button-poll" onClick={createPoll}> Create </button>
+        </ModalBody>
+      </Modal>
      )
   }
 
@@ -168,6 +184,20 @@ function Navigation(props) {
     setFocus({ [e.target.name]: false })
   }
 
+    useEffect(() => {
+      if(props.location){
+        if(props.location.pathname.match('about')) selection('about')
+        else if(props.location.pathname.match('create')) selection('create')
+        else if(props.location.pathname.match('login')) {
+          initialiseWeb3()
+          history.push('/')
+        } else if(props.location.pathname.match('logout')) {
+            Signout()
+            history.push('/')
+         }
+      }
+    }, [ props.location.pathname ])
+
   return(
     <Row>
       <Col sm="12" md={{ size: 8, offset: 2 }}>
@@ -192,7 +222,7 @@ function Navigation(props) {
                    </Link>
                    {dropdownComponent}
                    <DropdownItem divider />
-                   <DropdownItem type="button" data-target="#about" data-toggle="modal" onClick={() => selection('about')}>About</DropdownItem>
+                   <DropdownItem type="button" onClick={() => selection('about')}>About</DropdownItem>
                    <DropdownItem target="_" href="https://blog.burnsignal.io">Blog</DropdownItem>
                  </DropdownMenu>
                </Dropdown>

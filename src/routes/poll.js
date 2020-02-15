@@ -25,6 +25,8 @@ function Poll(props){
   const [ totalPledged, setPledged ] = useState(0)
   const [ pollAuthor, setAuthor ] = useState("0x")
   const [ pollTopic , setTopic ] = useState("")
+  const [ modalState , setModal ] = useState("")
+  const [ modalOption , setOption ] = useState("")
 
   let { state } = useContext(store)
   let { address } = useParams()
@@ -32,17 +34,23 @@ function Poll(props){
 
   const id = props.location !== undefined ? address : props.id
 
-  function selection(option) {
-  const route = `/poll/window.jQuery{id}/window.jQuery{option}`
-  if(history[history.length-1] !== route){
+  const toggle = () => setModal(!modalState)
+
+  function triggerModal(option, bool) {
+    var route = `${props.location.pathname}/${option}`
+
+    if(bool && history[history.length-1] !== route){
       history.push(route)
     }
+    setOption(option)
+    toggle()
   }
 
   function dismiss() {
     let route = props.location.pathname.replace('/yes', '')
     route = route.replace('/no', '')
     history.push(route)
+    toggle()
   }
 
   useEffect(() => {
@@ -69,8 +77,8 @@ function Poll(props){
 
   useEffect(() => {
     if(props.location){
-      if(props.location.pathname.match('yes')) window.jQuery('#yes').modal('show')
-      else if (props.location.pathname.match('no')) window.jQuery('#no').modal('show')
+      if(props.location.pathname.match('yes')) triggerModal('yes', false)
+      else if(props.location.pathname.match('no')) triggerModal('no', false)
     }
   }, [])
 
@@ -80,7 +88,7 @@ function Poll(props){
         <Col sm="12" md={{ size: 8, offset: 2 }}>
           <div className="card">
             <div className="card-header">
-              <Link className="poll-issuer" to={`/profile/window.jQuery{pollAuthor}`}>
+              <Link className="poll-issuer" to={`/profile/${pollAuthor}`}>
                 <img className="poll-profile" src={makeBlockie(pollAuthor)} />
               </Link>
               <div className="poll-title">{pollTopic}</div>
@@ -88,8 +96,8 @@ function Poll(props){
             <div className="card-body">
               <div className="poll-description">{pollDescription}</div>
               <div className="vote-options">
-                <button type="button" data-target="#yes" data-toggle="modal" className="btn btn-primary btn-simple" onClick={() => selection("yes")}>Yes</button>
-                <button type="button" data-target="#no" data-toggle="modal" className="btn btn-primary btn-simple" onClick={() => selection("no")}>No</button>
+                <button type="button" className="btn btn-simple" onClick={() => triggerModal("yes", true)}>Yes</button>
+                <button type="button" className="btn btn-simple" onClick={() => triggerModal("no", true)}>No</button>
               </div>
             </div>
           </div>
@@ -122,7 +130,7 @@ function Poll(props){
             </div>
           </div>
         </Col>
-        <Option dismiss={dismiss} title={pollTopic} address={pollOptions} />
+        <Option modalOption={modalOption} modalToggle={dismiss} modalState={modalState} title={pollTopic} address={pollOptions} />
       </Row>
     </div>
   )
