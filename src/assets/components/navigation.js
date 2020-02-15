@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useState, useEffect } from 'react'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import makeBlockie from 'ethereum-blockies-base64'
-import { Link } from 'react-router-dom'
+import { Link, useHistory, withRouter } from "react-router-dom"
 import { Col, Row } from "reactstrap"
 
 import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../../constants/parameters"
@@ -9,7 +9,7 @@ import getWeb3 from "../../utils/getWeb3"
 import logo from "../images/logo.png"
 import { store } from '../../state'
 
-function Navigation() {
+function Navigation(props) {
   const [ dropdownComponent, setDropdown ] = useState(<Login />)
   const [ dropdownOpen, setDropdownOpen ] = useState(false)
   const [ navComponent, setNav ] = useState(<Fragment />)
@@ -19,6 +19,7 @@ function Navigation() {
   const [ focus, setFocus ] = useState({})
 
   let { dispatch, state } = useContext(store)
+  let history = useHistory()
 
   async function initialiseWeb3(){
     try {
@@ -39,6 +40,17 @@ function Navigation() {
     }
   }
 
+  function selection(option) {
+  const route = `/${option}`
+  if(history[history.length-1] !== route){
+      history.push(route)
+    }
+  }
+
+  function dismiss() {
+    console.log('testing')
+  }
+
   function Login() {
     return(
       <DropdownItem onClick={() => initialiseWeb3()}>Login</DropdownItem>
@@ -52,7 +64,7 @@ function Navigation() {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title align-left">About</h5>
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={dismiss}>
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -78,7 +90,7 @@ function Navigation() {
   function Logout({ account }) {
     return(
       <Fragment>
-        <DropdownItem type="button" data-target="#create" data-toggle="modal"> Create </DropdownItem>
+        <DropdownItem id="create-modal" type="button" data-target="#create" data-toggle="modal" onClick={() => selection('create')}> Create </DropdownItem>
         <Link to={`/profile/${account}`}>
           <DropdownItem> Profile </DropdownItem>
         </Link>
@@ -102,7 +114,7 @@ function Navigation() {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title align-left">Create</h5>
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={dismiss}>
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -180,7 +192,7 @@ function Navigation() {
                    </Link>
                    {dropdownComponent}
                    <DropdownItem divider />
-                   <DropdownItem type="button" data-target="#about" data-toggle="modal">About</DropdownItem>
+                   <DropdownItem type="button" data-target="#about" data-toggle="modal" onClick={() => selection('about')}>About</DropdownItem>
                    <DropdownItem target="_" href="https://blog.burnsignal.io">Blog</DropdownItem>
                  </DropdownMenu>
                </Dropdown>
@@ -195,4 +207,4 @@ function Navigation() {
   )
 }
 
-export default Navigation
+export default withRouter(Navigation)

@@ -103,21 +103,20 @@ function Option(props) {
   const handleInput = (event) => {
     setBurn(event.target.value)
   }
-
   return (
     <Fragment>
       <div className="modal fade" id="yes" tabIndex="-1" role="dialog" aria-hidden="true">
         <div className="modal-dialog" role="document">
-          { state.auth && state.verified && (<AuthenticatedAndVerified option="yes" />) }
-          { !state.auth && !state.verified && (< Unauthenticated option="yes"/>) }
-          { state.auth && !state.verified && (<AuthenticatedAndUnverified />) }
+          { state.web3 && state.verified && (<AuthenticatedAndVerified option="yes" />) }
+          { !state.web3 && !state.verified && (< Unauthenticated option="yes"/>) }
+          { state.web3 && !state.verified && (<AuthenticatedAndUnverified />) }
         </div>
       </div>
       <div className="modal fade" id="no" tabIndex="-1" role="dialog" aria-hidden="true">
         <div className="modal-dialog" role="document">
-          { state.auth && state.verified && (<AuthenticatedAndVerified option="no" />) }
-          { !state.auth && !state.verified && (< Unauthenticated option="no"/>) }
-          { state.auth && !state.verified && (<AuthenticatedAndUnverified />) }
+          { state.web3 && state.verified && (<AuthenticatedAndVerified option="no" />) }
+          { !state.web3 && !state.verified && (< Unauthenticated option="no"/>) }
+          { state.web3 && !state.verified && (<AuthenticatedAndUnverified />) }
         </div>
       </div>
     </Fragment>

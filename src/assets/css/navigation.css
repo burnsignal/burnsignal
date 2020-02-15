@@ -47,6 +47,11 @@
   }
 }
 
+input, textarea {
+    direction: rtl;
+    unicode-bidi: bidi-override;
+}
+
 a button {
   pointer-events: none;
 }

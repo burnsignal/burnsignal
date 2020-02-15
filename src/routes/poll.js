@@ -14,6 +14,7 @@ import Bar from '../assets/components/charts/bar'
 
 import "../assets/css/poll.css"
 
+
 function Poll(props){
   const [ pollRecords, setRecords ] = useState({ yes: [], no: [] })
   const [ pollOptions, setOptions ] = useState({ yes: "", no : "" })
@@ -32,8 +33,8 @@ function Poll(props){
   const id = props.location !== undefined ? address : props.id
 
   function selection(option) {
-    const route = `/poll/${id}/${option}`
-    if(history[history.length-1] !== route){
+  const route = `/poll/window.jQuery{id}/window.jQuery{option}`
+  if(history[history.length-1] !== route){
       history.push(route)
     }
   }
@@ -66,13 +67,20 @@ function Poll(props){
     getMetadata()
   }, [ state.polls ])
 
+  useEffect(() => {
+    if(props.location){
+      if(props.location.pathname.match('yes')) window.jQuery('#yes').modal('show')
+      else if (props.location.pathname.match('no')) window.jQuery('#no').modal('show')
+    }
+  }, [])
+
   return(
      <div className="poll">
       <Row>
         <Col sm="12" md={{ size: 8, offset: 2 }}>
           <div className="card">
             <div className="card-header">
-              <Link className="poll-issuer" to={`/profile/${pollAuthor}`}>
+              <Link className="poll-issuer" to={`/profile/window.jQuery{pollAuthor}`}>
                 <img className="poll-profile" src={makeBlockie(pollAuthor)} />
               </Link>
               <div className="poll-title">{pollTopic}</div>

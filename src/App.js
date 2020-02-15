@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useEffect } from "react";
-import {  Route, HashRouter, withRouter } from 'react-router-dom'
+import {  Switch, Route, HashRouter, withRouter } from 'react-router-dom'
 import { Container } from "reactstrap"
 
 import "./assets/libs/black-dashboard/assets/css/black-dashboard-react.css"
@@ -36,9 +36,20 @@ function App(props) {
     <main>
       <Container>
         <Navigation />
-        <Route path="/profile/:address" component={Profile} />
-        <Route path="/poll/:address" component={Poll} />
-        <Route exact path="/" component={Feed} />
+        <Switch>
+          <Route path="/profile/:address" component={Profile} />
+          <Route path="/poll/:address/:option?" component={Poll} />
+          <Route path="/about" render={() => {
+            console.log(document.getElementById('create-modal'))
+             if(document.getElementById('create-modal')){
+               document.getElementById('create-modal').click()
+             }
+
+           }}/>
+          <Route path="/create" render={() => { window.jQuery('#create').modal('show')}}/>
+          <Route exact path="/" component={Feed} />
+          <Route>{'404'}</Route>
+        </Switch>
       </Container>
     </main>
   );

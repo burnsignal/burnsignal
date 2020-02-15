@@ -6,17 +6,6 @@ import { Row, Col } from "reactstrap"
 import { store } from '../state'
 import Poll from './poll';
 
- const useInputChange = () => {
-  const [input, setInput] = useState({})
-
-  const handleInputChange = (e) => setInput({
-    ...input,
-    [e.currentTarget.name]: e.currentTarget.value
-  })
-
-  return [input, handleInputChange]
-}
-
 function Feed() {
   const [ description, setDescription ] = useState("")
   const [ question, setQuestion ] = useState("")

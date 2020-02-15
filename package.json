@@ -18,6 +18,7 @@
     "ethereum-blockies-base64": "^1.0.2",
     "gh-pages": "^2.1.1",
     "install": "^0.13.0",
+    "jquery": "^3.4.1",
     "js-sha3": "^0.8.0",
     "node-sass": "^4.13.0",
     "npm": "^6.13.7",
