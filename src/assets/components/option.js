@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useContext, useEffect } from 'react'
+import React, { Fragment, useState, useContext, useEffect, useRef } from 'react'
 import { Dropdown, DropdownToggle } from "reactstrap"
 import { Col, Row, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
@@ -10,14 +10,10 @@ const QRCode = require('qrcode.react')
 
 function Option(props) {
   const ENS = `${createURL(props.title)}.burnsignal.eth`
-  const [ burnAmount, setBurn ] = useState("")
+  const burn = useRef(null)
 
   let { state } = useContext(store)
   let { title } = props
-
-  const handleBurn = (e) => {
-    setBurn(e.target.value)
-  }
 
   function Unauthenticated({ option }){
     return(
@@ -52,7 +48,7 @@ function Option(props) {
         </ModalHeader>
         <ModalBody>
           <span className="vote-selection"> How much ETH will you burn to cast your vote? </span>
-          <input type="number" autoFocus onChange={handleBurn} value={burnAmount} className="modal-input" placeholder="0.5 ETH"/>
+          <input type="number" ref={burn} className="modal-input" placeholder="0.5 ETH"/>
         </ModalBody>
         <ModalFooter>
           <button type="button" className="btn btn-primary btn-verify" data-dismiss="modal" onClick={() => makeTransaction(option)}>
@@ -87,22 +83,20 @@ function Option(props) {
   const makeTransaction = async(option) => {
     let { web3 } = state
 
-    props.dismiss()
-
-    const burn = burnAmount % 1 === 0 ?
-      web3.utils.toBN(parseFloat(burnAmount)).mul(web3.utils.toBN(1e18)) :
-      parseInt(burnAmount*Math.pow(10,18))
+    const amount = burn.current.value % 1 === 0 ?
+      web3.utils.toBN(parseFloat(burn.current.value)).mul(web3.utils.toBN(1e18)) :
+      parseInt(burn.current.value*Math.pow(10,18))
 
     await web3.eth.sendTransaction({
         to: props.address[option],
         from: state.accounts[0],
-        value: burn
+        value: amount
+      }).on('transactionHash' , () => {
+        props.modalToggle()
       })
   }
 
-  const handleInput = (event) => {
-    setBurn(event.target.value)
-  }
+
   return (
     <Fragment>
       <Modal isOpen={props.modalState}>

@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useEffect } from "react";
-import {  Switch, Route, HashRouter, withRouter } from 'react-router-dom'
+import {  Switch, Route, HashRouter, withRouter, Link } from 'react-router-dom'
 import { Container } from "reactstrap"
 
 import "./assets/libs/black-dashboard/assets/css/black-dashboard-react.css"
@@ -18,7 +18,13 @@ import Feed from './routes/feed'
 
 function RouteError(){
   return(
-    <center> <h1> 404 not found </h1> </center>
+    <center>
+      <div class="page404">
+        <h2> 404 not found </h2>
+        <label> Oops, looks like you've made a wrong turn... 
+        <br /><Link to ="/"> Take me back! </Link></label>
+     </div>
+    </center>
   )
 }
 

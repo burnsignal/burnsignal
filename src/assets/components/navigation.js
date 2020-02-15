@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState, useEffect } from 'react'
+import React, { Fragment, useContext, useState, useEffect, useRef } from 'react'
 import { Dropdown, DropdownToggle, DropdownItem, DropdownMenu, DropdownItemButton,
    Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import makeBlockie from 'ethereum-blockies-base64'
@@ -17,9 +17,9 @@ function Navigation(props) {
   const [ dropdownComponent, setDropdown ] = useState(<Login />)
   const [ dropdownOpen, setDropdownOpen ] = useState(false)
   const [ navComponent, setNav ] = useState(<Fragment />)
-  const [ description, setDescription ] = useState("")
-  const [ question, setQuestion ] = useState("")
   const [ address, setAddress ] = useState("")
+  const description = useRef(null)
+  const question = useRef(null)
 
   let { dispatch, state } = useContext(store)
   let history = useHistory()
@@ -137,8 +137,8 @@ function Navigation(props) {
           </button>
         </ModalHeader>
         <ModalBody>
-          <input autoFocus={focus.question} onMouseEnter={triggerFocus} onMouseLeave={leaveFocus} name="question" value={question} onChange={handleQuestion} placeholder="What question is on your mind?" className="create-poll-question" />
-          <textarea autoFocus={focus.description} name="description" onMouseEnter={triggerFocus} onMouseLeave={leaveFocus} value={description} onChange={handleDescription} placeholder="Description" className="create-poll-description" />
+          <input name="question" ref={question} placeholder="What question is on your mind?" className="create-poll-question" />
+          <textarea name="description" ref={description} placeholder="Description" className="create-poll-description" />
           <button className="btn btn-primary button-poll" onClick={createPoll}> Create </button>
         </ModalBody>
       </Modal>
@@ -156,46 +156,35 @@ function Navigation(props) {
     const recentBlock = await web3.eth.getBlock("latest")
     const deadline = recentBlock.timestamp + 604800
 
-    await instance.methods.newVoteProposal(question,
-      description,
+    await instance.methods.newVoteProposal(
+      question.current.value,
+      description.current.value,
       deadline
     ).send({
       from: accounts[0]
     }).on('transactionHash', (hash) => {
+      dismiss('create')
       clearValues()
     })
   }
 
   const toggle = () => setDropdownOpen(prevState => !prevState);
 
-  const handleDescription = (e) => {
-    setDescription(e.target.value)
-  }
-
-  const handleQuestion = (e) => {
-    setQuestion(e.target.value)
-  }
-
-  const triggerFocus = (e) => {
-    setFocus({ [e.target.name]: true })
-  }
-
-  const leaveFocus = (e) => {
-    setFocus({ [e.target.name]: false })
-  }
-
     useEffect(() => {
-      if(props.location){
-        if(props.location.pathname.match('about')) selection('about')
-        else if(props.location.pathname.match('create')) selection('create')
-        else if(props.location.pathname.match('login')) {
+      const checkRoute = async() => {
+        if(props.location){
+          if(props.location.pathname.match('about')) selection('about')
+          else if(props.location.pathname.match('create')) selection('create')
+          else if(props.location.pathname.match('login')) {
           initialiseWeb3()
           history.push('/')
         } else if(props.location.pathname.match('logout')) {
             Signout()
             history.push('/')
-         }
+          }
+        }
       }
+     checkRoute()
     }, [ props.location.pathname ])
 
   return(

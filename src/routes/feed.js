@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState, useEffect } from 'react';
+import React, { Fragment, useContext, useState, useEffect, useRef } from 'react';
 import makeBlockie from 'ethereum-blockies-base64'
 import { Link } from 'react-router-dom'
 import { Row, Col } from "reactstrap"
@@ -7,33 +7,16 @@ import { store } from '../state'
 import Poll from './poll';
 
 function Feed() {
-  const [ description, setDescription ] = useState("")
-  const [ question, setQuestion ] = useState("")
-  const [ focus, setFocus ] = useState({ })
+  const description = useRef(null)
+  const question = useRef(null)
 
   let { state } = useContext(store)
-
-  const handleDescription = (e) => {
-    setDescription(e.target.value)
-  }
-
-  const handleQuestion = (e) => {
-    setQuestion(e.target.value)
-  }
-
-  const triggerFocus = (e) => {
-    setFocus({ [e.target.name]: true })
-  }
-
-  const leaveFocus = (e) => {
-    setFocus({ [e.target.name]: false })
-  }
 
   function CreatePoll() {
     return(
       <Fragment>
-        <input autoFocus={focus.question} onMouseEnter={triggerFocus} onMouseLeave={leaveFocus} name="question" value={question} onChange={handleQuestion} placeholder="What question is on your mind?" className="create-poll-question" />
-        <textarea autoFocus={focus.description} name="description" onMouseEnter={triggerFocus} onMouseLeave={leaveFocus} value={description} onChange={handleDescription} placeholder="Description" className="create-poll-description" />
+        <input ref={question} name="question" placeholder="What question is on your mind?" className="create-poll-question" />
+        <textarea name="description" ref={description} placeholder="Description" className="create-poll-description" />
         <button className="btn btn-primary button-poll" onClick={createPoll}> Create </button>
       </Fragment>
     )
@@ -50,8 +33,9 @@ function Feed() {
     const recentBlock = await web3.eth.getBlock("latest")
     const deadline = recentBlock.timestamp + 604800
 
-    await instance.methods.newVoteProposal(question,
-      description,
+    await instance.methods.newVoteProposal(
+      question.current.value,
+      description.current.value,
       deadline
     ).send({
       from: accounts[0]

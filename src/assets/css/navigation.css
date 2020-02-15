@@ -172,6 +172,19 @@ input:hover, textarea:hover {
   outline: 0;
 }
 
+.page404 {
+  font-size: 15px;
+  margin-top: 5%;
+}
+
+.page404 p {
+  color: #9A9A9A;
+}
+
+.page404 h2 {
+  margin-bottom: 12.5px;
+}
+
 .navbar {
   background: #27293d;
   box-shadow: 0 0 17.5px 0 rgba(0, 0, 0, 0.425);
