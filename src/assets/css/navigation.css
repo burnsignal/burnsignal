@@ -296,11 +296,15 @@ input:hover, textarea:hover {
 .modal-body {
   font-size: 20px;
   font-weight: normal;
-  text-align: center;
+  text-align: left;
   color: #9A9A9A;
   mix-blend-mode: normal;
   opacity: 0.8;
   align-self: center;
+}
+
+.align-center {
+  text-align: center;
 }
 
 .about {
@@ -311,7 +315,6 @@ input:hover, textarea:hover {
 .modal-title {
   font-size: 25px;
   color: white !important;
-  max-width: 75%;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
@@ -326,15 +329,13 @@ input:hover, textarea:hover {
 
 .align-left {
   text-align: left;
+  float: left;
+  margin-right: 100vw;
   margin-left: 0px;
 }
 
 .modal-content .modal-body p {
   color: white;
-}
-
-.modal-content .modal-body a {
-  color: #d048b6;
 }
 
 .modal-content .modal-body a:hover {

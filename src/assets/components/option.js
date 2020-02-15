@@ -24,7 +24,7 @@ function Option(props) {
             <span aria-hidden="true">&times;</span>
           </button>
         </ModalHeader>
-        <ModalBody>
+        <ModalBody className="align-center">
           Vote <span id="pink">{option}</span> by sending any amount of ETH to <br/>
           <a target="_" href='https://etherscan.io'><span id="pink">{option}</span>.{ENS}</a>
           <div className="poll-qr">
