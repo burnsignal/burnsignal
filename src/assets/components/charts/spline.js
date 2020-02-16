@@ -14,20 +14,18 @@ function Spline(props){
     const composeAndRender = () => {
       let { yes, no } = props.pollRecords
 
-      const dataArray = sortVotes(yes, no)
+      console.log(yes.concat(no));
 
-      var maxValue = Math.max(...dataArray)
-      var minValue = Math.min(...dataArray)
+      var [ dataArray, rangeArray ] = sortVotes(yes, no)
+
+      var minValue = rangeArray[0].y
+      var maxValue = rangeArray[rangeArray.length-1].y
       var maxRange = Math.ceil((((maxValue * 0.2) + maxValue) /10 ) * 10)
       var minRange = Math.ceil((((minValue * 0.2) + minValue) /10 ) * 10) * -1
 
       const ctx = document.getElementById(chartId).getContext("2d")
 
       let range = minRange > maxRange ? minRange : maxRange
-
-      const labelArray = dataArray.length > WEEKDAYS.length ?
-      makeRepeated(WEEKDAYS, parseInt(dataArray.length/WEEKDAYS.length)) :
-      WEEKDAYS.slice(0, dataArray.length)
 
       var gradientStroke = ctx.createLinearGradient(0,337.5,0, 25)
 
@@ -37,8 +35,12 @@ function Spline(props){
       gradientStroke.addColorStop(0.2, 'rgba(255,51,138,0.075)')
       gradientStroke.addColorStop(0, 'rgba(119,52,169,0)')
 
+      dataArray.unshift({x: dataArray[0].x - 43200000, y: 0 })
+      dataArray.sort((a,b) => { return a.x - b.x })
+
+      console.log(dataArray)
+
       var data = {
-        labels: labelArray,
         datasets: [{
           ...CHARTS.SPLINE_STYLE(gradientStroke),
           data: dataArray,

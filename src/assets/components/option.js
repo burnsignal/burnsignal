@@ -1,9 +1,8 @@
 import React, { Fragment, useState, useContext, useEffect, useRef } from 'react'
-import { Dropdown, DropdownToggle } from "reactstrap"
-import { Col, Row, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Dropdown, DropdownToggle, Col, Row, Button, Modal, ModalHeader,
+  ModalBody, ModalFooter } from 'reactstrap';
 
 import { createURL } from "../../constants/operatives"
-import { PINK_PRIMARY } from "../../constants/palette.js"
 import { store } from "../../state"
 
 const QRCode = require('qrcode.react')

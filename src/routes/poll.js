@@ -14,9 +14,7 @@ import Bar from '../assets/components/charts/bar'
 
 import "../assets/css/poll.css"
 
-
 function Poll(props){
-  const [ pollRecords, setRecords ] = useState({ yes: [], no: [] })
   const [ pollOptions, setOptions ] = useState({ yes: "", no : "" })
   const [ pollCount, setCount ] = useState({ yes: 0, no: 0 })
   const [ pollDescription , setDescription ] = useState("")
@@ -24,9 +22,10 @@ function Poll(props){
   const [ uniqueAddresses, setUnique ] = useState(0)
   const [ totalPledged, setPledged ] = useState(0)
   const [ pollAuthor, setAuthor ] = useState("0x")
-  const [ pollTopic , setTopic ] = useState("")
-  const [ modalState , setModal ] = useState("")
+  const [ pollRecords, setRecords ] = useState({})
   const [ modalOption , setOption ] = useState("")
+  const [ modalState , setModal ] = useState("")
+  const [ pollTopic , setTopic ] = useState("")
 
   let { state } = useContext(store)
   let { address } = useParams()
@@ -85,6 +84,7 @@ function Poll(props){
   return(
      <div className="poll">
       <Row>
+      <Option modalOption={modalOption} modalToggle={dismiss} modalState={modalState} title={pollTopic} address={pollOptions} />
         <Col sm="12" md={{ size: 8, offset: 2 }}>
           <div className="card">
             <div className="card-header">
@@ -130,7 +130,6 @@ function Poll(props){
             </div>
           </div>
         </Col>
-        <Option modalOption={modalOption} modalToggle={dismiss} modalState={modalState} title={pollTopic} address={pollOptions} />
       </Row>
     </div>
   )

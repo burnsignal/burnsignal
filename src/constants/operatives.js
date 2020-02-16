@@ -12,43 +12,73 @@ export const ETH = wei => {
   }
 }
 
-export const sortVotes = (_yesVotes, _noVotes) => {
-  let totalVotes = _yesVotes.concat(_noVotes);
+export const sortVotes = (yes, no) => {
+  let totalVotes = yes.concat(no);
+  let timespan = 1800000;
+  var x = 0;
 
-  totalVotes.unshift(0);
+  totalVotes.sort((a,b) => { return a.x - b.x })
 
-  return totalVotes;
+  while(x < totalVotes.length){
+    const value = totalVotes[x]
+
+    if(x != 0){
+       const previous = totalVotes[x-1]
+
+       if((value.x - previous.x) <= timespan){
+         const sum = value.y + previous.y
+         const time = value.x
+
+         totalVotes[x-1] = { x: time, y: sum }
+         totalVotes.splice(x, 1)
+         x--
+       } else {
+        x++
+      }
+    } else {
+      x++
+    }
+  }
+
+  let rangeVotes = totalVotes
+  rangeVotes.sort((a,b) => { return a.y - b.y })
+
+  return [ totalVotes, rangeVotes ];
 }
 
 export const getRecords = async(users) => {
   var history = { yes: [], no: [], voters: [] }
- await Object.entries(users)
-       .map(([ index, value ]) => {
-        let { address, yes, no } = value
 
-        history.voters.push(address)
-        yes.value.forEach((value, index) => {
-          value = parseFloat(value)
-          if(isNaN(value)) value = 0
-          history.yes.push(value)
-        })
-        no.value.forEach((value, index) => {
-          value = parseFloat(value) * -1
-          if(isNaN(value)) value = 0
-          history.no.push(value)
-        })
-    })
+  await Object.entries(users).map(async([ index, value ]) => {
+    let { address, yes, no } = value
+
+    const positive = await pluckArray(yes, "yes", [])
+    const negative = await pluckArray(no, "no", [])
+
+    Object.assign(history.yes, history.yes.concat(positive))
+    Object.assign(history.no, history.no.concat(negative))
+    history.voters.push(address)
+  })
+
   return history
 }
 
-export const createURL = string => {
-  string = string.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '');
-  string = string.replace(/ /g, '-').toLowerCase();
+const pluckArray = (array, sign, rtrn) =>
+   new Promise(resolve =>  {
+    array.value.forEach((value, index) => {
+      const timestamp = array.timestamps[index]
+      var coordinate = parseFloat(value)
 
-  if(string.substring(string.length-1, string.length) === "-"){
-    string = string.slice(0, string.length-1)
-  } return string.replace('?', '');
-}
+      if(sign === "no") coordinate = coordinate * -1
+      if(isNaN(coordinate)) coordinate = 0
+
+      rtrn.push({
+        x: timestamp*1000,
+        y: coordinate
+      })
+    })
+   resolve(rtrn)
+ })
 
 export const toChecksumAddress = (address) => {
   address = address.toLowerCase().replace('0x', '')
@@ -129,4 +159,13 @@ export async function getVoteInfo(proposalData){
   }
 
   return { voters: voters, totalValue: totalValue}
+}
+
+export const createURL = string => {
+  string = string.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '');
+  string = string.replace(/ /g, '-').toLowerCase();
+
+  if(string.substring(string.length-1, string.length) === "-"){
+    string = string.slice(0, string.length-1)
+  } return string.replace('?', '');
 }

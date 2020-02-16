@@ -43,6 +43,16 @@ export const CHARTS = {
       bezierCurve: true,
       legend: { display: false },
       scales: {
+        xAxes: [{
+          type: 'time',
+          time: {
+            unit: 'millisecond',
+            unitStepSize: 43200000,
+            displayFormats: {
+              millisecond: 'hA'
+            }
+          },
+        }],
         yAxes: [{
           id:'yAxis1',
           scaleLabel: {

@@ -1,5 +1,3 @@
-import { createURL } from '../operatives'
-
 const QUERY_POLL = poll => `{ polls(where: { id: "${poll}" }) { yes no users { address yes { contributions timestamps total value sqrt } no { contributions timestamps total value sqrt } } } }`
 const QUERY_ISSUES = `{ issues(where: { title_not_contains: "question" }) { id poll body title issuer deadline optionBaddr optionAaddr } }`
 const QUERY_ISSUE = title => `{ issues(where: { title: "${title}" }) { poll } }`
@@ -30,7 +28,7 @@ export async function getPolls() {
   const routeObject = {}
 
   result.data.issues.forEach(obj => {
-    routeObject[createURL(obj.poll)] = { ...obj }
+    routeObject[obj.poll] = { ...obj }
   }); return routeObject;
 }
 

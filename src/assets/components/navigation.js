@@ -92,14 +92,14 @@ function Navigation(props) {
           <p>Burn Signal is an experiment in distributed preference signaling where verified unique
           users burn ETH to signal their opinion.</p>
           <p>Votes are weighted quadratically.</p>
-          <p>We use <a target="_" href="https://brightid.org">BrightID</a> as our proof of uniqueness, only votes
+          <p>We use <a id='pink' target="_" href="https://brightid.org">BrightID</a> as our proof of uniqueness, only votes
           cast by ethereum addresses that are verified unique by BrightID count towards the outcome of
           a burn signals.</p><br/>
           <p>Burn Signal is funded by grants and community contributions. If you would like to contribute
-          funds, check out our <a target="_" href="https://gitcoin.co/grants/138/burner-vote">Gitcoin Grants campaign</a>,
-          if you would like to contribute code or other work, check out our <a target="_" href="https://github.com/burnsignal">
-          GitHub</a> and our <a target="_" href="https://colony.io/colony/burn">Colony</a>.</p><br/>
-          <p>Check out our <a target="_" href="https://blog.burnsignal.io"> blog </a> for more information.</p>
+          funds, check out our <a id='pink' target="_" href="https://gitcoin.co/grants/138/burner-vote">Gitcoin Grants campaign</a>,
+          if you would like to contribute code or other work, check out our <a id="pink" target="_" href="https://github.com/burnsignal">
+          GitHub</a> and our <a id='pink' target="_" href="https://colony.io/colony/burn">Colony</a>.</p><br/>
+          <p>Check out our <a id='pink' target="_" href="https://blog.burnsignal.io"> blog </a> for more information.</p>
         </ModalBody>
       </Modal>
      )
