@@ -37,7 +37,10 @@ export const CHARTS = {
       },
     }
   }),
-  SPLINE_CONFIG: (_data, _range) => ({
+  SPLINE_CONFIG: (_data, _range) => {
+   var dateCheck = {}
+
+   return({
     options: {
       lineTension: 100,
       bezierCurve: true,
@@ -47,11 +50,21 @@ export const CHARTS = {
           type: 'time',
           time: {
             unit: 'millisecond',
-            unitStepSize: 43200000,
+            unitStepSize: 21600000,
             displayFormats: {
-              millisecond: 'hA'
-            }
+              millisecond: 'MMM D'
+            },
           },
+          ticks: {
+            callback: function(label, index, labels) {
+              if(dateCheck[label] === undefined || index == 0){
+                dateCheck[label] = true
+                return label
+              } else if(!dateCheck[label]){
+                return null
+              }
+            }
+          }
         }],
         yAxes: [{
           id:'yAxis1',
@@ -82,7 +95,8 @@ export const CHARTS = {
     },
     type: 'line',
     data: _data,
-  }),
+    })
+  },
   SPLINE_STYLE: _gradient => ({
     label: "Data",
     fill: true,
