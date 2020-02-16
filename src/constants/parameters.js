@@ -59,10 +59,9 @@ export const CHARTS = {
             callback: function(label, index, labels) {
               if(dateCheck[label] === undefined || index == 0){
                 dateCheck[label] = true
-                return label
-              } else if(!dateCheck[label]){
-                return null
-              }
+              } else {
+                label = ""
+              } return label
             }
           }
         }],
