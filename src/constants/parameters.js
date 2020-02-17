@@ -26,7 +26,6 @@ export const CHARTS = {
           },
           ticks: {
             suggestedMin: 0,
-            max: _range,
             callback: function(label, index, labels) {
               if(label > 1e8 || label < (-1 * 1e8)){
                  return label.toExponential()

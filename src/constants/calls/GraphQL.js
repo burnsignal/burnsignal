@@ -5,11 +5,9 @@ const BURN_SUBGRAPH_ENDPOINT = "https://api.thegraph.com/subgraphs/name/burnsign
 const QUERY_USER = user => `{ user(id: "${user.toLowerCase()}") { burns polls burned } }`
 
 const requestHeaders = body => ({
+  mode: 'cors',
   method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-  }, body: JSON.stringify({
+  body: JSON.stringify({
     query: body
   })
 })
@@ -24,7 +22,7 @@ const makeRequest = async(query) => {
 }
 
 export async function getPolls() {
-  const result = await makeRequest(QUERY_ISSUES)
+  let result = await makeRequest(QUERY_ISSUES)
   const routeObject = {}
 
   result.data.issues.reverse().forEach(obj => {

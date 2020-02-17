@@ -319,19 +319,18 @@ input:hover, textarea:hover {
   margin-left: auto;
   margin-right: auto;
   font-style: normal;
+  padding-right: 12.5px;
   font-weight: 300;
   line-height: 25px;
   letter-spacing: 0.10625px;
   mix-blend-mode: normal;
-  flex: none;
-  order: 0;
 }
 
 .align-left {
   text-align: left;
   float: left;
   margin-right: 100vw;
-  margin-left: 0px;
+  width: 100%;
 }
 
 .modal-content .modal-body p {

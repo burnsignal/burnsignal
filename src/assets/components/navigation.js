@@ -12,7 +12,7 @@ import getWeb3 from "../../utils/getWeb3"
 import logo from "../images/logo.png"
 
 function Navigation(props) {
-  const [ focus, setFocus ] = useState({ question: false, description: false })
+  const [ focus, setFocus ] = useState({ question: false, description: false, network: false })
   const [ modal, setModal ] = useState({ create: false, about: false })
   const [ dropdownComponent, setDropdown ] = useState(<Login />)
   const [ dropdownOpen, setDropdownOpen ] = useState(false)
@@ -28,8 +28,17 @@ function Navigation(props) {
     try {
       const web3 = await getWeb3()
       const accounts = await web3.eth.getAccounts()
+      const network = await web3.eth.net.getId()
       const instance = new web3.eth.Contract(
         CONTRACT_ABI, CONTRACT_ADDRESS)
+
+      if(network !== 4){
+        setModal({ ...modal, network: true  })
+      }
+
+      setDropdown(<Logout account={accounts[0]}/>)
+      setNav(<LoggedIn account={accounts[0]}/>)
+
       dispatch({
         payload: {
           web3, accounts, instance,
@@ -37,8 +46,6 @@ function Navigation(props) {
         },
         type: "WEB3"
       })
-      setDropdown(<Logout account={accounts[0]}/>)
-      setNav(<LoggedIn account={accounts[0]}/>)
     } catch(e) {
       alert("Web3 login could not be detected")
     }
@@ -101,6 +108,7 @@ function Navigation(props) {
           GitHub</a> and our <a id='pink' target="_" href="https://colony.io/colony/burn">Colony</a>.</p><br/>
           <p>Check out our <a id='pink' target="_" href="https://blog.burnsignal.io"> blog </a> for more information.</p>
         </ModalBody>
+        <ModalFooter />
       </Modal>
      )
   }
@@ -141,6 +149,22 @@ function Navigation(props) {
           <textarea name="description" ref={description} placeholder="Description" className="create-poll-description" />
           <button className="btn btn-primary button-poll" onClick={createPoll}> Create </button>
         </ModalBody>
+        <ModalFooter />
+      </Modal>
+     )
+  }
+
+  function WrongNetwork() {
+    return(
+      <Modal isOpen={modal.network}>
+        <ModalHeader>
+          <h5 className="modal-title align-left">Incorrect Network</h5>
+        </ModalHeader>
+        <ModalBody>
+          Your web3 provider is on the incorrect network, please change to
+          Rinkeby testnet to proceed.
+        </ModalBody>
+        <ModalFooter />
       </Modal>
      )
   }
@@ -220,6 +244,7 @@ function Navigation(props) {
         </div>
       </nav>
      </Col>
+    <WrongNetwork />
     <About />
     <Create />
    </Row>
