@@ -39,6 +39,7 @@ a .card {
   mix-blend-mode: normal;
   margin-top: -7.5px;
   font-size: 22.5px;
+  font-weight: 300;
   color: white;
   opacity: 0.8;
 }
@@ -58,4 +59,8 @@ a .card {
   border-radius: 30px;
   margin-right: 25px;
   float: left;
+}
+
+.poll-details .icon-wallet-43 {
+  margin-left: 25px;
 }

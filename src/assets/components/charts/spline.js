@@ -14,14 +14,12 @@ function Spline(props){
     const composeAndRender = () => {
       let { yes, no } = props.pollRecords
 
-      console.log(yes.concat(no));
-
       var [ dataArray, rangeArray ] = sortVotes(yes, no)
 
-      var minValue = rangeArray[0].y
-      var maxValue = rangeArray[rangeArray.length-1].y
-      var maxRange = Math.ceil((((maxValue * 0.2) + maxValue) /10 ) * 10)
+      var minValue = rangeArray.length != 0 ? rangeArray[0].y : 0
+      var maxValue = rangeArray.length != 0 ? rangeArray[rangeArray.length-1].y : 0
       var minRange = Math.ceil((((minValue * 0.2) + minValue) /10 ) * 10) * -1
+      var maxRange = Math.ceil((((maxValue * 0.2) + maxValue) /10 ) * 10)
 
       const ctx = document.getElementById(chartId).getContext("2d")
 
@@ -35,7 +33,8 @@ function Spline(props){
       gradientStroke.addColorStop(0.2, 'rgba(255,51,138,0.075)')
       gradientStroke.addColorStop(0, 'rgba(119,52,169,0)')
 
-      var startingDate = new Date(dataArray[0].x - 21600000)
+      var startingValue = dataArray.length != 0 ? dataArray[0].x - 21600000: Date.now()
+      var startingDate = new Date(startingValue)
       startingDate.setMinutes(0);
       startingDate.setSeconds(0);
       startingDate.setHours(0);

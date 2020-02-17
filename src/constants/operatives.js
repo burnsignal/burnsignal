@@ -6,9 +6,9 @@ export const ETH = wei => {
   if(parseInt(wei) >= 1000000000000000) {
     return `${parseFloat(wei/Math.pow(10,18)).toFixed(3)} ETH`
   } else if(parseInt(wei) >= 1000000){
-    return `${(wei/1000000000).toFixed(3)} GWEI`
+    return `${(wei/1000000000).toFixed(0)} GWEI`
   } else if(parseInt(wei) < 1000000) {
-    return `${parseFloat(wei).toFixed(2)} WEI`
+    return `${parseFloat(wei).toFixed(0)} WEI`
   }
 }
 
