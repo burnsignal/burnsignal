@@ -13,10 +13,12 @@
 }
 
 .poll-title {
+  mix-blend-mode: normal;
   padding-top: 2.5px;
   font-size: 25px;
   font-weight: 200;
   color: white;
+  opacity: 0.8;
 }
 
 a .card {
@@ -30,6 +32,15 @@ a .card {
   margin-bottom: 12.5px;
   margin-left: 62.5px;
   margin-right: 62.5px;
+}
+
+.poll-details {
+  padding: 0px 12.5px 25px 12.5px;
+  mix-blend-mode: normal;
+  margin-top: -7.5px;
+  font-size: 22.5px;
+  color: white;
+  opacity: 0.8;
 }
 
 .poll-profile {

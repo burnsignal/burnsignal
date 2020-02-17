@@ -35,8 +35,16 @@ function Spline(props){
       gradientStroke.addColorStop(0.2, 'rgba(255,51,138,0.075)')
       gradientStroke.addColorStop(0, 'rgba(119,52,169,0)')
 
-      dataArray.unshift({x: dataArray[0].x - 86400000, y: 0 })
+      var startingDate = new Date(dataArray[0].x - 21600000)
+      startingDate.setMinutes(0);
+      startingDate.setSeconds(0);
+      startingDate.setHours(0);
+
       dataArray.sort((a,b) => { return a.x - b.x })
+
+      dataArray.unshift({
+        x: startingDate.getTime(), y: 0
+      })
 
       console.log(dataArray)
 

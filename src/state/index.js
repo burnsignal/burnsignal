@@ -8,7 +8,7 @@ const StateProvider = ( { children } ) => {
   const [state, dispatch] = useReducer((state, action) => {
     switch(action.type) {
       case 'POLL':
-        return { ...state, polls: action.payload }
+        return { ...state, ...action.payload }
       case 'WEB3':
         return { ...state, ...action.payload }
       default:

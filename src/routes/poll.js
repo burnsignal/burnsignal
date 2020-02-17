@@ -3,9 +3,8 @@ import { Link, useParams, useHistory } from "react-router-dom"
 import makeBlockie from 'ethereum-blockies-base64'
 import { Row, Col } from "reactstrap"
 
-import { getVoteInfo, getRecords } from '../constants/operatives'
+import { getVoteInfo, getRecords, ETH, chartId, toChecksumAddress } from '../constants/operatives'
 import { getPollMetadata } from "../constants/calls/GraphQL"
-import { chartId, toChecksumAddress } from "../constants/operatives"
 import { store } from '../state'
 
 import Spline from '../assets/components/charts/spline'
@@ -23,9 +22,10 @@ function Poll(props){
   const [ totalPledged, setPledged ] = useState(0)
   const [ pollAuthor, setAuthor ] = useState("0x")
   const [ pollRecords, setRecords ] = useState({})
-  const [ modalOption , setOption ] = useState("")
-  const [ modalState , setModal ] = useState("")
-  const [ pollTopic , setTopic ] = useState("")
+  const [ modalOption, setOption ] = useState("")
+  const [ modalState, setModal ] = useState("")
+  const [ pollTopic, setTopic ] = useState("")
+  const [ pledgedUSD, setUSD ] = useState(0)
 
   let { state } = useContext(store)
   let { address } = useParams()
@@ -59,15 +59,20 @@ function Poll(props){
         var pollMetadata = await getPollMetadata(title)
 
         let { yes, users, no } = pollMetadata
+        let ethValue = parseInt(yes) + parseInt(no)
+        let usdValue = state.price * ethValue/Math.pow(10,18)
         let records = await getRecords(users)
+        let total = ETH(ethValue)
 
         setCount({ yes: parseInt(yes), no: parseInt(no) })
         setOptions({ yes: optionAaddr, no: optionBaddr })
         setAuthor(toChecksumAddress(issuer))
         setUnique(records.voters.length)
+        setUSD(usdValue.toFixed(2))
         setRecords({ ...records })
         setDescription(body)
         setGraphState(true)
+        setPledged(total)
         setTopic(title)
         }
      }
@@ -121,9 +126,14 @@ function Poll(props){
         <Col sm="12" md={{ size: 8, offset: 2 }}>
           <div className="card">
             <div className="card-header">
-              <h3 className="card-category">History</h3>
+              <h3 className="card-category">Details</h3>
             </div>
             <div className="card-body">
+              <div class="poll-details">
+                <i id="pink" className="tim-icons icon-single-02"/>&nbsp;&nbsp;{uniqueAddresses}
+                <i id="pink" className="tim-icons icon-wallet-43"/>&nbsp;&nbsp;{totalPledged}
+                &nbsp;&nbsp;|&nbsp;&nbsp;${pledgedUSD}
+              </div>
               {graphState && (
                 <Spline chartId={chartId(id)} pollRecords={pollRecords} />
               )}

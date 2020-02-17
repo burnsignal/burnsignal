@@ -9,6 +9,7 @@ import "./assets/css/navigation.css"
 import Navigation from './assets/components/navigation'
 import Option from './assets/components/option'
 
+import { getETHPrice } from "./constants/calls/REST"
 import { getPolls } from "./constants/calls/GraphQL"
 import { store } from './state'
 
@@ -21,7 +22,7 @@ function RouteError(){
     <center>
       <div class="page404">
         <h2> 404 not found </h2>
-        <label> Oops, looks like you've made a wrong turn... 
+        <label> Oops, looks like you've made a wrong turn...
         <br /><Link to ="/"> Take me back! </Link></label>
      </div>
     </center>
@@ -35,9 +36,14 @@ function App(props) {
 
   useEffect(() => {
     const retrievePolls = async() => {
-      var pollStream = await getPolls()
+      var priceMetadata = await getETHPrice()
+      var price = parseFloat(priceMetadata[0].price_usd)
+      var polls = await getPolls()
+      
       dispatch({
-        payload: pollStream,
+        payload: {
+          polls, price
+        },
         type: "POLL"
       })
     }
