@@ -5,6 +5,7 @@ import { Container } from "reactstrap"
 import "./assets/libs/black-dashboard/assets/css/black-dashboard-react.css"
 import "./assets/libs/black-dashboard/assets/css/nucleo-icons.css"
 import "./assets/css/navigation.css"
+import "./assets/css/native.css"
 
 import Navigation from './assets/components/navigation'
 import Option from './assets/components/option'
@@ -39,7 +40,7 @@ function App(props) {
       var priceMetadata = await getETHPrice()
       var price = parseFloat(priceMetadata[0].price_usd)
       var polls = await getPolls()
-      
+
       dispatch({
         payload: {
           polls, price

@@ -1,0 +1,40 @@
+@media screen and (max-width: 700px) {
+
+  .navbar {
+    padding: 0px !important;
+    padding-left: 10px !important;
+  }
+
+  .navbar .navbar-brand {
+    margin: 0;
+  }
+
+  .navbar-nav .nav-link {
+    padding-right: 15px;
+  }
+
+  .nav-profile {
+    height: 27.5px;
+    width: 27.5px;
+  }
+
+  .col-md-7 {
+    flex: 0 0 85%;
+    max-width: 85%;
+  }
+
+  .container {
+    padding: 7.5em 2em;
+  }
+
+  .navbar .dropdown.show .dropdown-menu {
+    position: absolute !important;
+    background-color: white;
+  }
+
+  .dropdown-menu  {
+    left: -125px !important;
+  }
+
+
+}

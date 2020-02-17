@@ -221,9 +221,8 @@ function Navigation(props) {
             <span className="navbar-title"> Burn Signal </span>
           </Link>
         </div>
-        <div className="collapse navbar-collapse justify-content-end">
-          <ul className="navbar-nav">
-            <li className="nav-item">
+        <ul className="navbar-nav">
+          <li className="nav-item">
               {navComponent}
               <Dropdown isOpen={dropdownOpen} toggle={toggle}>
                  <DropdownToggle caret>
@@ -239,9 +238,8 @@ function Navigation(props) {
                    <DropdownItem target="_" href="https://blog.burnsignal.io">Blog</DropdownItem>
                  </DropdownMenu>
                </Dropdown>
-            </li>
-          </ul>
-        </div>
+          </li>
+        </ul>
       </nav>
      </Col>
     <WrongNetwork />

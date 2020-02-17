@@ -47,6 +47,10 @@
   }
 }
 
+.navbar .navbar-wrapper {
+    margin-right: auto;
+}
+
 a button {
   pointer-events: none;
 }
