@@ -1,4 +1,4 @@
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 800px) {
 
   .navbar {
     padding: 0px !important;
@@ -34,6 +34,32 @@
 
   .dropdown-menu  {
     left: -125px !important;
+  }
+
+  .card-header {
+    display: table;
+  }
+
+  .poll-title {
+    font-size: 20px !important;
+    vertical-align: middle;
+    display: table-cell;
+    max-width: 80%;
+    float: none !important;
+    padding-left: 5px;
+  }
+
+  .poll-issuer {
+    vertical-align: middle;
+    float: none !important;
+    margin-right: 12.5px !important;
+    display: table-cell;
+    height: auto;
+    width: 50px;
+  }
+
+  .poll-details {
+    font-size: 15px !important;
   }
 
 

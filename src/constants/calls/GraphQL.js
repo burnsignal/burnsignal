@@ -5,7 +5,6 @@ const BURN_SUBGRAPH_ENDPOINT = "https://api.thegraph.com/subgraphs/name/burnsign
 const QUERY_USER = user => `{ user(id: "${user.toLowerCase()}") { burns polls burned } }`
 
 const requestHeaders = body => ({
-  mode: 'cors',
   method: 'POST',
   body: JSON.stringify({
     query: body
