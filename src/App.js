@@ -5,6 +5,8 @@ import { Container } from "reactstrap"
 import "./assets/libs/black-dashboard/assets/css/black-dashboard-react.css"
 import "./assets/libs/black-dashboard/assets/css/nucleo-icons.css"
 import "./assets/css/navigation.css"
+import "./assets/css/profile.css"
+import "./assets/css/poll.css"
 import "./assets/css/native.css"
 
 import Navigation from './assets/components/navigation'

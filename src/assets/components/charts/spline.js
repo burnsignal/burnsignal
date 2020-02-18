@@ -33,17 +33,19 @@ function Spline(props){
       gradientStroke.addColorStop(0.2, 'rgba(255,51,138,0.075)')
       gradientStroke.addColorStop(0, 'rgba(119,52,169,0)')
 
-      var startingValue = dataArray.length != 0 ? dataArray[0].x - 21600000: Date.now()
+      dataArray.sort((a,b) => { return a.x - b.x })
+
+      var startingValue = dataArray.length != 0 ? dataArray[0].x - 4800000 : Date.now()
       var startingDate = new Date(startingValue)
       startingDate.setMinutes(0);
       startingDate.setSeconds(0);
-      startingDate.setHours(0);
-
-      dataArray.sort((a,b) => { return a.x - b.x })
 
       dataArray.unshift({
         x: startingDate.getTime(), y: 0
       })
+
+      dataArray.sort((a,b) => { return a.x - b.x })
+
 
       console.log(dataArray)
 

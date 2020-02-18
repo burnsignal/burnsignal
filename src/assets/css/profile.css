@@ -28,25 +28,24 @@
   border-radius: 75px;
   width: 100px;
   height: 100px;
-}
-
-.profile-stats .profile-blockie  {
-  display: block;
+  float: left;
 }
 
 .profile-stats {
   position: relative;
+  display: block;
   color: #525f7f;
-  float: right;
-  clear: both;
+  float: left;
   padding: 5px;
+  margin-left: 25px;
 }
 
 .profile-address {
   font-size: 22.5px;
-  margin-right: 22.5px;
+  margin-left: 25px;
   color: white;
   padding-bottom: 7.5px;
+  float: left;
 }
 
 .profile-address a {

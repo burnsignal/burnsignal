@@ -11,8 +11,6 @@ import Spline from '../assets/components/charts/spline'
 import Option from '../assets/components/option'
 import Bar from '../assets/components/charts/bar'
 
-import "../assets/css/poll.css"
-
 function Poll(props){
   const [ pollOptions, setOptions ] = useState({ yes: "", no : "" })
   const [ pollCount, setCount ] = useState({ yes: 0, no: 0 })

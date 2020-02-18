@@ -47,6 +47,38 @@
   }
 }
 
+/* iPad Pro */
+
+@media screen and (width: 1024px) and (height: 1366px) {
+
+  .col-md-7 {
+    flex: 0 0 61.5%;
+    max-width: 61.5%;
+  }
+
+  .profile-blockie {
+    width: 75px !important;
+    height: 75px !important;
+  }
+
+  .profile-address{
+    width: 43.75vw;
+    font-size: 27.5px !important;
+    margin-bottom: 5px;
+  }
+
+  .profile-stats {
+    font-size: 15px;
+    margin-left: 0px;
+  }
+
+  .create-poll-question, .create-poll-description {
+    width: 87.5% !important;
+  }
+
+}
+
+
 .navbar .navbar-wrapper {
     margin-right: auto;
 }

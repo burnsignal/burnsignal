@@ -62,5 +62,180 @@
     font-size: 15px !important;
   }
 
+  .new-poll .card-body {
+    padding: 0px;
+    padding-bottom: 12.5px;
+  }
+
+ .create-poll-question, .create-poll-description {
+    width: auto !important;
+  }
+
+  .modal-content .create-poll-question,
+  .modal-content .create-poll-description {
+     width: 100% !important;
+   }
+
+
+  .profile-stats {
+    display: block;
+    margin-left: 0px;
+  }
+
+  .profile-stat {
+    width: 75%;
+  }
+
+  .modal-dialog {
+    margin: 0rem 2rem
+  }
+
+  .profile-address {
+    width: 50%;
+    font-size: 16.75px;
+    float: right;
+    width: 57.6vw;
+    margin-left: 0px;
+  }
+
+  .profile-blockie {
+    width: 50px;
+    height: 50px;
+    float: left;
+  }
+
+  /* Galaxy S5 */
+
+  @media screen and (width: 360px) and (height: 640px) {
+
+    .col-md-7 {
+      flex: 0 0 84.5%;
+      max-width: 84.5%;
+    }
+
+    .profile-address {
+        font-size: 16.25px;
+    }
+
+    .create-poll-question, .create-poll-description {
+      width: 75% !important;
+    }
+
+  }
+
+  /* Pixel 2 */
+
+  @media screen and (width: 411px) and (height: 731px) {
+
+    .col-md-7 {
+      flex: 0 0 86.375%;
+      max-width: 86.375%;
+    }
+
+    .profile-address{
+      width: 62.5vw;
+    }
+
+    .create-poll-question, .create-poll-description {
+      width: 77.5% !important;
+    }
+
+  }
+
+  /* Pixel 2 XL */
+
+  @media screen and (width: 411px) and (height: 823px) {
+
+    .col-md-7 {
+      flex: 0 0 86.375%;
+      max-width: 86.375%;
+    }
+
+    .profile-address{
+      width: 62.5vw;
+    }
+
+    .create-poll-question, .create-poll-description {
+      width: 77.5% !important;
+    }
+
+  }
+
+  /* iPhone 5 */
+
+  @media screen and (width: 320px) and (height: 568px) {
+
+    .col-md-7 {
+      flex: 0 0 82.5%;
+      max-width: 82.5%;
+    }
+
+    .profile-address{
+      width: 52.5vw;
+      font-size: 13.5px;
+      margin-top: 5px;
+    }
+
+    .create-poll-question, .create-poll-description {
+      width: 70% !important;
+    }
+
+    .profile-stats {
+      font-size: 12px;
+    }
+
+    .poll-details {
+      font-size: 12.5px !important;
+    }
+
+  }
+
+  /* iPhone 6/7+ */
+
+  @media screen and (width: 414px) and (height: 736px) {
+
+    .col-md-7 {
+      flex: 0 0 86.375%;
+      max-width: 86.375%;
+    }
+
+    .profile-address{
+      width: 62.5vw;
+    }
+
+    .create-poll-question, .create-poll-description {
+      width: 77.5% !important;
+    }
+
+  }
+
+  /* iPad */
+
+  @media screen and (width: 768px) and (height: 1024px) {
+
+    .modal-dialog {
+      margin: 1.75rem auto !important;
+    }
+
+    .col-md-7 {
+      flex: 0 0 56.25%;
+      max-width: 56.25%;
+    }
+
+    .profile-address{
+      width: 43.75vw;
+      font-size: 18.75px;
+    }
+
+    .profile-stats {
+      font-size: 17.5px;
+    }
+
+
+    .create-poll-question, .create-poll-description {
+      width: 82.5% !important;
+    }
+
+  }
 
 }

@@ -14,7 +14,7 @@ export const ETH = wei => {
 
 export const sortVotes = (yes, no) => {
   let totalVotes = yes.concat(no);
-  let timespan = 1200000;
+  let timespan = 2400000;
   var x = 0;
 
   totalVotes.sort((a,b) => { return a.x - b.x })

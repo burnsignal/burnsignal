@@ -7,8 +7,6 @@ import { ETH, toChecksumAddress, createURL } from '../constants/operatives'
 import { getProfileMetadata, getPollAddress } from '../constants/calls/GraphQL'
 import { store } from '../state'
 
-import '../assets/css/profile.css'
-
 function Profile() {
   const [ totalBurned, setBurned ] = useState(0)
   const [ userPolls, setPolls ] = useState([])
@@ -50,11 +48,11 @@ function Profile() {
             <div className="card-header">
               <Link to={`/profile/${address}`}>
                 <img className="profile-blockie" src={makeBlockie(address)} />
-              </Link>
-              <div className="profile-stats">
                 <div className="profile-address">
                   <a href={`https://etherscan.io/address/${address}`}>{toChecksumAddress(address)}</a>
                 </div>
+              </Link>
+              <div className="profile-stats">
                 <span className="profile-stat">Burned: <span id="pink">{totalBurned}</span> </span>
                 <span className="profile-stat">Burns: <span id="pink">{totalVotes}</span> </span>
                 <span className="profile-stat">Average: <span id="pink">{avgBurned}</span> </span>
