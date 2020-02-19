@@ -1,6 +1,7 @@
 # Burn Signal
 ## Got an opinion? Burn some ETH to prove it.
 ### A general purpose signaling mechanism built on Ethereum.
+[![Sponsor Burn Signal](https://res.cloudinary.com/dvargvav9/image/upload/v1581842794/button2_w5exua.svg)](https://flowerpot.network/burnsignal?trigger=true)
 
 Anyone can create an poll on which anyone can signal their preference for or against by sending any amount of ETH to the corresponding Ethereum address.
 
@@ -55,3 +56,5 @@ NewVote.js - Deadline needs implemented.
 Burn Signal operates on a novel and meritocratic funding model. We aim to reward all contributions with non-transferable 🔥🧧 tokens on a 1:1 ratio with the equivalent USD value of their work. When we hit milestones, you can claim a relative portion of the grant funding that we have received.
 
 [Learn More](https://github.com/burnsignal/contribute)
+
+[![Sponsor Burn Signal](https://res.cloudinary.com/dvargvav9/image/upload/v1581842794/button2_w5exua.svg)](https://flowerpot.network/burnsignal?trigger=true)
