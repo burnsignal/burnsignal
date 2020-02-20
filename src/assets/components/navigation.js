@@ -12,8 +12,8 @@ import getWeb3 from "../../utils/getWeb3"
 import logo from "../images/logo.png"
 
 function Navigation(props) {
-  const [ focus, setFocus ] = useState({ question: false, description: false, network: false })
-  const [ modal, setModal ] = useState({ create: false, about: false })
+  const [ modal, setModal ] = useState({ route: false, create: false, about: false, network: false })
+  const [ focus, setFocus ] = useState({ question: false, description: false })
   const [ dropdownComponent, setDropdown ] = useState(<Login />)
   const [ dropdownOpen, setDropdownOpen ] = useState(false)
   const [ navComponent, setNav ] = useState(<Fragment />)
@@ -62,19 +62,18 @@ function Navigation(props) {
     setNav(<Fragment />)
   }
 
-  function selection(option) {
-  let route = `/${option}`
-  if(history[history.length-1] !== route){
-      history.push(route)
-  } setModal({
-      ...modal, [option]: true
+  function selection(option, route) {
+    if(!route) window.history.pushState({}, window.title, `/#/${option}`)
+    setModal({
+      ...modal, [option]: true, route
     })
   }
 
   function dismiss(option) {
-    history.push('/')
+    if(!modal.route) history.goBack()
+    else history.push('/')
     setModal({
-        ...modal, [option]: false
+      ...modal, [option]: false, route: false
     })
   }
 
@@ -197,19 +196,19 @@ function Navigation(props) {
     useEffect(() => {
       const checkRoute = async() => {
         if(props.location){
-          if(props.location.pathname.match('about')) selection('about')
-          else if(props.location.pathname.match('create')) selection('create')
+          if(props.location.pathname.match('about')) selection('about', true)
+          else if(props.location.pathname.match('create'))selection('create', true)
           else if(props.location.pathname.match('login')) {
-          initialiseWeb3()
-          history.push('/')
-        } else if(props.location.pathname.match('logout')) {
+            initialiseWeb3()
+            history.push('/')
+          } else if(props.location.pathname.match('logout')) {
             Signout()
             history.push('/')
           }
         }
       }
      checkRoute()
-    }, [ props.location.pathname ])
+    }, [ ])
 
   return(
     <nav className="fixed-top">
@@ -245,6 +244,9 @@ function Navigation(props) {
            </div>
          </Col>
        </Row>
+       <WrongNetwork />
+       <Create />
+       <About />
      </Container>
     </nav>
   )
