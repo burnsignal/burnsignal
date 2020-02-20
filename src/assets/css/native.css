@@ -4,6 +4,23 @@
     padding: 0 10px 0px 10px !important;
   }
 
+  .navbar .navbar-nav .dropdown {
+    margin: 1.5px 0px;
+  }
+
+  .container {
+    padding: 7.5em 1em;
+  }
+
+  .fixed-top .container {
+    padding: 0em;
+  }
+
+  .fixed-top .container .row {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .navbar .navbar-brand {
     margin: 0;
   }
@@ -12,13 +29,17 @@
     padding-right: 15px;
   }
 
-  .nav-profile {
+  .nav-profile-alt, .nav-profile {
     height: 27.5px;
     width: 27.5px;
   }
 
-  .container {
-    padding: 7.5em 2em;
+  .nav-profile-alt {
+    margin-right: 2.5px;
+  }
+
+  .nav-profile-alt .fa-user-circle {
+    font-size: 26.75px !important;
   }
 
   .navbar .dropdown.show .dropdown-menu {

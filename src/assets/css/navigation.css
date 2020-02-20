@@ -42,8 +42,12 @@
     margin-right: auto;
 }
 
-a button {
-  pointer-events: none;
+a {
+  z-index: 1;
+}
+
+a a {
+  z-index: 100;
 }
 
 .new-poll {
@@ -253,11 +257,19 @@ input:hover, textarea:hover {
   width: 100%;
 }
 
-.nav-profile {
+.nav-profile, .nav-profile-alt {
   width: 30px;
   height: 30px;
   border-radius: 20px;
   float: left;
+}
+
+.nav-profile-alt {
+  margin-right: 5px;
+}
+
+.nav-profile-alt .fa-user-circle {
+  font-size: 30px !important;
 }
 
 .nav-icon {

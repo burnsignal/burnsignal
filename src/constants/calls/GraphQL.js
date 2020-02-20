@@ -24,7 +24,8 @@ export async function getPolls() {
   let result = await makeRequest(QUERY_ISSUES)
   const routeObject = {}
 
-  result.data.issues.reverse().forEach(obj => {
+  result.data.issues.sort((a, b) => { return b.deadline - a.deadline })
+  result.data.issues.forEach(obj => {
     routeObject[obj.poll] = { ...obj }
   }); return routeObject;
 }

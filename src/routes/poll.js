@@ -99,8 +99,8 @@ function Poll(props){
             <div className="card-body">
               <div className="poll-description">{pollDescription}</div>
               <div className="vote-options">
-                <button type="button" className="btn btn-simple" onClick={() => triggerModal("yes", true)}>Yes</button>
-                <button type="button" className="btn btn-simple" onClick={() => triggerModal("no", true)}>No</button>
+                <a href="javascript:void(0);" className="btn btn-simple" onClick={() => triggerModal("yes", true)}>Yes</a>
+                <a href="javascript:void(0);" className="btn btn-simple" onClick={() => triggerModal("no", true)}>No</a>
               </div>
             </div>
           </div>

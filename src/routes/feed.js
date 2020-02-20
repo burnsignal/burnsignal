@@ -3,8 +3,8 @@ import makeBlockie from 'ethereum-blockies-base64'
 import { Link } from 'react-router-dom'
 import { Row, Col } from "reactstrap"
 
+import FeedPoll from '../assets/components/feedpoll';
 import { store } from '../state'
-import Poll from './poll';
 
 function Feed() {
   const description = useRef(null)
@@ -63,10 +63,9 @@ function Feed() {
           </Row>
         </div>
       )}
-      {Object.keys(state.polls).reverse().map((id, index) => (
-        <Link to={`/poll/${id}`}>
-          <Poll key={id} id={id}/>
-        </Link>
+      {Object.keys(state.polls)
+        .map((id, index) => (
+        <FeedPoll key={id} id={id}/>
       ))}
     </Fragment>
   )

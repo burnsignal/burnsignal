@@ -9,6 +9,7 @@ import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../../constants/parameters"
 import { store } from '../../state'
 
 import getWeb3 from "../../utils/getWeb3"
+import profile from "../images/profile.png"
 import logo from "../images/logo.png"
 
 function Navigation(props) {
@@ -16,7 +17,7 @@ function Navigation(props) {
   const [ focus, setFocus ] = useState({ question: false, description: false })
   const [ dropdownComponent, setDropdown ] = useState(<Login />)
   const [ dropdownOpen, setDropdownOpen ] = useState(false)
-  const [ navComponent, setNav ] = useState(<Fragment />)
+  const [ navComponent, setNav ] = useState(<LoggedOut />)
   const [ address, setAddress ] = useState("")
   const description = useRef(null)
   const question = useRef(null)
@@ -59,7 +60,7 @@ function Navigation(props) {
       type: "WEB3"
     })
     setDropdown(<Login />)
-    setNav(<Fragment />)
+    setNav(<LoggedOut />)
   }
 
   function selection(option, route) {
@@ -130,6 +131,17 @@ function Navigation(props) {
     return(
       <Link className="nav-link" to={`/profile/${account}`}>
         <img className="nav-profile" src={makeBlockie(account)} />
+      </Link>
+    )
+  }
+
+
+  function LoggedOut() {
+    return(
+      <Link className="nav-link" to='/login'>
+        <div className="nav-profile-alt">
+          <i className="fa fa-user-circle"></i>
+        </div>
       </Link>
     )
   }
@@ -208,7 +220,7 @@ function Navigation(props) {
         }
       }
      checkRoute()
-    }, [ ])
+   }, [ props.location.pathname ])
 
   return(
     <nav className="fixed-top">
