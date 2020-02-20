@@ -3,7 +3,7 @@ import { Dropdown, DropdownToggle, DropdownItem, DropdownMenu, DropdownItemButto
    Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import makeBlockie from 'ethereum-blockies-base64'
 import { Link, useHistory, withRouter } from "react-router-dom"
-import { Col, Row } from "reactstrap"
+import { Col, Row, Container } from "reactstrap"
 
 import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../../constants/parameters"
 import { store } from '../../state'
@@ -212,40 +212,41 @@ function Navigation(props) {
     }, [ props.location.pathname ])
 
   return(
-    <Row>
-      <Col sm="12" md={{ size: 8, offset: 2 }}>
-        <nav className="navbar navbar-expand-lg fixed-top col-sm-12 col-md-7">
-        <div className="navbar-wrapper">
-          <Link className="navbar-brand" to="/">
-            <img className="navbar-logo" src={logo} />
-            <span className="navbar-title"> Burn Signal </span>
-          </Link>
-        </div>
-        <ul className="navbar-nav">
-          <li className="nav-item">
-              {navComponent}
-              <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-                 <DropdownToggle caret>
-                   <i className="nav-login-icon tim-icons icon-minimal-down"></i>
-                 </DropdownToggle>
-                 <DropdownMenu>
-                   <Link to="/">
-                     <DropdownItem> Home </DropdownItem>
-                   </Link>
-                   {dropdownComponent}
-                   <DropdownItem divider />
-                   <DropdownItem type="button" onClick={() => selection('about')}>About</DropdownItem>
-                   <DropdownItem target="_" href="https://blog.burnsignal.io">Blog</DropdownItem>
-                 </DropdownMenu>
-               </Dropdown>
-          </li>
-        </ul>
-      </nav>
-     </Col>
-    <WrongNetwork />
-    <About />
-    <Create />
-   </Row>
+    <nav className="fixed-top">
+      <Container>
+        <Row>
+          <Col sm="12" md={{ size: 8, offset: 2 }}>
+            <div className="navbar navbar-expand-lg">
+              <div className="navbar-wrapper">
+                <Link className="navbar-brand" to="/">
+                  <img className="navbar-logo" src={logo} />
+                  <span className="navbar-title"> Burn Signal </span>
+                </Link>
+              </div>
+              <ul className="navbar-nav">
+              <li className="nav-item">
+                {navComponent}
+                <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+                  <DropdownToggle caret>
+                    <i className="nav-login-icon tim-icons icon-minimal-down"></i>
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <Link to="/">
+                      <DropdownItem> Home </DropdownItem>
+                    </Link>
+                    {dropdownComponent}
+                    <DropdownItem divider />
+                    <DropdownItem type="button" onClick={() => selection('about')}>About</DropdownItem>
+                    <DropdownItem target="_" href="https://blog.burnsignal.io">Blog</DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              </li>
+            </ul>
+           </div>
+         </Col>
+       </Row>
+     </Container>
+    </nav>
   )
 }
 

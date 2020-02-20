@@ -55,8 +55,8 @@ function App(props) {
 
   return (
     <main>
+      <Navigation />
       <Container>
-        <Navigation />
         <Switch>
           <Route path="/poll/:address/:option?" component={Poll} />
           <Route path="/profile/:address" component={Profile} />
