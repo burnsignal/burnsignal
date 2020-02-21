@@ -85,24 +85,24 @@ function Poll(props){
                 <Link className="poll-issuer" to={`/profile/${pollAuthor}`}>
                   <img className="poll-profile" src={makeBlockie(pollAuthor)} />
                 </Link>
-                <div className="poll-title">{pollTopic}</div>
-              </div>
-            </Link>
-            <div className="card-body">
-              <Link to={`/poll/${id}`}>
-                <div className="poll-description">{pollDescription}</div>
-              </Link>
-              <div className="vote-options">
-                <button className="btn btn-simple" onClick={() => triggerModal("yes", true)}>Yes</button>
-                <button className="btn btn-simple" onClick={() => triggerModal("no", true)}>No</button>
-                <div className="result"> Results </div>
-                <div class="vote-result">
-                  {graphState && (
-                    <Bar type={true} chartId={chartId(id)} pollCount={pollCount}/>
-                  )}
+                <div className="poll-info">
+                  <div className="poll-title">{pollTopic}</div>
+                  <div className="poll-description">{pollDescription}</div>
                 </div>
               </div>
-            </div>
+              <div className="card-body vote-body">
+                <button className="btn btn-simple" onClick={() => triggerModal("yes", true)}>Yes</button>
+                <button className="btn btn-simple" onClick={() => triggerModal("no", true)}>No</button>
+                <div className="poll-stats result">
+                  <ul>
+                    <li><i id="pink" className="tim-icons icon-single-02"/>&nbsp;&nbsp;{uniqueAddresses}</li>
+                    <li><i id="pink" className="tim-icons icon-wallet-43"/>&nbsp;&nbsp;{totalPledged}</li>
+                    <li>Results</li>
+                  </ul>
+                </div>
+                {graphState && (<Bar type={true} chartId={chartId(id)} pollCount={pollCount}/>)}
+              </div>
+            </Link>
           </div>
         </Col>
       </Row>

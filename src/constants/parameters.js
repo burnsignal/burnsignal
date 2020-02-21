@@ -21,6 +21,14 @@ export const CHARTS = {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      layout: {
+        padding: {
+          left: 0,
+          right: 0,
+          top: 0,
+          bottom: -50
+        }
+      },
       legend: { display: false },
       scales: {
         xAxes: [{
@@ -29,7 +37,7 @@ export const CHARTS = {
           },
           ticks: {
             suggestedMin: 0,
-            suggestedMax: _range,
+            padding: 0,
             callback: function(label, index, labels) {
               label = "";
               return label;

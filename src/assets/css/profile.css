@@ -2,20 +2,20 @@
   padding: .5em;
 }
 
-.card ul  {
+.profile .card ul  {
   list-style: none;
   padding-bottom: -20px;
 }
 
-.card li {
+.profile .card li {
   transition: 0.35s;
 }
 
-.card li:hover {
+.profile .card li:hover {
   color: #d048b6;
 }
 
-.card li:before {
+.profile .card li:before {
   content: "\2022";
   color: #d048b6;
   font-weight: bold;
