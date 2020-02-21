@@ -114,7 +114,7 @@ function Poll(props){
             </div>
             <div className="card-body">
               {graphState && (
-                <Bar chartId={chartId(id)} pollCount={pollCount}/>
+                <Bar type={false} chartId={chartId(id)} pollCount={pollCount}/>
               )}
             </div>
           </div>

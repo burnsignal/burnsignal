@@ -38,8 +38,54 @@
 
 }
 
+.vote-result {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  bottom: 7.75%;
+  transition: opacity 1s ease-in;
+  width: 97.5%;
+  z-index: 1;
+  left: 1%;
+}
+
+.vote-result .chart-container {
+  height: 150px;
+}
+
+.result {
+  text-align: right;
+  display: inline-block;
+  font-weight: 550;
+  padding: 12.5px 7.5px 0px 7.5px;
+  font-size: 20px;
+  float: right;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background: transperant;
+  opacity: 0.8;
+  color: #d048b6;
+  z-index: 100;
+  cursor: pointer;
+  width: 100px;
+}
+
+.poll .result:hover~.vote-result{
+  background: #27293d;
+  visibility: visible;
+  opacity: 1;
+}
+
 .navbar .navbar-wrapper {
     margin-right: auto;
+}
+
+.chart-container {
+  height: 175px;
 }
 
 a {
@@ -151,6 +197,10 @@ a a {
 a {
   color: #017afc;
   transition: 0.35s;
+}
+
+a .poll-description {
+  color: #525f7f;
 }
 
 i:hover {

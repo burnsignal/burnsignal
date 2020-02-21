@@ -15,15 +15,15 @@ function Bar(props) {
       const range = ( maximumValue * 0.20 ) + maximumValue
       const data = [ yes, no ]
 
-      new Chart(ctx, { ...CHARTS.BAR_CONFIG(data, range) })
+      new Chart(ctx, { ...CHARTS.BAR_CONFIG(data, range, props.type) })
     }
     composeAndRender()
   }, [ ])
 
   return(
-    <Fragment>
+    <div className="chart-container">
       <canvas id={chartId}> </canvas>
-    </Fragment>
+    </div>
   );
 }
 

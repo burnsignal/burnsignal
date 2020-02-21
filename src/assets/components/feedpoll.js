@@ -95,6 +95,12 @@ function Poll(props){
               <div className="vote-options">
                 <button className="btn btn-simple" onClick={() => triggerModal("yes", true)}>Yes</button>
                 <button className="btn btn-simple" onClick={() => triggerModal("no", true)}>No</button>
+                <div className="result"> Results </div>
+                <div class="vote-result">
+                  {graphState && (
+                    <Bar type={true} chartId={chartId(id)} pollCount={pollCount}/>
+                  )}
+                </div>
               </div>
             </div>
           </div>

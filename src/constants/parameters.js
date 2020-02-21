@@ -4,7 +4,9 @@ export const CONTRACT_ADDRESS = "0x61a8598eabb7bddca95d3783c228878cd788e0a9"
 
 export const WEEKDAYS = ['Monday', 'Tuesday', 'Wendsday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ]
 export const CHARTS = {
-  BAR_CONFIG: (_data, _range) => ({
+  BAR_CONFIG: (_data, _range, type) => {
+
+    if(type) return({
     type: 'horizontalBar',
     responsive: true,
     data: {
@@ -17,6 +19,46 @@ export const CHARTS = {
       }]
     },
     options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: { display: false },
+      scales: {
+        xAxes: [{
+          gridLines: {
+            display:false
+          },
+          ticks: {
+            suggestedMin: 0,
+            suggestedMax: _range,
+            callback: function(label, index, labels) {
+              label = "";
+              return label;
+            }
+          }
+        }],
+        yAxes: [{
+          gridLines: {
+            display:false
+          },
+          ticks: { mirror: true },
+        }]
+      },
+    }})
+    else if(!type) return({
+    type: 'horizontalBar',
+    responsive: true,
+    data: {
+      labels: ['Yes','No' ],
+      datasets: [{
+        data: _data,
+        borderColor: PINK_PRIMARY,
+        borderWidth: 2,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
       legend: { display: false },
       scales: {
         xAxes: [{
@@ -34,8 +76,8 @@ export const CHARTS = {
           }
         }]
       },
-    }
-  }),
+    }})
+  },
   SPLINE_CONFIG: (_data, _range) => {
    var dateCheck = {}
 
