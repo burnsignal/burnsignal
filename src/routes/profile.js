@@ -46,17 +46,20 @@ function Profile() {
         <Col sm="12" md={{ size: 6, offset: 3 }}>
           <div className="card">
             <div className="card-header">
-              <Link to={`/profile/${address}`}>
-                <img className="profile-blockie" src={makeBlockie(address)} />
-              </Link>
-              <div className="profile-stats">
+                <Link to={`/profile/${address}`}>
+                  <img className="profile-blockie" src={makeBlockie(address)} />
+                </Link>
                 <div className="profile-address">
-                  <a href={`https://etherscan.io/address/${address}`}>{toChecksumAddress(address)}</a>
+                  <a href={`https://etherscan.io/address/${address}`}>
+                    {toChecksumAddress(address)}
+                  </a>
                 </div>
-                <span className="profile-stat">Burned: <span id="pink">{totalBurned}</span> </span>
-                <span className="profile-stat">Burns: <span id="pink">{totalVotes}</span> </span>
-                <span className="profile-stat">Average: <span id="pink">{avgBurned}</span> </span>
-                <p className="profile-verified">Verified: <span id="pink">false</span> </p>
+              <div className="profile-traits">
+                <ul>
+                  <li>Burned: <span id="pink">{totalBurned}</span> </li>
+                  <li>Burns: <span id="pink">{totalVotes}</span> </li>
+                  <li>Average: <span id="pink">{avgBurned}</span> </li>
+                </ul>
               </div>
             </div>
           </div>

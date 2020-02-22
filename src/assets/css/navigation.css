@@ -1,21 +1,35 @@
-@media screen and (min-width: 1080px)  {}
+@media screen and (max-width: 1200px) {
 
-@media screen and (min-width: 1280px)  {}
+  .profile-traits {
+    white-space: normal !important;
+  }
 
-@media screen and (min-width: 1366px)  {}
+  .profile-traits li:last-of-type {
+    padding-left: 5%;
+ }
 
-@media screen and (min-width: 1440px)  {}
+}
 
-@media screen and (min-width: 1536px)  {}
+@media screen and (min-width: 500px) and (max-width: 991px) {
 
-@media screen and (min-width: 1600px)  {}
+  .navbar {
+    padding: 0px !important;
+  }
 
-@media screen and (min-width: 1920px)  {}
+  .navbar-nav .nav-link {
+    padding-right: 15px;
+  }
 
-@media screen and (min-width: 750px) and (max-width: 992.5px) {
+  .poll-result {
+    font-size: 12.5px;
+  }
 
   .create-poll-question, .create-poll-description {
-    width: 75% !important;
+    width: 80% !important;
+  }
+
+  .eth-icon {
+    margin-bottom: 0px !important;
   }
 
   .poll-result {
@@ -48,10 +62,6 @@
     padding-right: 100px !important;
   }
 
-  .profile-stats .profile-stat {
-    font-size: 15px;
-    margin-left: 5px;
-  }
 
   .create-poll-question, .create-poll-description {
     width: 80% !important;

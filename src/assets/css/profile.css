@@ -26,26 +26,58 @@
 
 .profile-blockie {
   border-radius: 75px;
-  width: 75px;
-  height: 75px;
+  margin-right: 12.5px;
+  width: 50px;
+  height: 50px;
+  float: left;
 }
 
+.profile-traits {
+  display: table;
+  font-weight: 300;
+  font-size: 15px;
+  white-space: nowrap;
+}
 
-a .profile-stats {
+.card-header .profile-traits ul {
+  text-align: left;
+  padding: 0px;
+}
+
+.card-header .profile-traits li {
+  display: inline-block;
+}
+
+.profile-traits li:first-of-type{
+  padding-left: 5%;
+}
+
+ .profile-traits li:nth-of-type(2) {
+  padding-left: 10%;
+}
+
+ .profile-traits li:last-of-type {
+   padding-left: 10%;
+}
+
+a .profile-traits {
   display: block;
 }
 
-.profile-stats {
+.profile-traits {
   position: relative;
   display: inline-block;
   color: #525f7f;
-  float: right;
+  float: left;
 }
 
 .profile-address {
   font-size: 17.5px;
   padding-bottom: 7.5px;
   color: white;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
+  width: 100vw;
 }
 
 .profile-address a {
@@ -54,10 +86,6 @@ a .profile-stats {
 
 .profile-address a:hover {
   color: #d048b6;
-}
-
-.profile-stats .profile-stat {
-  margin-right: 25px;
 }
 
 .profile-verified {
