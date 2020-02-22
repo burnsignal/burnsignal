@@ -11,6 +11,7 @@ function Bar(props) {
       let { yes, no } = props.pollCount;
 
       const ctx = document.getElementById(chartId).getContext("2d")
+
       const maximumValue = yes > no ? yes : no
       const range = ( maximumValue * 0.20 ) + maximumValue
       const data = [ yes, no ]

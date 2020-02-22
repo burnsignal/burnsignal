@@ -226,7 +226,7 @@ function Navigation(props) {
     <nav className="fixed-top">
       <Container>
         <Row>
-          <Col sm="12" md={{ size: 8, offset: 2 }}>
+          <Col sm="12" md={{ size: 6, offset: 3 }}>
             <div className="navbar navbar-expand-lg">
               <div className="navbar-wrapper">
                 <Link className="navbar-brand" to="/">

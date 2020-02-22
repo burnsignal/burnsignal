@@ -12,7 +12,21 @@
 
 @media screen and (min-width: 1920px)  {}
 
-@media screen and (min-width: 800px) and (max-width: 900px) {}
+@media screen and (min-width: 750px) and (max-width: 992.5px) {
+
+  .create-poll-question, .create-poll-description {
+    width: 75% !important;
+  }
+
+  .poll-result {
+    font-size: 15px !important;
+  }
+
+  .poll-result li:nth-of-type(2) {
+    padding-right: 50px !important;
+  }
+
+}
 
 /* iPad Pro */
 
@@ -24,18 +38,23 @@
   }
 
   .profile-address{
-    width: 43.75vw;
-    font-size: 27.5px !important;
+    width: 30vw;
     margin-bottom: 5px;
+    padding-left: 15px;
+    font-size: 20px;
   }
 
-  .profile-stats {
+  .poll-result li:nth-of-type(2) {
+    padding-right: 100px !important;
+  }
+
+  .profile-stats .profile-stat {
     font-size: 15px;
-    margin-left: 0px;
+    margin-left: 5px;
   }
 
   .create-poll-question, .create-poll-description {
-    width: 87.5% !important;
+    width: 80% !important;
   }
 
 }
@@ -78,7 +97,7 @@ a {
 }
 
 .create-poll-question, .create-poll-description {
-  width: 90%;
+  width: 85%;
   border: 2px solid #2B3553;
   box-sizing: border-box;
   background: rgba(255, 255, 255, 0);
@@ -342,7 +361,6 @@ a a {
   height: 27.5px;
   margin-bottom: 3.75px;
 }
-
 
 .align-center {
   text-align: center;

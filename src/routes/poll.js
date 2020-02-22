@@ -89,26 +89,28 @@ function Poll(props){
      <div className="poll">
       <Row>
       <Option modalOption={modalOption} modalToggle={dismiss} modalState={modalState} title={pollTopic} address={pollOptions} />
-        <Col sm="12" md={{ size: 8, offset: 2 }}>
+        <Col sm="12" md={{ size: 6, offset: 3 }}>
           <div className="card">
             <div className="card-header">
               <Link className="poll-issuer" to={`/profile/${pollAuthor}`}>
                 <img className="poll-profile" src={makeBlockie(pollAuthor)} />
               </Link>
-              <div className="poll-title">{pollTopic}</div>
+              <div className="poll-info">
+                <div className="poll-title">{pollTopic}</div>
+                <div className="poll-description">{pollDescription}</div>
+              </div>
             </div>
-            <div className="card-body">
-              <div className="poll-description">{pollDescription}</div>
+            <div className="card-body vote-body">
               <div className="vote-options">
-                <a href="javascript:void(0);" className="btn btn-simple" onClick={() => triggerModal("yes", true)}>Yes</a>
-                <a href="javascript:void(0);" className="btn btn-simple" onClick={() => triggerModal("no", true)}>No</a>
+                <button className="btn btn-simple" onClick={() => triggerModal("yes", true)}>Yes</button>
+                <button className="btn btn-simple" onClick={() => triggerModal("no", true)}>No</button>
               </div>
             </div>
           </div>
         </Col>
       </Row>
       <Row>
-        <Col sm="12" md={{ size: 8, offset: 2 }}>
+        <Col sm="12" md={{ size: 6, offset: 3 }}>
           <div className="card">
             <div className="card-header">
               <h3 className="card-category">Results</h3>
@@ -122,7 +124,7 @@ function Poll(props){
         </Col>
       </Row>
       <Row>
-        <Col sm="12" md={{ size: 8, offset: 2 }}>
+        <Col sm="12" md={{ size: 6, offset: 3 }}>
           <div className="card">
             <div className="card-header">
               <h3 className="card-category">Details</h3>

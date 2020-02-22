@@ -26,26 +26,26 @@
 
 .profile-blockie {
   border-radius: 75px;
-  width: 100px;
-  height: 100px;
-  float: left;
+  width: 75px;
+  height: 75px;
+}
+
+
+a .profile-stats {
+  display: block;
 }
 
 .profile-stats {
   position: relative;
-  display: block;
+  display: inline-block;
   color: #525f7f;
-  float: left;
-  padding: 5px;
-  margin-left: 25px;
+  float: right;
 }
 
 .profile-address {
-  font-size: 22.5px;
-  margin-left: 25px;
-  color: white;
+  font-size: 17.5px;
   padding-bottom: 7.5px;
-  float: left;
+  color: white;
 }
 
 .profile-address a {
@@ -57,7 +57,7 @@
 }
 
 .profile-stats .profile-stat {
-  margin-right: 50px;
+  margin-right: 25px;
 }
 
 .profile-verified {

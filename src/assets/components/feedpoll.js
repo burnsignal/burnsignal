@@ -76,10 +76,10 @@ function Poll(props){
   }, [ state.polls ])
 
   return(
-     <div className="poll">
+     <div className="feed-poll">
       <Row>
       <Option modalOption={modalOption} modalToggle={dismiss} modalState={modalState} title={pollTopic} address={pollOptions} />
-        <Col sm="12" md={{ size: 8, offset: 2 }}>
+        <Col sm="12" md={{ size: 6, offset: 3 }}>
           <div className="card">
             <Link to={`/poll/${id}`}>
               <div className="card-header">
@@ -92,16 +92,16 @@ function Poll(props){
                 </div>
               </div>
               <div className="card-body vote-body">
-                <a href className="btn btn-simple" onClick={(e) => { e.preventDefault(); triggerModal("yes", true) }}>Yes</a>
-                <a href className="btn btn-simple" onClick={(e) => { e.preventDefault(); triggerModal("no", true) }}>No</a>
+                <button className="btn btn-simple" onClick={(e) => { e.preventDefault(); triggerModal("yes", true) }}>Yes</button>
+                <button className="btn btn-simple" onClick={(e) => { e.preventDefault(); triggerModal("no", true) }}>No</button>
                 <div className="poll-result">
                   <ul>
                     <li><i id="pink" className="far fa-user"/>&nbsp;&nbsp;{uniqueAddresses}</li>
                     <li><img src={ethereum} className="eth-icon"/>&nbsp;&nbsp;{totalPledged}</li>
-                    <li id="pink">Results</li>
+                    <li>Results</li>
+                    {graphState && (<Bar type={true} chartId={chartId(id)} pollCount={pollCount}/>)}
                   </ul>
                 </div>
-                {graphState && (<Bar type={true} chartId={chartId(id)} pollCount={pollCount}/>)}
               </div>
             </Link>
           </div>

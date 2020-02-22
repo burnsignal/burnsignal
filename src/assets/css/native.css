@@ -1,4 +1,4 @@
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 600px) and (max-height: 820px) {
 
   .navbar {
     padding: 0 10px 0px 10px !important;
@@ -6,6 +6,10 @@
 
   .navbar .navbar-nav .dropdown {
     margin: 1.5px 0px;
+  }
+
+  .poll-result li:nth-of-type(2) {
+    padding-right: 30px;
   }
 
   .container {
@@ -19,6 +23,11 @@
   .fixed-top .container .row {
     margin-left: auto;
     margin-right: auto;
+  }
+
+ .col-sm-12 {
+    padding-right: 25px;
+    padding-left: 25px;
   }
 
   .navbar .navbar-brand {
@@ -42,6 +51,18 @@
     font-size: 26.75px !important;
   }
 
+  .poll-info {
+    max-width: 55vw;
+  }
+
+  .feed-poll .card-body {
+    padding: 0 1.25rem;
+  }
+
+  .poll-result {
+    font-size: 17.5px;
+  }
+
   .navbar .dropdown.show .dropdown-menu {
     position: absolute !important;
     background-color: white;
@@ -55,21 +76,8 @@
     display: table;
   }
 
-  .poll-title {
-    font-size: 20px !important;
-    vertical-align: middle;
-    display: table-cell;
-    max-width: 80%;
-    float: none !important;
-    padding-left: 5px;
-  }
-
   .poll-issuer {
-    vertical-align: middle;
-    float: none !important;
     margin-right: 12.5px !important;
-    display: table-cell;
-    height: auto;
     width: 50px;
   }
 
@@ -92,24 +100,27 @@
    }
 
   .profile-stats {
+    font-size: 10px;
     display: block;
-    margin-left: 0px;
+    float: right;
   }
 
-  .profile-stat {
-    width: 75%;
+  .a .profile-stats {
+    display: inline-block;
+  }
+
+  .profile-stats .profile-stat {
+    margin-right: 5px;
   }
 
   .modal-dialog {
-    margin: 0rem 2rem
+    margin: 0rem 1.5rem
   }
 
   .profile-address {
-    width: 50%;
     font-size: 16.75px;
-    float: right;
-    width: 57.6vw;
-    margin-left: 0px;
+    padding-left: 10px;
+    width: 62.5vw;
   }
 
   .profile-blockie {
@@ -122,8 +133,34 @@
 
   @media screen and (width: 360px) and (height: 640px) {
 
+    .poll-result {
+      font-size: 15px;
+    }
+
+    .poll-result li:first-of-type {
+      float: none !important;
+      padding-right: 12.5px;
+    }
+
+    .poll-result li:nth-of-type(2) {
+      padding-right: 12.5px;
+    }
+
+    .poll-result li:last-of-type{
+      float: none !important;
+    }
+
+    .eth-icon {
+      margin-bottom: 0px;
+      height: 15px;
+    }
+
     .profile-address {
-        font-size: 16.25px;
+     font-size: 15px;
+    }
+
+    .profile-stats .profile-stat {
+      margin-right: 0px;
     }
 
     .create-poll-question, .create-poll-description {
@@ -165,9 +202,29 @@
   @media screen and (width: 320px) and (height: 568px) {
 
     .profile-address{
-      width: 52.5vw;
       font-size: 13.5px;
-      margin-top: 5px;
+    }
+
+    .poll-result li:first-of-type {
+      float: none !important;
+      padding-right: 12.5px;
+    }
+
+    .poll-result li:nth-of-type(2) {
+      padding-right: 12.5px;
+    }
+
+    .poll-result li:last-of-type{
+      float: none !important;
+    }
+
+    .eth-icon {
+      margin-bottom: 0px;
+      height: 15px;
+    }
+
+    .navbar-title {
+      font-size: 17.5px;
     }
 
     .create-poll-question, .create-poll-description {
@@ -175,11 +232,44 @@
     }
 
     .profile-stats {
-      font-size: 12px;
+      font-size: 15px;
+      float: right;
+    }
+
+    .poll-result {
+      font-size: 12.5px;
     }
 
     .poll-details {
       font-size: 12.5px !important;
+    }
+
+  }
+
+  /* iPhone X */
+
+  @media screen and (width: 375px) and (height: 812px) {
+
+    .poll-result {
+      font-size: 15px;
+    }
+
+    .eth-icon {
+      margin-bottom: 0px;
+      height: 15px;
+    }
+
+    .poll-result li:first-of-type {
+      float: none !important;
+      padding-right: 12.5px;
+    }
+
+    .poll-result li:nth-of-type(2) {
+      padding-right: 12.5px;
+    }
+
+    .poll-result li:last-of-type{
+      float: none !important;
     }
 
   }
@@ -200,23 +290,36 @@
 
   /* iPad */
 
-  @media screen and (width: 768px) and (height: 1024px) {
+  @media screen and (width: 768px)  {
 
     .modal-dialog {
       margin: 1.75rem auto !important;
     }
 
-    .profile-address{
-      width: 43.75vw;
-      font-size: 18.75px;
+    .eth-icon {
+      margin-bottom: 0px;
     }
 
     .profile-stats {
-      font-size: 17.5px;
+      font-size: 8.75px;
+      margin-right: 0px;
+    }
+
+    .poll-info {
+      max-width: 25vw;
+    }
+
+    .poll-result {
+      font-size: 15px;
+    }
+
+    .profile-address{
+      font-size: 15px;
+      width: 27.5vw;
     }
 
     .create-poll-question, .create-poll-description {
-      width: 82.5% !important;
+      width: 72.5% !important;
     }
 
   }

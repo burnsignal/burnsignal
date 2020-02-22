@@ -49,7 +49,7 @@ function Feed() {
       {state.web3 && (
         <div className="new-poll">
           <Row>
-            <Col sm="12" md={{ size: 8, offset: 2 }}>
+            <Col sm="12" md={{ size: 6, offset: 3 }}>
               <div className="card">
                 <div className="card-header" />
                 <div className="card-body">

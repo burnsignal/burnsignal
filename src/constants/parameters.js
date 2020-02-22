@@ -29,7 +29,9 @@ export const CHARTS = {
           bottom: -50
         }
       },
-      legend: { display: false },
+      legend: {
+        display: false,
+      },
       scales: {
         xAxes: [{
           gridLines: {
@@ -48,7 +50,12 @@ export const CHARTS = {
           gridLines: {
             display:false
           },
-          ticks: { mirror: true },
+          ticks: {
+            fontColor: '#d048b6',
+            fontStyle: 'bold',
+            fontSize: 15,
+            mirror: true
+          },
         }]
       },
     }})
