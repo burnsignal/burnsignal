@@ -140,7 +140,7 @@ function Navigation(props) {
     return(
       <Link className="nav-link" to='/login'>
         <div className="nav-profile-alt">
-          <i className="fa fa-user-circle"></i>
+          <i className="far fa-user-circle"></i>
         </div>
       </Link>
     )

@@ -5,6 +5,7 @@ import { Row, Col } from "reactstrap"
 
 import { getVoteInfo, getRecords, ETH, chartId, toChecksumAddress } from '../constants/operatives'
 import { getPollMetadata } from "../constants/calls/GraphQL"
+import ethereum from "../assets/images/ethereum.png"
 import { store } from '../state'
 
 import Spline from '../assets/components/charts/spline'
@@ -128,8 +129,8 @@ function Poll(props){
             </div>
             <div className="card-body">
               <div class="poll-details">
-                <i id="pink" className="tim-icons icon-single-02"/>&nbsp;&nbsp;{uniqueAddresses}
-                <i id="pink" className="tim-icons icon-wallet-43"/>&nbsp;&nbsp;{totalPledged}
+                <i id="pink" className="far fa-user"/>&nbsp;&nbsp;{uniqueAddresses}
+                <img src={ethereum} className="eth-icon-xl"/>&nbsp;&nbsp;{totalPledged}
                 &nbsp;&nbsp;|&nbsp;&nbsp;${pledgedUSD}
               </div>
               {graphState && (

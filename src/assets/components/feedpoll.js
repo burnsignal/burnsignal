@@ -5,6 +5,7 @@ import { Row, Col } from "reactstrap"
 
 import { getVoteInfo, getRecords, ETH, chartId, toChecksumAddress } from '../../constants/operatives'
 import { getPollMetadata } from "../../constants/calls/GraphQL"
+import ethereum from "../../assets/images/ethereum.png"
 import { store } from '../../state'
 
 import Spline from './charts/spline'
@@ -91,13 +92,13 @@ function Poll(props){
                 </div>
               </div>
               <div className="card-body vote-body">
-                <button className="btn btn-simple" onClick={() => triggerModal("yes", true)}>Yes</button>
-                <button className="btn btn-simple" onClick={() => triggerModal("no", true)}>No</button>
-                <div className="poll-stats result">
+                <a href className="btn btn-simple" onClick={(e) => { e.preventDefault(); triggerModal("yes", true) }}>Yes</a>
+                <a href className="btn btn-simple" onClick={(e) => { e.preventDefault(); triggerModal("no", true) }}>No</a>
+                <div className="poll-result">
                   <ul>
-                    <li><i id="pink" className="tim-icons icon-single-02"/>&nbsp;&nbsp;{uniqueAddresses}</li>
-                    <li><i id="pink" className="tim-icons icon-wallet-43"/>&nbsp;&nbsp;{totalPledged}</li>
-                    <li>Results</li>
+                    <li><i id="pink" className="far fa-user"/>&nbsp;&nbsp;{uniqueAddresses}</li>
+                    <li><img src={ethereum} className="eth-icon"/>&nbsp;&nbsp;{totalPledged}</li>
+                    <li id="pink">Results</li>
                   </ul>
                 </div>
                 {graphState && (<Bar type={true} chartId={chartId(id)} pollCount={pollCount}/>)}

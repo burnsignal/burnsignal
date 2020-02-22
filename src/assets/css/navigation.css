@@ -52,10 +52,6 @@ a {
   z-index: 1;
 }
 
-a a {
-  z-index: 100;
-}
-
 .new-poll {
   margin-top: -3.5em;
 }
@@ -275,6 +271,18 @@ input:hover, textarea:hover {
   float: left;
 }
 
+ .card a:hover {
+  background: #2a2b40;
+}
+
+.card a {
+  position: static;
+}
+
+a a {
+  z-index: 5;
+}
+
 .nav-profile-alt {
   margin-right: 5px;
 }
@@ -324,6 +332,17 @@ input:hover, textarea:hover {
   opacity: 0.8;
   align-self: center;
 }
+
+.eth-icon {
+  height: 25px;
+  margin-bottom: 2.5px;
+}
+
+.eth-icon-xl {
+  height: 27.5px;
+  margin-bottom: 3.75px;
+}
+
 
 .align-center {
   text-align: center;
