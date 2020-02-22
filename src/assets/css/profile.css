@@ -76,8 +76,6 @@ a .profile-traits {
   padding-bottom: 7.5px;
   color: white;
   overflow-wrap: break-word;
-  box-sizing: border-box;
-  width: 100vw;
 }
 
 .profile-address a {

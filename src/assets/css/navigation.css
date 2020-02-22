@@ -5,7 +5,7 @@
   }
 
   .profile-traits li:last-of-type {
-    padding-left: 5%;
+    padding-left: 5% !important;
  }
 
 }
