@@ -29,7 +29,8 @@
   }
 
   .eth-icon {
-    margin-bottom: 0px !important;
+    margin-bottom: 1.5px !important;
+    height: 18.75px !important;
   }
 
   .poll-result {

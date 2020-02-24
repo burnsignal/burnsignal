@@ -79,7 +79,7 @@ export const CHARTS = {
         xAxes: [{
           scaleLabel: {
             display: true,
-            labelString: "Wei (ETH)"
+            labelString: "Percent (%)"
           },
           ticks: {
             suggestedMin: 0,
@@ -124,7 +124,7 @@ export const CHARTS = {
         yAxes: [{
           id:'yAxis1',
           scaleLabel: {
-            labelString: "Wei (ETH)",
+            labelString: "Percent (%)",
             display: true
           },
           ticks: {

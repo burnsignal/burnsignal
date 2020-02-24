@@ -11,12 +11,10 @@ function Bar(props) {
       let { yes, no } = props.pollCount;
 
       const ctx = document.getElementById(chartId).getContext("2d")
+      const total = (value) => (value / (yes + no)) * 100
+      const data = [ total(yes), total(no) ]
 
-      const maximumValue = yes > no ? yes : no
-      const range = ( maximumValue * 0.20 ) + maximumValue
-      const data = [ yes, no ]
-
-      new Chart(ctx, { ...CHARTS.BAR_CONFIG(data, range, props.type) })
+      new Chart(ctx, { ...CHARTS.BAR_CONFIG(data, 100, props.type) })
     }
     composeAndRender()
   }, [ ])

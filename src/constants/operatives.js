@@ -1,6 +1,13 @@
 import { keccak_256, sha3_256 } from 'js-sha3'
 
 export const chartId = str => [...str.substring(0, 10)].reduceRight((res,_,__,arr) => [...res,arr.splice(~~(Math.random()*arr.length),1)[0]],[]).join('');
+export const reducer = (accumulator, currentValue) => {
+  if(Math.sign(currentValue.y) == -1) currentValue = currentValue.y * -1
+  else currentValue = currentValue.y
+  return accumulator + currentValue
+}
+
+export const isMinus = (value) => Math.sign(value) === -1
 
 export const ETH = wei => {
   if(parseInt(wei) >= 1000000000000000) {
@@ -14,6 +21,7 @@ export const ETH = wei => {
 
 export const sortVotes = (yes, no) => {
   let totalVotes = yes.concat(no);
+  let originalVotes = totalVotes;
   let timespan = 4800000;
   var x = 0;
 
@@ -23,19 +31,40 @@ export const sortVotes = (yes, no) => {
     const value = totalVotes[x]
 
     if(x != 0){
+       const running = totalVotes.slice(0, x)
+       const sum = running.reduce(reducer, 0)
        const previous = totalVotes[x-1]
+       const highlight = isMinus(value.y) ? value.y * -1 : value.y
+       const percent = (highlight / (sum + highlight)) * 100
 
        if((value.x - previous.x) <= timespan){
-         const sum = value.y + previous.y
-         const time = value.x
+         var current;
 
-         totalVotes[x-1] = { x: time, y: sum }
+         if(isMinus(previous.y) && isMinus(value.y)){
+           if(previous.y === -100) current = previous.y
+           else current = (percent + (percent - (previous.y * -1))) * -1
+         } else if(!isMinus(previous.y) && isMinus(value.y)){
+           current = (percent - (percent + previous.y)) * -1
+         } else if(isMinus(previous.y) && !isMinus(value.y)){
+           current = (percent - (percent + previous.y))
+         } else if(!isMinus(previous.y) && !isMinus(value.y)){
+           if(previous.y === 100) current = previous.y
+           else current = (percent + (percent - previous.y))
+         }
+
+         if(isMinus(value.y) && !isMinus(current)) current = current * -1
+
+         totalVotes[x-1] = { x: value.x,  y: current }
          totalVotes.splice(x, 1)
          x--
        } else {
+         totalVotes[x] = { x: value.x, y: percent }
         x++
       }
     } else {
+      var initial = 100
+      if(isMinus(value.y)) initial = initial * - 1
+      totalVotes[x] = { x: value.x, y: initial }
       x++
     }
   }

@@ -21,7 +21,7 @@ const getWeb3 = () => (
     try {
       const web3Connect = new Web3Connect.Core({
         network: "mainnet",
-        cacheProvider: true,
+        cacheProvider: false,
         providerOptions
       })
       const provider = await web3Connect.connect()

@@ -16,14 +16,7 @@ function Spline(props){
 
       var [ dataArray, rangeArray ] = sortVotes(yes, no)
 
-      var minValue = rangeArray.length != 0 ? rangeArray[0].y : 0
-      var maxValue = rangeArray.length != 0 ? rangeArray[rangeArray.length-1].y : 0
-      var minRange = Math.ceil((((minValue * 0.2) + minValue) /10 ) * 10) * -1
-      var maxRange = Math.ceil((((maxValue * 0.2) + maxValue) /10 ) * 10)
-
       const ctx = document.getElementById(chartId).getContext("2d")
-
-      let range = minRange > maxRange ? minRange : maxRange
 
       var gradientStroke = ctx.createLinearGradient(0,337.5,0, 25)
 
@@ -35,20 +28,6 @@ function Spline(props){
 
       dataArray.sort((a,b) => { return a.x - b.x })
 
-      var startingValue = dataArray.length != 0 ? dataArray[0].x - 4800000 : Date.now()
-      var startingDate = new Date(startingValue)
-      startingDate.setMinutes(0);
-      startingDate.setSeconds(0);
-
-      dataArray.unshift({
-        x: startingDate.getTime(), y: 0
-      })
-
-      dataArray.sort((a,b) => { return a.x - b.x })
-
-
-      console.log(dataArray)
-
       var data = {
         datasets: [{
           ...CHARTS.SPLINE_STYLE(gradientStroke),
@@ -56,7 +35,7 @@ function Spline(props){
         }]
       }
 
-      new Chart(ctx, { ...CHARTS.SPLINE_CONFIG(data, range) })
+      new Chart(ctx, { ...CHARTS.SPLINE_CONFIG(data, 100) })
     }
     composeAndRender()
   }, [ ])
