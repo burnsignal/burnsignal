@@ -14,7 +14,7 @@ function Spline(props){
     const composeAndRender = () => {
       let { yes, no } = props.pollRecords
 
-      var [ dataArray, rangeArray ] = sortVotes(yes, no)
+      var dataArray = sortVotes(yes, no)
 
       const ctx = document.getElementById(chartId).getContext("2d")
 

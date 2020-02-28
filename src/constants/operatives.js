@@ -21,58 +21,55 @@ export const ETH = wei => {
 
 export const sortVotes = (yes, no) => {
   let totalVotes = yes.concat(no);
-  let originalVotes = totalVotes;
   let timespan = 4800000;
+  let sortedVotes = [];
   var x = 0;
 
   totalVotes.sort((a,b) => { return a.x - b.x })
 
   while(x < totalVotes.length){
     const value = totalVotes[x]
+    const highlight = isMinus(value.y) ? value.y * -1 : value.y
+    var current = 100
 
     if(x != 0){
        const running = totalVotes.slice(0, x)
        const sum = running.reduce(reducer, 0)
        const previous = totalVotes[x-1]
-       const highlight = isMinus(value.y) ? value.y * -1 : value.y
-       const percent = (highlight / (sum + highlight)) * 100
 
        if((value.x - previous.x) <= timespan){
-         var current;
+         var replacement = isMinus(previous.y) ? previous.y * -1 : previous.y
 
-         if(isMinus(previous.y) && isMinus(value.y)){
-           if(previous.y === -100) current = previous.y
-           else current = (percent + (percent - (previous.y * -1))) * -1
-         } else if(!isMinus(previous.y) && isMinus(value.y)){
-           current = (percent - (percent + previous.y)) * -1
-         } else if(isMinus(previous.y) && !isMinus(value.y)){
-           current = (percent - (percent + previous.y))
-         } else if(!isMinus(previous.y) && !isMinus(value.y)){
-           if(previous.y === 100) current = previous.y
-           else current = (percent + (percent - previous.y))
+         if(isMinus(value.y) && isMinus(previous.y)){
+           current = (highlight / (sum + highlight)) * -100
+         } else if (!isMinus(value.y) && !isMinus(previous.y)){
+           current = (highlight / (sum + highlight)) * 100
+         } else if(isMinus(value.y) && !isMinus(previous.y)
+           || !isMinus(value.y) && isMinus(previous.y)) {
+           current = ((highlight / (sum + highlight)) * 100)
+           current = current - ((replacement / sum) * 100)
          }
 
-         if(isMinus(value.y) && !isMinus(current)) current = current * -1
-
-         totalVotes[x-1] = { x: value.x,  y: current }
+         sortedVotes[sortedVotes.length-1] = { x: value.x, y: current }
+         totalVotes[x-1] = { x: value.x, y: value.y + previous.y }
          totalVotes.splice(x, 1)
-         x--
        } else {
-         totalVotes[x] = { x: value.x, y: percent }
-        x++
+         current = (highlight / (sum + highlight)) * 100
+
+         if(isMinus(value.y)) current = current * -1
+
+         sortedVotes.push({ x: value.x,  y: current })
+         x++
       }
-    } else {
-      var initial = 100
-      if(isMinus(value.y)) initial = initial * - 1
-      totalVotes[x] = { x: value.x, y: initial }
+    } else if(x == 0) {
+      if(isMinus(value.y)) current = 100 * -1
+
+      sortedVotes.push({ x: value.x,  y: current })
       x++
     }
   }
 
-  let rangeVotes = totalVotes
-  rangeVotes.sort((a,b) => { return a.y - b.y })
-
-  return [ totalVotes, rangeVotes ];
+  return sortedVotes;
 }
 
 export const getRecords = async(users) => {
