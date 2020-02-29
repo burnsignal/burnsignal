@@ -30,33 +30,36 @@ export const sortVotes = (yes, no) => {
   while(x < totalVotes.length){
     const value = totalVotes[x]
     const highlight = isMinus(value.y) ? value.y * -1 : value.y
+    const array = isMinus(value.y) ? no.slice(0, no.indexOf(value)+1) :
+    yes.slice(0, yes.indexOf(value)+1)
     var current = 100
 
     if(x != 0){
-       const running = totalVotes.slice(0, x)
-       const sum = running.reduce(reducer, 0)
+       const sum = totalVotes.slice(0, x+1).reduce(reducer, 0)
+       const running = array.reduce(reducer, 0)
        const previous = totalVotes[x-1]
 
        if((value.x - previous.x) <= timespan){
          var replacement = isMinus(previous.y) ? previous.y * -1 : previous.y
 
          if(isMinus(value.y) && isMinus(previous.y)){
-           current = (highlight / (sum + highlight)) * -100
+           current = (running / sum) * -100
          } else if (!isMinus(value.y) && !isMinus(previous.y)){
-           current = (highlight / (sum + highlight)) * 100
+           current = (running / sum) * 100
          } else if(isMinus(value.y) && !isMinus(previous.y)
            || !isMinus(value.y) && isMinus(previous.y)) {
-           current = ((highlight / (sum + highlight)) * 100)
+           current = ((running / sum) * 100)
            current = current - ((replacement / sum) * 100)
          }
 
          sortedVotes[sortedVotes.length-1] = { x: value.x, y: current }
-         totalVotes[x-1] = { x: value.x, y: value.y + previous.y }
+         totalVotes[x-1] = { x: value.x, y: replacement + highlight }
          totalVotes.splice(x, 1)
        } else {
-         current = (highlight / (sum + highlight)) * 100
+         current = ((running / sum) * 100)
 
          if(isMinus(value.y)) current = current * -1
+         if(current > 100) current = current - 100
 
          sortedVotes.push({ x: value.x,  y: current })
          x++
@@ -68,7 +71,6 @@ export const sortVotes = (yes, no) => {
       x++
     }
   }
-
   return sortedVotes;
 }
 
@@ -80,6 +82,9 @@ export const getRecords = async(users) => {
 
     const positive = await pluckArray(yes, "yes", [])
     const negative = await pluckArray(no, "no", [])
+
+    positive.sort((a,b) => { return a.x - b.x })
+    negative.sort((a,b) => { return a.x - b.x })
 
     Object.assign(history.yes, history.yes.concat(positive))
     Object.assign(history.no, history.no.concat(negative))
