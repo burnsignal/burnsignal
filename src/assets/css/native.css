@@ -85,13 +85,8 @@
     font-size: 17.5px;
   }
 
-  .navbar .dropdown.show .dropdown-menu {
-    position: absolute !important;
-    background-color: white;
-  }
-
   .dropdown-menu  {
-    left: -80px !important;
+    left: -52.5px !important;
   }
 
   .poll-issuer {
@@ -189,6 +184,11 @@
 
   @media screen and (width: 320px) and (height: 568px) {
 
+    .fixed-top .container .row {
+      margin-left: auto;
+      margin-right: 9.5px;
+    }
+
     .profile-address{
       font-size: 13.5px;
     }
@@ -273,11 +273,6 @@
 
 @media screen and (width: 768px) and (height: 1024px) {
 
-  .navbar .dropdown.show .dropdown-menu {
-    position: absolute !important;
-    background-color: white;
-  }
-
   .dropdown-menu  {
     left: -90px !important;
   }
@@ -304,6 +299,54 @@
 
   .create-poll-question, .create-poll-description {
     width: 72.5% !important;
+  }
+
+}
+
+@media screen and (max-width: 313px) {
+
+  .navbar .navbar-nav .btn {
+    margin-left: -15px;
+  }
+
+  .navbar, .navbar-nav li {
+    padding: 0px !important;
+  }
+
+  .nav-profile-alt .fa-user-circle {
+    font-size: 22.5px !important;
+  }
+
+  .navbar-title {
+    margin-left: 0px;
+    font-size: 17.5px;
+  }
+
+  .nav-link {
+    padding-right: 10px !important;
+  }
+
+
+}
+
+
+@media screen and (max-width: 200px) {
+
+  .nav-link {
+    padding-right: 0px !important;
+  }
+
+  .nav-profile-alt .fa-user-circle {
+    font-size: 15px !important;
+  }
+
+  .navbar-title {
+    font-size: 13.75px;
+  }
+
+  .navbar-logo {
+    width: 30px;
+    height: 30px;
   }
 
 }
