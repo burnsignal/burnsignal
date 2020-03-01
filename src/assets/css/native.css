@@ -4,6 +4,20 @@
     padding: 0 10px 0px 10px !important;
   }
 
+  .modal-content .modal-body {
+    overflow-wrap: break-word;
+    align-self: auto;
+  }
+
+  .poll-qr {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .modal-dialog .btn {
+    font-size: 0.6rem;
+  }
+
   .navbar .navbar-nav .dropdown {
     margin: 1.5px 0px;
   }
@@ -253,34 +267,43 @@
 
   }
 
-  /* iPad */
+}
 
-  @media screen and (width: 768px)  {
+/* iPad */
 
-    .modal-dialog {
-      margin: 1.75rem auto !important;
-    }
+@media screen and (width: 768px) and (height: 1024px) {
 
-    .eth-icon {
-      margin-bottom: 0px;
-    }
+  .navbar .dropdown.show .dropdown-menu {
+    position: absolute !important;
+    background-color: white;
+  }
 
-    .poll-info {
-      max-width: 25vw;
-    }
+  .dropdown-menu  {
+    left: -90px !important;
+  }
 
-    .poll-result {
-      font-size: 15px;
-    }
+  .modal-dialog {
+    margin: 1.75rem auto !important;
+  }
 
-    .profile-address{
-      font-size: 15px;
-    }
+  .eth-icon {
+    margin-bottom: 0px;
+  }
 
-    .create-poll-question, .create-poll-description {
-      width: 72.5% !important;
-    }
+  .poll-info {
+    max-width: 25vw;
+  }
 
+  .poll-result {
+    font-size: 15px;
+  }
+
+  .profile-address{
+    font-size: 15px;
+  }
+
+  .create-poll-question, .create-poll-description {
+    width: 72.5% !important;
   }
 
 }

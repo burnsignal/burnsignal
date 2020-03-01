@@ -130,7 +130,8 @@ a {
   margin-left: auto !important;
 }
 
-.btn-secondary:hover {
+.btn-secondary:hover, .btn-secondary:active, .btn-secondary:hover,
+.btn-secondary:active:hover {
   background: rgba(0,0,0,0.5) !important;
 }
 
@@ -163,7 +164,7 @@ a {
 
 .dropdown-menu  {
   left: 7.5px !important;
-  min-width: 6.75rem;
+  min-width: 2.5rem;
 }
 
 .dropdown-toggle  {

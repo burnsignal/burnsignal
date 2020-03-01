@@ -15,7 +15,7 @@ function Feed() {
   function CreatePoll() {
     return(
       <Fragment>
-        <input ref={question} name="question" placeholder="What question is on your mind?" className="create-poll-question" />
+        <input ref={question} name="question" placeholder="Ask a question" className="create-poll-question" />
         <textarea name="description" ref={description} placeholder="Description" className="create-poll-description" />
         <button className="btn btn-primary button-poll" onClick={createPoll}> Create </button>
       </Fragment>

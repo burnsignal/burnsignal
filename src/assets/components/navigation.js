@@ -157,7 +157,7 @@ function Navigation(props) {
           </button>
         </ModalHeader>
         <ModalBody>
-          <input name="question" ref={question} placeholder="What question is on your mind?" className="create-poll-question" />
+          <input name="question" ref={question} placeholder="Ask a question" className="create-poll-question" />
           <textarea name="description" ref={description} placeholder="Description" className="create-poll-description" />
           <button className="btn btn-primary button-poll" onClick={createPoll}> Create </button>
         </ModalBody>

@@ -9,41 +9,17 @@ import { store } from "../../state"
 const QRCode = require('qrcode.react')
 
 function Option(props) {
-  const ENS = `${createURL(props.title)}.burnsignal.eth`
+  const [ queryState, setQuery ] = useState(true)
   const burn = useRef(null)
 
   let { state } = useContext(store)
   let { title } = props
 
   function Unauthenticated({ option }){
-    const [ queryLogin , setQuery ] = useState(true)
-
-    if(queryLogin){
-      return(
-      <Fragment className="queryLogin">
-        <ModalHeader>
-          <h5 className="modal-title">Log in to vote.</h5>
-          <button type="button" className="close" onClick={props.modalToggle}>
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </ModalHeader>
-        <ModalFooter>
-          <button type="button" className="btn btn-secondary" onClick={() => setQuery(false)}>
-            Vote without authentication
-          </button>
-          <Link to='/login' onClick={props.modalToggle}>
-            <button type="button" className="btn btn-primary btn-verify" data-dismiss="modal" >
-              Login
-            </button>
-          </Link>
-        </ModalFooter>
-      </Fragment>
-     )
-   } else if(!queryLogin) {
-      return(
+    return(
       <Fragment>
         <ModalHeader>
-          <h5 className="modal-title">{props.title}</h5>
+          {props.title}
           <button type="button" className="close" onClick={props.modalToggle}>
             <span aria-hidden="true">&times;</span>
           </button>
@@ -57,10 +33,10 @@ function Option(props) {
           To ensure that you vote counts, please link your ethereum account
           to your BrightID account at  <a target="_" href="https://ethereum.brightid.org">ethereum.brightid.org</a>
         </ModalBody>
+        <ModalFooter />
       </Fragment>
      )
    }
-  }
 
   function AuthenticatedAndVerified({ option }){
     return(
@@ -105,6 +81,29 @@ function Option(props) {
      )
   }
 
+  function Query(){
+    return(
+    <div className="queryLogin">
+      <ModalHeader>
+        Log in to vote.
+        <button type="button" className="close" onClick={props.modalToggle}>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </ModalHeader>
+      <ModalFooter>
+        <button type="button" className="btn btn-secondary" onClick={() => setQuery(false)}>
+          Vote without authentication
+        </button>
+        <Link to='/login' onClick={props.modalToggle}>
+          <button type="button" className="btn btn-primary btn-verify" data-dismiss="modal" >
+            Login
+          </button>
+        </Link>
+      </ModalFooter>
+    </div>
+   )
+ }
+
   const makeTransaction = async(option) => {
     let { web3 } = state
 
@@ -124,10 +123,13 @@ function Option(props) {
 
   return (
     <Fragment>
-      <Modal isOpen={props.modalState}>
+      <Modal isOpen={!queryState && props.modalState}>
         { state.web3 && state.verified && (<AuthenticatedAndVerified option={props.modalOption} />) }
         { !state.web3 && !state.verified && (< Unauthenticated option={props.modalOption} />) }
         { state.web3 && !state.verified && (<AuthenticatedAndUnverified />) }
+      </Modal>
+      <Modal isOpen={queryState && props.modalState}>
+        <Query />
       </Modal>
     </Fragment>
   )
