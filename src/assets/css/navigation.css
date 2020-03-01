@@ -3,6 +3,11 @@
   background-color: white;
 }
 
+.container .row {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
 .web3connect-modal-card {
   display: table !important;
 }
