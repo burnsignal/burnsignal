@@ -194,6 +194,10 @@
 
   @media screen and (width: 320px) and (height: 568px) {
 
+    .create-poll-question, .create-poll-description {
+      width: 72.5% !important;
+    }
+
     .profile-address{
       font-size: 13.5px;
     }
@@ -308,7 +312,7 @@
 
 }
 
-@media screen and (max-width: 300px) {
+@media screen and (max-width: 285px) {
 
   .navbar-nav .nav-link {
     padding-right: 17.5px !important;
@@ -366,7 +370,7 @@
   }
 
   .fixed-top .container {
-      padding: 0em 2em 0em 1em !important;
+      padding: 0em 1.5em 0em 2em !important;
   }
 
   .navbar, .navbar-nav li {
