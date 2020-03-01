@@ -1,5 +1,9 @@
 @media screen and (max-width: 425px) and (max-height: 825px) {
 
+  .chart-container {
+    display: none;
+  }
+
   .fixed-top .container .row {
     margin-left: 0px !important;
     margin-right: 0px !important;
@@ -194,6 +198,19 @@
 
   @media screen and (width: 320px) and (height: 568px) {
 
+    .poll-title, .poll-description {
+      font-size: 13.75px;
+    }
+
+    .poll-info {
+      max-width: 42.5vw;
+    }
+
+    .fixed-top .container .row {
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+
     .create-poll-question, .create-poll-description {
       width: 72.5% !important;
     }
@@ -312,14 +329,14 @@
 
 }
 
-@media screen and (max-width: 285px) {
+@media screen and (max-width: 350px) {
 
   .navbar-nav .nav-link {
     padding-right: 17.5px !important;
   }
 
   .create-poll-question, .create-poll-description {
-    width: 60% !important;
+    width: 72.5% !important;
   }
 
   .nav-profile {
@@ -365,14 +382,6 @@
     height: 40px;
   }
 
-  .container {
-    padding: 7.5em 0em 0em 2em !important;
-  }
-
-  .fixed-top .container {
-      padding: 0em 1.5em 0em 2em !important;
-  }
-
   .navbar, .navbar-nav li {
     padding: 0px !important;
   }
@@ -390,8 +399,8 @@
 
 @media screen and (max-width: 276px) {
 
-  .fixed-top .container {
-    padding: 0em 1.9em !important;
+  .create-poll-question, .create-poll-description {
+    width: 70% !important;
   }
 
   .poll-info {
