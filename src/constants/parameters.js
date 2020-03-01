@@ -1,5 +1,3 @@
-import { PINK_PRIMARY } from "./palette.js"
-
 export const CONTRACT_ADDRESS = "0x61a8598eabb7bddca95d3783c228878cd788e0a9"
 
 export const WEEKDAYS = ['Monday', 'Tuesday', 'Wendsday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ]
@@ -13,7 +11,7 @@ export const CHARTS = {
       labels: ['Yes','No' ],
       datasets: [{
         data: _data,
-        borderColor: PINK_PRIMARY,
+        borderColor: '#d048b6',
         borderWidth: 2,
         fill: true
       }]
@@ -53,7 +51,7 @@ export const CHARTS = {
           ticks: {
             fontColor: '#d048b6',
             fontStyle: 'bold',
-            fontSize: 15,
+            fontSize: 13,
             mirror: true
           },
         }]
@@ -66,7 +64,7 @@ export const CHARTS = {
       labels: ['Yes','No' ],
       datasets: [{
         data: _data,
-        borderColor: PINK_PRIMARY,
+        borderColor: "#d048b6",
         borderWidth: 2,
         fill: true
       }]
@@ -156,13 +154,13 @@ export const CHARTS = {
     label: "Data",
     fill: true,
     backgroundColor: _gradient,
-    borderColor: PINK_PRIMARY,
+    borderColor: "#d048b6",
     borderWidth: 2,
     borderDash: [],
     borderDashOffset: 0.0,
-    pointBackgroundColor: PINK_PRIMARY,
+    pointBackgroundColor: "#d048b6",
     pointBorderColor:'rgba(255,255,255,0)',
-    pointHoverBackgroundColor: PINK_PRIMARY,
+    pointHoverBackgroundColor: "#d048b6",
     pointBorderWidth: 20,
     pointHoverRadius: 4,
     pointHoverBorderWidth: 15,
