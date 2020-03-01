@@ -3,7 +3,7 @@ import { Link, useParams, useHistory } from "react-router-dom"
 import makeBlockie from 'ethereum-blockies-base64'
 import { Row, Col } from "reactstrap"
 
-import { getVoteInfo, getRecords, ETH, chartId, toChecksumAddress } from '../constants/operatives'
+import { getVoteInfo, getQuadratics, getRecords, ETH, chartId, toChecksumAddress } from '../constants/operatives'
 import { getPollMetadata } from "../constants/calls/GraphQL"
 import ethereum from "../assets/images/ethereum.png"
 import { store } from '../state'
@@ -61,9 +61,10 @@ function Poll(props){
         let ethValue = parseInt(yes) + parseInt(no)
         let usdValue = state.price * ethValue/Math.pow(10,18)
         let records = await getRecords(users)
+        let quadratics = getQuadratics(records.yes, records.no)
         let total = ETH(ethValue)
 
-        setCount({ yes: parseInt(yes), no: parseInt(no) })
+        setCount({ yes: quadratics[0], no: quadratics[1] })
         setOptions({ yes: optionAaddr, no: optionBaddr })
         setAuthor(toChecksumAddress(issuer))
         setUnique(records.voters.length)

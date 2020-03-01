@@ -96,9 +96,16 @@ export const getRecords = async(users) => {
   return history
 }
 
+export const getQuadratics = (yes, no) => {
+  return [
+    yes.reduce(reducer, 0),
+    no.reduce(reducer, 0)
+  ]
+}
+
 const pluckArray = (array, sign, rtrn) =>
    new Promise(resolve =>  {
-    array.value.forEach((value, index) => {
+    array.sqrt.forEach((value, index) => {
       const timestamp = array.timestamps[index]
       var coordinate = parseFloat(value)
 
