@@ -25,9 +25,9 @@ function Option(props) {
         </ModalHeader>
         <ModalBody className="align-center">
           Vote <span id="pink">{option}</span> by sending any amount of ETH to <br/>
-          <a target="_" href='https://etherscan.io'><span id="pink">{option}</span>.{ENS}</a>
+          <a target="_"  id="pink" href={`https://etherscan.io/address/${props.address[option]}`}>{props.address[option]}</a>
           <div className="poll-qr">
-            <QRCode value={props.address[option]} />
+            <QRCode includeMargin size={200} value={props.address[option]} />
           </div>
           To ensure that you vote counts, please link your ethereum account
           to your BrightID account at  <a target="_" href="https://ethereum.brightid.org">ethereum.brightid.org</a>
