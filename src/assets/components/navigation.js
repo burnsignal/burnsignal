@@ -37,10 +37,10 @@ function Navigation(props) {
         setModal({ ...modal, network: true  })
       }
 
+      window.ethereum.on('accountsChanged', () => initialiseWeb3())
       setDropdown(<Logout account={accounts[0]}/>)
       setNav(<LoggedIn account={accounts[0]}/>)
-      accountListener()
-      
+
       dispatch({
         payload: {
           web3, accounts, instance,
@@ -76,13 +76,6 @@ function Navigation(props) {
     else history.push('/')
     setModal({
       ...modal, [option]: false, route: false
-    })
-  }
-
-  function accountListener(){
-    window.ethereum.on('accountsChanged', (accounts) => {
-        setDropdown(<Logout account={accounts[0]}/>)
-        setNav(<LoggedIn account={accounts[0]}/>)
     })
   }
 

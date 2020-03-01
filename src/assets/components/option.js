@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useContext, useEffect, useRef } from 'react'
 import { Dropdown, DropdownToggle, Col, Row, Button, Modal, ModalHeader,
-  ModalBody, ModalFooter } from 'reactstrap';
+  ModalBody, ModalFooter } from 'reactstrap'
+import { Link } from "react-router-dom"
 
 import { createURL } from "../../constants/operatives"
 import { store } from "../../state"
@@ -15,7 +16,31 @@ function Option(props) {
   let { title } = props
 
   function Unauthenticated({ option }){
-    return(
+    const [ queryLogin , setQuery ] = useState(true)
+
+    if(queryLogin){
+      return(
+      <Fragment className="queryLogin">
+        <ModalHeader>
+          <h5 className="modal-title">Log in to vote.</h5>
+          <button type="button" className="close" onClick={props.modalToggle}>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </ModalHeader>
+        <ModalFooter>
+          <button type="button" className="btn btn-secondary" onClick={() => setQuery(false)}>
+            Vote without authentication
+          </button>
+          <Link to='/login' onClick={props.modalToggle}>
+            <button type="button" className="btn btn-primary btn-verify" data-dismiss="modal" >
+              Login
+            </button>
+          </Link>
+        </ModalFooter>
+      </Fragment>
+     )
+   } else if(!queryLogin) {
+      return(
       <Fragment>
         <ModalHeader>
           <h5 className="modal-title">{props.title}</h5>
@@ -35,6 +60,7 @@ function Option(props) {
       </Fragment>
      )
    }
+  }
 
   function AuthenticatedAndVerified({ option }){
     return(

@@ -11,11 +11,11 @@ export const isMinus = (value) => Math.sign(value) === -1
 
 export const ETH = wei => {
   if(parseInt(wei) >= 1000000000000000) {
-    return `${parseFloat(wei/Math.pow(10,18)).toFixed(3)} ETH`
+    return `${parseFloat(wei/Math.pow(10,18)).toLocaleString()} ETH`
   } else if(parseInt(wei) >= 1000000){
-    return `${(wei/1000000000).toFixed(0)} GWEI`
+    return `${parseInt(wei/1000000000).toLocaleString()} GWEI`
   } else if(parseInt(wei) < 1000000) {
-    return `${parseFloat(wei).toFixed(0)} WEI`
+    return `${parseInt(wei).toLocaleString()} WEI`
   }
 }
 

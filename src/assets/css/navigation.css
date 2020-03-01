@@ -37,10 +37,6 @@
     font-size: 15px !important;
   }
 
-  .poll-result li:nth-of-type(2) {
-    padding-right: 50px !important;
-  }
-
 }
 
 /* iPad Pro */
@@ -59,15 +55,14 @@
     font-size: 20px;
   }
 
-  .poll-result li:nth-of-type(2) {
-    padding-right: 100px !important;
-  }
-
-
   .create-poll-question, .create-poll-description {
     width: 80% !important;
   }
 
+}
+
+.web3connect-modal-card {
+  display: table !important;
 }
 
 .navbar .navbar-wrapper {
@@ -129,6 +124,16 @@ a {
   font-weight: 500 !important;
 }
 
+.modal-content .btn-secondary {
+  background: rgba(0,0,0,0.25);
+  margin-right: 12.5px !important;
+  margin-left: auto !important;
+}
+
+.btn-secondary:hover {
+  background: rgba(0,0,0,0.5) !important;
+}
+
 .button-poll {
   border-radius: 25px;
   padding: 10px 30px;
@@ -158,6 +163,7 @@ a {
 
 .dropdown-menu  {
   left: 7.5px !important;
+  min-width: 6.75rem;
 }
 
 .dropdown-toggle  {

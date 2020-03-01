@@ -111,10 +111,6 @@ a .card {
   float: left;
 }
 
-.poll-result li:nth-of-type(2) {
-  padding-right: 175px;
-}
-
 .poll-result li:last-of-type{
   float: right;
   color: #d048b6;
