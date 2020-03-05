@@ -50,9 +50,7 @@ export const sortVotes = (yes, no) => {
            || !isMinus(value.y) && isMinus(previous.y)) {
            current = ((running / sum) * 100)
            current = current - ((replacement / sum) * 100)
-         } if(current > 100) current = current - 100
-         else if(current < 0) current = current + 100
-         else if(current > 75 && current < 100) current = 100 - current
+         } if(isMinus(current)) current = current * -1
 
          sortedVotes[sortedVotes.length-1] = { x: value.x, y: current }
          totalVotes[x-1] = { x: value.x, y: replacement + highlight }
@@ -60,17 +58,12 @@ export const sortVotes = (yes, no) => {
        } else {
          current = ((running / sum) * 100)
 
-         if(current > 100) current = current - 100
-         else if(current < 0) current = current + 100
-         else if(current > 75 && current < 100) current = 100 - current
+         if(isMinus(current)) current = current * -1
 
          sortedVotes.push({ x: value.x,  y: current })
          x++
       }
     } else if(x == 0) {
-      if(current > 100) current = current - 100
-      else if(current < 0) current = current + 100
-      else if(current > 75 && current < 100) current = 100 - current
 
       sortedVotes.push({ x: value.x,  y: current })
       x++

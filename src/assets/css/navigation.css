@@ -241,7 +241,7 @@ input:hover, textarea:hover {
 .modal-input {
   border: 2px solid #2B3553;
   box-sizing: border-box;
-  background: rgba(255, 255, 255, 0);
+  background: rgba(256, 256 , 256, 0.025);
   border-radius: 6px;
   padding: 7.5px 25px;
   margin: 20px 0px 20px 0px;

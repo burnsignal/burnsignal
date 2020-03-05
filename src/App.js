@@ -12,8 +12,7 @@ import "./assets/css/native.css"
 import Navigation from './assets/components/navigation'
 import Option from './assets/components/option'
 
-import { getETHPrice } from "./constants/calls/REST"
-import { getPolls } from "./constants/calls/GraphQL"
+import { getPolls, getETHPrice } from "./constants/calls/GraphQL"
 import { store } from './state'
 
 import Profile from './routes/profile'
@@ -39,8 +38,7 @@ function App(props) {
 
   useEffect(() => {
     const retrievePolls = async() => {
-      var priceMetadata = await getETHPrice()
-      var price = parseFloat(priceMetadata[0].price_usd)
+      var price = await getETHPrice()
       var polls = await getPolls()
 
       dispatch({

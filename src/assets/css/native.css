@@ -1,6 +1,6 @@
 @media screen and (max-width: 425px) and (max-height: 820px) {
 
-  .chart-container {
+  .feed-poll .chart-container {
     display: none;
   }
 

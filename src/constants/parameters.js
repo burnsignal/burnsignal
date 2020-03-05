@@ -73,18 +73,25 @@ export const CHARTS = {
       responsive: true,
       maintainAspectRatio: false,
       legend: { display: false },
+      layout: {
+        padding: {
+          left: 0,
+          right: 0,
+          top: 0,
+          bottom: -50
+        }
+      },
       scales: {
         xAxes: [{
           scaleLabel: {
             display: true,
-            labelString: "Percent (%)"
           },
           ticks: {
+            mirror: true,
             suggestedMin: 0,
             callback: function(label, index, labels) {
-              if(label > 1e8 || label < (-1 * 1e8)){
-                 return label.toExponential()
-              } else return label;
+              label = ""
+              return label
             }
           }
         }]
@@ -99,14 +106,35 @@ export const CHARTS = {
       lineTension: 100,
       bezierCurve: true,
       legend: { display: false },
+      tooltips: {
+          enabled: true,
+          mode: 'single',
+          callbacks: {
+            label: function(items, data) {
+               var percent = items.yLabel
+               var yes;
+               var no;
+
+               if(percent > 55){
+                 no = (100 - percent).toFixed(2)
+                 yes = percent.toFixed(2)
+                } else {
+                 yes = (100 - percent).toFixed(2)
+                 no = percent.toFixed(2)
+                }
+
+                return ` Yes: ${yes}% \n No: ${no}%`
+             }
+          }
+      },
       scales: {
         xAxes: [{
           type: 'time',
           time: {
-            unit: 'millisecond',
-            unitStepSize: 21600000,
+            unit: 'week',
+            unitStepSize: 1,
             displayFormats: {
-              millisecond: 'MMM D'
+              week: 'MMM D'
             },
           },
           ticks: {
