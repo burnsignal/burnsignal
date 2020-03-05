@@ -121,6 +121,11 @@ function Option(props) {
   }
 
 
+  useEffect(() => {
+    if(state.web3) setQuery(false)
+  }, [])
+
+
   return (
     <Fragment>
       <Modal isOpen={!queryState && props.modalState}>

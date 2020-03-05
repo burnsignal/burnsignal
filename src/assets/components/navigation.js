@@ -25,35 +25,20 @@ function Navigation(props) {
   let { dispatch, state } = useContext(store)
   let history = useHistory()
 
-  async function initialiseWeb3(){
+  const initialiseWeb3 = async() => {
     try {
       const web3 = await getWeb3()
-      const accounts = await web3.eth.getAccounts()
-      const network = await web3.eth.net.getId()
-      const instance = new web3.eth.Contract(
-        CONTRACT_ABI, CONTRACT_ADDRESS)
+      await providerConfig(web3)
 
-      if(network !== 4){
-        setModal({ ...modal, network: true  })
-      }
+      window.ethereum.on('accountsChanged',
+      () => providerConfig(web3))
 
-      window.ethereum.on('accountsChanged', () => initialiseWeb3())
-      setDropdown(<Logout account={accounts[0]}/>)
-      setNav(<LoggedIn account={accounts[0]}/>)
-
-      dispatch({
-        payload: {
-          web3, accounts, instance,
-          auth: true, verified: true
-        },
-        type: "WEB3"
-      })
     } catch(e) {
       alert("Web3 login could not be detected")
     }
   }
 
-  function Signout() {
+  const signOut = () => {
     dispatch({
       payload: {
         web3: false, auth: false, verified: false
@@ -64,14 +49,36 @@ function Navigation(props) {
     setNav(<LoggedOut />)
   }
 
-  function selection(option, route) {
+ const providerConfig = async(web3) => {
+    const accounts = await web3.eth.getAccounts()
+    const network = await web3.eth.net.getId()
+    const instance = new web3.eth.Contract(
+      CONTRACT_ABI, CONTRACT_ADDRESS)
+
+    if(network !== 4){
+      setModal({ ...modal, network: true  })
+    }
+
+    setDropdown(<Logout account={accounts[0]}/>)
+    setNav(<LoggedIn account={accounts[0]}/>)
+
+    dispatch({
+      payload: {
+        web3, accounts, instance,
+        auth: true, verified: true
+      },
+      type: "WEB3"
+    })
+  }
+
+  const selection = (option, route) => {
     if(!route) window.history.pushState({}, window.title, `/#/${option}`)
     setModal({
       ...modal, [option]: true, route
     })
   }
 
-  function dismiss(option) {
+  const dismiss = (option) => {
     if(!modal.route) history.goBack()
     else history.push('/')
     setModal({
@@ -215,7 +222,7 @@ function Navigation(props) {
             initialiseWeb3()
             history.push('/')
           } else if(props.location.pathname.match('logout')) {
-            Signout()
+            signOut()
             history.push('/')
           }
         }

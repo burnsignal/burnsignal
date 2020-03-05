@@ -121,17 +121,12 @@ export const CHARTS = {
         }],
         yAxes: [{
           id:'yAxis1',
-          scaleLabel: {
-            labelString: "Percent (%)",
-            display: true
-          },
           ticks: {
-            min: (_range * -1),
+            min: 0,
             max: _range,
             callback: function(label, index, labels) {
-              if(label > 1e8 || label < (-1 * 1e8)){
-                return label.toExponential()
-              } else return label;
+              label = ""
+              return label
             }
           }
         },

@@ -21,7 +21,7 @@ export const ETH = wei => {
 
 export const sortVotes = (yes, no) => {
   let totalVotes = yes.concat(no);
-  let timespan = 4800000;
+  let timespan = 7200000;
   let sortedVotes = [];
   var x = 0;
 
@@ -43,15 +43,16 @@ export const sortVotes = (yes, no) => {
          var replacement = isMinus(previous.y) ? previous.y * -1 : previous.y
 
          if(isMinus(value.y) && isMinus(previous.y)){
-           current = (running / sum) * -100
+           current = (running / sum) * 100
          } else if (!isMinus(value.y) && !isMinus(previous.y)){
            current = (running / sum) * 100
          } else if(isMinus(value.y) && !isMinus(previous.y)
            || !isMinus(value.y) && isMinus(previous.y)) {
            current = ((running / sum) * 100)
            current = current - ((replacement / sum) * 100)
-         } if(current > 55 && current > 0) current = current - 100
-         else if(current < 0 && current < -55) current = current + 100
+         } if(current > 100) current = current - 100
+         else if(current < 0) current = current + 100
+         else if(current > 75 && current < 100) current = 100 - current
 
          sortedVotes[sortedVotes.length-1] = { x: value.x, y: current }
          totalVotes[x-1] = { x: value.x, y: replacement + highlight }
@@ -59,15 +60,17 @@ export const sortVotes = (yes, no) => {
        } else {
          current = ((running / sum) * 100)
 
-         if(isMinus(value.y)) current = current * -1
-         if(current > 55 && current > 0) current = current - 100
-         else if(current < 0 && current < -55) current = current + 100
+         if(current > 100) current = current - 100
+         else if(current < 0) current = current + 100
+         else if(current > 75 && current < 100) current = 100 - current
 
          sortedVotes.push({ x: value.x,  y: current })
          x++
       }
     } else if(x == 0) {
-      if(isMinus(value.y)) current = 100 * -1
+      if(current > 100) current = current - 100
+      else if(current < 0) current = current + 100
+      else if(current > 75 && current < 100) current = 100 - current
 
       sortedVotes.push({ x: value.x,  y: current })
       x++

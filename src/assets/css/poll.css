@@ -121,7 +121,7 @@ a .card {
 }
 
 .vote-body .chart-container {
-  transition: opacity 1s ease-in;
+  transition: opacity .35s ease-in;
   position: absolute;
   visibility: hidden;
   margin-top: 68.375px;

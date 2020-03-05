@@ -49,11 +49,11 @@ a {
   width: 100%;
 }
 
-.create-poll-question, .create-poll-description {
+.create-poll-question, .create-poll-description  {
   width: 85%;
   border: 2px solid #2B3553;
   box-sizing: border-box;
-  background: rgba(255, 255, 255, 0);
+  background: rgba(256, 256 , 256, 0.025);
   border-radius: 6px;
   padding: .5em;
   font-size: 17.5px;
