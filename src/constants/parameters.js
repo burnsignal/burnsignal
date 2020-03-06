@@ -8,7 +8,7 @@ export const CHARTS = {
     type: 'horizontalBar',
     responsive: true,
     data: {
-      labels: ['Yes','No' ],
+      labels: ['Yes', 'No'],
       datasets: [{
         data: _data,
         borderColor: '#d048b6',
@@ -61,7 +61,7 @@ export const CHARTS = {
     type: 'horizontalBar',
     responsive: true,
     data: {
-      labels: ['Yes','No' ],
+      labels: ['Yes', 'No'],
       datasets: [{
         data: _data,
         borderColor: "#d048b6",
@@ -131,20 +131,11 @@ export const CHARTS = {
         xAxes: [{
           type: 'time',
           time: {
-            unit: 'week',
+            unit: 'month',
             unitStepSize: 1,
             displayFormats: {
-              week: 'MMM D'
+              month: 'MMM'
             },
-          },
-          ticks: {
-            callback: function(label, index, labels) {
-              if(dateCheck[label] === undefined || index == 0){
-                dateCheck[label] = true
-              } else {
-                label = ""
-              } return label
-            }
           }
         }],
         yAxes: [{
@@ -160,11 +151,16 @@ export const CHARTS = {
         },
         {
           id:'yAxis2',
-          labels: ['', 'Yes', '', 'No', ''],
+          labels: ['Yes', '', 'No'],
           type:"category",
           gridLines: {
-           drawOnChartArea: false,
-           display: false
+           drawOnChartArea: true,
+           display: true,
+           color: [
+             'rgba(0, 0, 0, 0.1)',
+             'rgba(0, 0, 0, 0.5)',
+             'rgba(0, 0, 0, 0.1)'
+           ]
           },
        }]
       },

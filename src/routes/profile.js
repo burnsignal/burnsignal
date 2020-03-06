@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import makeBlockie from 'ethereum-blockies-base64'
 import { useParams, Link } from 'react-router-dom'
 import { Row, Col } from "reactstrap"
+import MetaTags from 'react-meta-tags'
 
 import { ETH, toChecksumAddress, createURL } from '../constants/operatives'
 import { getProfileMetadata, getPollAddress } from '../constants/calls/GraphQL'
@@ -43,6 +44,13 @@ function Profile() {
   return (
     <div className="profile">
       <Row>
+        <MetaTags>
+          <title>Burn Signal</title>
+          <meta property="og:title" content="Burn Signal" />
+          <meta property="og:description" content="Got an opinion? Burn ETH to prove it." />
+          <meta property="twitter:title" content="Burn Signal" />
+          <meta property="twitter:description" content="Got an opinion? Burn ETH to prove it." />
+        </MetaTags>
         <Col sm="12" md={{ size: 6, offset: 3 }}>
           <div className="card">
             <div className="card-header">

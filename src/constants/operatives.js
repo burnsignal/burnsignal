@@ -21,7 +21,7 @@ export const ETH = wei => {
 
 export const sortVotes = (yes, no) => {
   let totalVotes = yes.concat(no);
-  let timespan = 7200000;
+  let timespan = 22500000;
   let sortedVotes = [];
   var x = 0;
 
@@ -42,14 +42,12 @@ export const sortVotes = (yes, no) => {
        if((value.x - previous.x) <= timespan){
          var replacement = isMinus(previous.y) ? previous.y * -1 : previous.y
 
-         if(isMinus(value.y) && isMinus(previous.y)){
-           current = (running / sum) * 100
-         } else if (!isMinus(value.y) && !isMinus(previous.y)){
-           current = (running / sum) * 100
-         } else if(isMinus(value.y) && !isMinus(previous.y)
+         if(isMinus(value.y) && !isMinus(previous.y)
            || !isMinus(value.y) && isMinus(previous.y)) {
            current = ((running / sum) * 100)
            current = current - ((replacement / sum) * 100)
+         } else {
+           current = (running / sum) * 100
          } if(isMinus(current)) current = current * -1
 
          sortedVotes[sortedVotes.length-1] = { x: value.x, y: current }
@@ -69,6 +67,8 @@ export const sortVotes = (yes, no) => {
       x++
     }
   }
+
+  sortedVotes.push({ x: sortedVotes[sortedVotes.length-1].x+50256000000,  y: 0 })
   return sortedVotes;
 }
 

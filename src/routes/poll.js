@@ -2,6 +2,7 @@ import React, { Fragment, useContext, useState, useEffect } from 'react';
 import { Link, useParams, useHistory } from "react-router-dom"
 import makeBlockie from 'ethereum-blockies-base64'
 import { Row, Col } from "reactstrap"
+import MetaTags from 'react-meta-tags'
 
 import { getVoteInfo, getQuadratics, getRecords, ETH, chartId, toChecksumAddress } from '../constants/operatives'
 import { getPollMetadata } from "../constants/calls/GraphQL"
@@ -88,6 +89,13 @@ function Poll(props){
 
   return(
      <div className="poll">
+      <MetaTags>
+        <title>{pollTopic}</title>
+        <meta property="og:title" content={pollTopic} />
+        <meta property="og:description" content={pollDescription} />
+        <meta name="twitter:title" content={pollTopic}/>
+        <meta name="twitter:description" content={pollDescription} />
+      </MetaTags>
       <Row>
       <Option modalOption={modalOption} modalToggle={dismiss} modalState={modalState} title={pollTopic} address={pollOptions} />
         <Col sm="12" md={{ size: 6, offset: 3 }}>
