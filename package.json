@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://burnsignal.github.io/burnsignal/",
+  "homepage": "https://burnsignal.github.io",
   "dependencies": {
     "@types/jest": "^24.0.23",
     "@types/node": "^12.12.11",

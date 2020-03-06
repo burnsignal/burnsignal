@@ -67,8 +67,6 @@ export const sortVotes = (yes, no) => {
       x++
     }
   }
-
-  sortedVotes.push({ x: sortedVotes[sortedVotes.length-1].x+50256000000,  y: 0 })
   return sortedVotes;
 }
 
