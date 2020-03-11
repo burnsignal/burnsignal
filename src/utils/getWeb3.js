@@ -1,5 +1,5 @@
 import Web3 from "web3";
-import Web3Connect from "web3connect";
+import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Authereum from "authereum";
 
@@ -19,14 +19,14 @@ const providerOptions = {
 const getWeb3 = () => (
   new Promise(async(resolve, reject) => {
     try {
-      const web3Connect = new Web3Connect.Core({
+      const web3Modal = new Web3Modal({
         network: "rinkeby",
         cacheProvider: false,
         providerOptions
       })
-      web3Connect.clearCachedProvider()
+      web3Modal.clearCachedProvider()
 
-      const provider = await web3Connect.connect()
+      const provider = await web3Modal.connect()
       let web3
 
       if(provider.authereum) web3 = new Web3(provider.authereum)

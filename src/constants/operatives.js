@@ -90,10 +90,17 @@ export const getRecords = async(users) => {
   return history
 }
 
-export const getQuadratics = (yes, no) => {
+export const getQuadratics = async(authenicated, records) => {
+  const iteratable = records.yes.concat(records.no)
+
+  await iteratable.forEach(value => {
+    var validity = records.no.indexOf(value) || records.yes.indexOf(value)
+    console.log(validity)
+  })
+
   return [
-    yes.reduce(reducer, 0),
-    no.reduce(reducer, 0)
+    records.yes.reduce(reducer, 0),
+    records.no.reduce(reducer, 0)
   ]
 }
 

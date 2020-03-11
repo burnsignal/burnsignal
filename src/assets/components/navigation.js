@@ -64,8 +64,7 @@ function Navigation(props) {
 
     dispatch({
       payload: {
-        web3, accounts, instance,
-        auth: true, verified: true
+        web3, accounts, instance, auth: true, verified: true
       },
       type: "WEB3"
     })
@@ -143,7 +142,6 @@ function Navigation(props) {
     )
   }
 
-
   function LoggedOut() {
     return(
       <Link className="nav-link" to='/login'>
@@ -213,22 +211,24 @@ function Navigation(props) {
 
   const toggle = () => setDropdownOpen(prevState => !prevState);
 
-    useEffect(() => {
-      const checkRoute = async() => {
-        if(props.location){
-          if(props.location.pathname.match('about')) selection('about', true)
-          else if(props.location.pathname.match('create'))selection('create', true)
-          else if(props.location.pathname.match('login')) {
-            initialiseWeb3()
-            history.push('/')
-          } else if(props.location.pathname.match('logout')) {
-            signOut()
-            history.push('/')
-          }
+  useEffect(() => {
+    const checkRoute = async() => {
+      if(props.location){
+        if(props.location.pathname.match('about')) {
+          selection('about', true)
+        } else if(props.location.pathname.match('create')) {
+          selection('create', true)
+        } else if(props.location.pathname.match('login')) {
+          await initialiseWeb3()
+          history.push('/')
+        } else if(props.location.pathname.match('logout')) {
+          await signOut()
+          history.push('/')
         }
       }
-     checkRoute()
-   }, [ props.location.pathname ])
+    }
+    checkRoute()
+  }, [ props.location.pathname ])
 
   return(
     <nav className="fixed-top">

@@ -120,11 +120,9 @@ function Option(props) {
       })
   }
 
-
   useEffect(() => {
-    if(state.web3) setQuery(false)
-  }, [])
-
+    setQuery(false)
+  }, [ state.web3 ])
 
   return (
     <Fragment>

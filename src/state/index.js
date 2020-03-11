@@ -7,7 +7,7 @@ const { Provider } = store
 const StateProvider = ( { children } ) => {
   const [state, dispatch] = useReducer((state, action) => {
     switch(action.type) {
-      case 'POLL':
+      case 'INIT':
         return { ...state, ...action.payload }
       case 'WEB3':
         return { ...state, ...action.payload }

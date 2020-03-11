@@ -37,7 +37,7 @@
     "truffle-hdwallet-provider": "^1.0.17",
     "typescript": "^3.7.5",
     "web3": "^1.0.0-beta.37",
-    "web3connect": "^1.0.0-beta.29"
+    "web3modal": "^1.1.0"
   },
   "scripts": {
     "predeploy": "npm run build",

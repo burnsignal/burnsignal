@@ -9,7 +9,7 @@ import App from './App';
 
 ReactDOM.render(
   <StateProvider>
-    <HashRouter basename='/'>
+    <HashRouter>
       <Fragment>
         <App />
       </Fragment>

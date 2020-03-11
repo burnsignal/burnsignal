@@ -13,6 +13,7 @@ import Navigation from './assets/components/navigation'
 import Option from './assets/components/option'
 
 import { getPolls, getETHPrice } from "./constants/calls/GraphQL"
+import { getAuthenicated } from "./constants/calls/REST"
 import { store } from './state'
 
 import Profile from './routes/profile'
@@ -38,14 +39,15 @@ function App(props) {
 
   useEffect(() => {
     const retrievePolls = async() => {
+      var authenicated = await getAuthenicated()
       var price = await getETHPrice()
       var polls = await getPolls()
 
       dispatch({
         payload: {
-          polls, price
+          authenicated, polls, price
         },
-        type: "POLL"
+        type: "INIT"
       })
     }
     retrievePolls()
