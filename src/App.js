@@ -1,19 +1,19 @@
-import React, { Fragment, useContext, useEffect } from "react";
+import React, { Fragment, useContext, useEffect } from 'react';
 import {  Switch, Route, HashRouter, withRouter, Link } from 'react-router-dom'
-import { Container } from "reactstrap"
+import { Container } from 'reactstrap'
 
-import "./assets/libs/black-dashboard/assets/css/black-dashboard-react.css"
-import "./assets/libs/black-dashboard/assets/css/nucleo-icons.css"
-import "./assets/css/navigation.css"
-import "./assets/css/profile.css"
-import "./assets/css/poll.css"
-import "./assets/css/native.css"
+import './assets/libs/black-dashboard/assets/css/black-dashboard-react.css'
+import './assets/libs/black-dashboard/assets/css/nucleo-icons.css'
+import './assets/css/navigation.css'
+import './assets/css/profile.css'
+import './assets/css/poll.css'
+import './assets/css/native.css'
 
 import Navigation from './assets/components/navigation'
 import Option from './assets/components/option'
 
-import { getPolls, getETHPrice } from "./constants/calls/GraphQL"
-import { getAuthenicated } from "./constants/calls/REST"
+import { getPolls, getETHPrice } from './constants/calls/GraphQL'
+import { getAuthenicated } from './constants/calls/REST'
 import { store } from './state'
 
 import Profile from './routes/profile'
@@ -23,10 +23,10 @@ import Feed from './routes/feed'
 function RouteError(){
   return(
     <center>
-      <div class="page404">
+      <div class='page404'>
         <h2> 404 not found </h2>
         <label> Oops, looks like you've made a wrong turn...
-        <br /><Link to ="/"> Take me back! </Link></label>
+        <br /><Link to ='/'> Take me back! </Link></label>
      </div>
     </center>
   )
@@ -47,7 +47,7 @@ function App(props) {
         payload: {
           authenicated, polls, price
         },
-        type: "INIT"
+        type: 'INIT'
       })
     }
     retrievePolls()
@@ -58,13 +58,13 @@ function App(props) {
       <Navigation />
       <Container>
         <Switch>
-          <Route path="/poll/:address/:option?" component={Poll} />
-          <Route path="/profile/:address" component={Profile} />
-          <Route exact path="/" component={Feed} />
-          <Route path="/logout" component={Feed} />
-          <Route path="/login" component={Feed} />
-          <Route path="/create"component={Feed} />
-          <Route path="/about" component={Feed}/>
+          <Route path='/poll/:address/:option?' component={Poll} />
+          <Route path='/profile/:address' component={Profile} />
+          <Route exact path='/' component={Feed} />
+          <Route path='/logout' component={Feed} />
+          <Route path='/login' component={Feed} />
+          <Route path='/create'component={Feed} />
+          <Route path='/about' component={Feed}/>
           <Route><RouteError /></Route>
         </Switch>
       </Container>

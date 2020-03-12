@@ -76,9 +76,9 @@ export const getRecords = async(authenicated, users) => {
   await Object.entries(users).map(async([ index, value ]) => {
     let { address, yes, no } = value
 
-    if(authenicated.indexOf(address) !== -1){
-      const positive = await pluckArray(yes, "yes", [])
-      const negative = await pluckArray(no, "no", [])
+    if(authenicated.indexOf(toChecksumAddress(address)) !== -1){
+      const positive = await pluckArray(yes, 'yes', [])
+      const negative = await pluckArray(no, 'no', [])
 
       positive.sort((a,b) => { return a.x - b.x })
       negative.sort((a,b) => { return a.x - b.x })
@@ -104,7 +104,7 @@ const pluckArray = (array, sign, rtrn) =>
       const timestamp = array.timestamps[index]
       var coordinate = parseFloat(value)
 
-      if(sign === "no") coordinate = coordinate * -1
+      if(sign === 'no') coordinate = coordinate * -1
       if(isNaN(coordinate)) coordinate = 0
 
       rtrn.push({
@@ -162,7 +162,7 @@ export const createURL = string => {
   string = string.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '');
   string = string.replace(/ /g, '-').toLowerCase();
 
-  if(string.substring(string.length-1, string.length) === "-"){
+  if(string.substring(string.length-1, string.length) === '-'){
     string = string.slice(0, string.length-1)
   } return string.replace('?', '');
 }

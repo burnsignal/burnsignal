@@ -1,4 +1,4 @@
-export const CONTRACT_ADDRESS = "0x61a8598eabb7bddca95d3783c228878cd788e0a9"
+export const CONTRACT_ADDRESS = '0x61a8598eabb7bddca95d3783c228878cd788e0a9'
 
 export const WEEKDAYS = ['Monday', 'Tuesday', 'Wendsday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ]
 export const CHARTS = {
@@ -39,7 +39,7 @@ export const CHARTS = {
             suggestedMin: 0,
             padding: 0,
             callback: function(label, index, labels) {
-              label = "";
+              label = '';
               return label;
             }
           }
@@ -64,7 +64,7 @@ export const CHARTS = {
       labels: ['Yes', 'No'],
       datasets: [{
         data: _data,
-        borderColor: "#d048b6",
+        borderColor: '#d048b6',
         borderWidth: 2,
         fill: true
       }]
@@ -90,7 +90,7 @@ export const CHARTS = {
             mirror: true,
             suggestedMin: 0,
             callback: function(label, index, labels) {
-              label = ""
+              label = ''
               return label
             }
           }
@@ -135,7 +135,7 @@ export const CHARTS = {
             unitStepSize: 1,
             displayFormats: {
               month: 'MMM'
-            },
+            }
           }
         }],
         yAxes: [{
@@ -144,7 +144,7 @@ export const CHARTS = {
             min: 0,
             max: _range,
             callback: function(label, index, labels) {
-              label = ""
+              label = ''
               return label
             }
           }
@@ -152,7 +152,7 @@ export const CHARTS = {
         {
           id:'yAxis2',
           labels: ['Yes', '', 'No'],
-          type:"category",
+          type:'category',
           gridLines: {
            drawOnChartArea: true,
            display: true,
@@ -170,16 +170,16 @@ export const CHARTS = {
     })
   },
   SPLINE_STYLE: _gradient => ({
-    label: "Data",
+    label: 'Data',
     fill: true,
     backgroundColor: _gradient,
-    borderColor: "#d048b6",
+    borderColor: '#d048b6',
     borderWidth: 2,
     borderDash: [],
     borderDashOffset: 0.0,
-    pointBackgroundColor: "#d048b6",
+    pointBackgroundColor: '#d048b6',
     pointBorderColor:'rgba(255,255,255,0)',
-    pointHoverBackgroundColor: "#d048b6",
+    pointHoverBackgroundColor: '#d048b6',
     pointBorderWidth: 20,
     pointHoverRadius: 4,
     pointHoverBorderWidth: 15,
@@ -189,82 +189,82 @@ export const CHARTS = {
 
 export const CONTRACT_ABI = [
 	{
-		"constant": false,
-		"inputs": [
+		'constant': false,
+		'inputs': [
 			{
-				"name": "_name",
-				"type": "string"
+				'name': '_name',
+				'type': 'string'
 			},
 			{
-				"name": "_data",
-				"type": "string"
+				'name': '_data',
+				'type': 'string'
 			},
 			{
-				"name": "_deadline",
-				"type": "uint64"
+				'name': '_deadline',
+				'type': 'uint64'
 			}
 		],
-		"name": "newVoteProposal",
-		"outputs": [
+		'name': 'newVoteProposal',
+		'outputs': [
 			{
-				"name": "newProposal",
-				"type": "address"
+				'name': 'newProposal',
+				'type': 'address'
 			}
 		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
+		'payable': false,
+		'stateMutability': 'nonpayable',
+		'type': 'function'
 	},
 	{
-		"anonymous": false,
-		"inputs": [
+		'anonymous': false,
+		'inputs': [
 			{
-				"indexed": false,
-				"name": "proposal",
-				"type": "address"
+				'indexed': false,
+				'name': 'proposal',
+				'type': 'address'
 			},
 			{
-				"indexed": false,
-				"name": "issuer",
-				"type": "address"
+				'indexed': false,
+				'name': 'issuer',
+				'type': 'address'
 			},
 			{
-				"indexed": false,
-				"name": "deadline",
-				"type": "uint256"
+				'indexed': false,
+				'name': 'deadline',
+				'type': 'uint256'
 			},
 			{
-				"indexed": false,
-				"name": "name",
-				"type": "string"
+				'indexed': false,
+				'name': 'name',
+				'type': 'string'
 			},
 			{
-				"indexed": false,
-				"name": "data",
-				"type": "string"
+				'indexed': false,
+				'name': 'data',
+				'type': 'string'
 			},
 			{
-				"indexed": false,
-				"name": "optionA",
-				"type": "string"
+				'indexed': false,
+				'name': 'optionA',
+				'type': 'string'
 			},
 			{
-				"indexed": false,
-				"name": "optionAaddr",
-				"type": "address"
+				'indexed': false,
+				'name': 'optionAaddr',
+				'type': 'address'
 			},
 			{
-				"indexed": false,
-				"name": "optionB",
-				"type": "string"
+				'indexed': false,
+				'name': 'optionB',
+				'type': 'string'
 			},
 			{
-				"indexed": false,
-				"name": "optionBaddr",
-				"type": "address"
+				'indexed': false,
+				'name': 'optionBaddr',
+				'type': 'address'
 			}
 		],
-		"name": "newProposalIssued",
-		"type": "event"
+		'name': 'newProposalIssued',
+		'type': 'event'
 	}
 ]

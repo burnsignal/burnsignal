@@ -11,12 +11,8 @@
 .poll-info {
   mix-blend-mode: normal;
   padding-top: 2.5px;
-  max-width: 75%;
+  max-width: 85%;
   float: left;
-}
-
-.feed-poll .poll-info {
-  max-height: 50px;
 }
 
 .poll-title {
@@ -33,9 +29,11 @@
 .feed-poll .poll-description,
 .feed-poll .poll-title {
   text-overflow: ellipsis;
-  white-space: nowrap;
   display: block;
   overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 a .card {

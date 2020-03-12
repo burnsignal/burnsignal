@@ -3,16 +3,16 @@ import { Dropdown, DropdownToggle, DropdownItem, DropdownMenu, DropdownItemButto
    Modal, ModalHeader, ModalBody, ModalFooter, UncontrolledPopover as Popover, PopoverHeader, PopoverBody
   } from 'reactstrap';
 import makeBlockie from 'ethereum-blockies-base64'
-import { Link, useHistory, withRouter } from "react-router-dom"
-import { Col, Row, Container } from "reactstrap"
+import { Link, useHistory, withRouter } from 'react-router-dom'
+import { Col, Row, Container } from 'reactstrap'
 
-import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../../constants/parameters"
+import { CONTRACT_ADDRESS, CONTRACT_ABI } from '../../constants/parameters'
 import { store } from '../../state'
 
-import getWeb3 from "../../utils/getWeb3"
-import profile from "../images/profile.png"
-import brightid from "../images/brightid.png"
-import logo from "../images/logo.png"
+import getWeb3 from '../../utils/getWeb3'
+import profile from '../images/profile.png'
+import brightid from '../images/brightid.png'
+import logo from '../images/logo.png'
 
 function Navigation(props) {
   const [ modal, setModal ] = useState({ route: false, create: false, about: false, network: false })
@@ -20,7 +20,7 @@ function Navigation(props) {
   const [ dropdownComponent, setDropdown ] = useState(<Login />)
   const [ dropdownOpen, setDropdownOpen ] = useState(false)
   const [ navComponent, setNav ] = useState(<LoggedOut />)
-  const [ address, setAddress ] = useState("")
+  const [ address, setAddress ] = useState('')
   const [popoverOpen, setPopoverOpen] = useState(false);
   const description = useRef(null)
   const question = useRef(null)
@@ -40,7 +40,7 @@ function Navigation(props) {
       () => providerConfig(web3))
 
     } catch(e) {
-      alert("Web3 login could not be detected")
+      alert('Web3 login could not be detected')
     }
   }
 
@@ -49,7 +49,7 @@ function Navigation(props) {
       payload: {
         web3: false, auth: false, verified: false
       },
-      type: "WEB3"
+      type: 'WEB3'
     })
     setDropdown(<Login />)
     setNav(<LoggedOut />)
@@ -72,7 +72,7 @@ function Navigation(props) {
       payload: {
         web3, accounts, instance, auth: true, verified: validity
       },
-      type: "WEB3"
+      type: 'WEB3'
     })
   }
 
@@ -93,7 +93,7 @@ function Navigation(props) {
 
   function Login() {
     return(
-      <Link to="/login">
+      <Link to='/login'>
         <DropdownItem>Login</DropdownItem>
       </Link>
     )
@@ -103,23 +103,23 @@ function Navigation(props) {
     return(
       <Modal isOpen={modal.about}>
         <ModalHeader>
-           <h5 className="modal-title align-left">About</h5>
-            <button type="button" className="close" onClick={() => dismiss('about')}>
-              <span aria-hidden="true">&times;</span>
+           <h5 className='modal-title align-left'>About</h5>
+            <button type='button' className='close' onClick={() => dismiss('about')}>
+              <span aria-hidden='true'>&times;</span>
             </button>
         </ModalHeader>
         <ModalBody>
           <p>Burn Signal is an experiment in distributed preference signaling where verified unique
           users burn ETH to signal their opinion.</p>
           <p>Votes are weighted quadratically.</p>
-          <p>We use <a id='pink' target="_" href="https://brightid.org">BrightID</a> as our proof of uniqueness, only votes
+          <p>We use <a id='pink' target='_' href='https://brightid.org'>BrightID</a> as our proof of uniqueness, only votes
           cast by ethereum addresses that are verified unique by BrightID count towards the outcome of
           a burn signals.</p><br/>
           <p>Burn Signal is funded by grants and community contributions. If you would like to contribute
-          funds, check out our <a id='pink' target="_" href="https://gitcoin.co/grants/138/burner-vote">Gitcoin Grants campaign</a>,
-          if you would like to contribute code or other work, check out our <a id="pink" target="_" href="https://github.com/burnsignal">
-          GitHub</a> and our <a id='pink' target="_" href="https://colony.io/colony/burn">Colony</a>.</p><br/>
-          <p>Check out our <a id='pink' target="_" href="https://blog.burnsignal.io"> blog </a> for more information.</p>
+          funds, check out our <a id='pink' target='_' href='https://gitcoin.co/grants/138/burner-vote'>Gitcoin Grants campaign</a>,
+          if you would like to contribute code or other work, check out our <a id='pink' target='_' href='https://github.com/burnsignal'>
+          GitHub</a> and our <a id='pink' target='_' href='https://colony.io/colony/burn'>Colony</a>.</p><br/>
+          <p>Check out our <a id='pink' target='_' href='https://blog.burnsignal.io'> blog </a> for more information.</p>
         </ModalBody>
         <ModalFooter />
       </Modal>
@@ -129,11 +129,11 @@ function Navigation(props) {
   function Logout({ account }) {
     return(
       <Fragment>
-        <DropdownItem type="button" onClick={() => selection('create')}> Create </DropdownItem>
+        <DropdownItem type='button' onClick={() => selection('create')}> Create </DropdownItem>
         <Link to={`/profile/${account}`}>
           <DropdownItem> Profile </DropdownItem>
         </Link>
-        <Link to="/logout">
+        <Link to='/logout'>
           <DropdownItem>Logout</DropdownItem>
         </Link>
       </Fragment>
@@ -141,24 +141,24 @@ function Navigation(props) {
   }
 
   function LoggedIn({ verified, account }) {
-    const e = verified === false ? "grayscale(1)" : "none"
+    const e = verified === false ? 'grayscale(1)' : 'none'
 
     return(
       <Fragment>
-      <Popover placement="bottom" target="popover">
+      <Popover placement='bottom' target='popover'>
         <PopoverHeader>
         {verified && (<span> You're verified! </span> )}
         {!verified && (<span> Please verify. </span> )}
         </PopoverHeader>
         {!verified && (<PopoverBody>
-          Please verify your account with <a href="https://ethereum.brightid.org" target="_target">BrightID</a>.
+          Please verify your account with <a href='https://ethereum.brightid.org' target='_target'>BrightID</a>.
         </PopoverBody>)}
         </Popover>
-        <button type="button" id="popover" onClick={poggle}>
-          <img src={brightid}  className="brightid-logo" style={{ filter: e }} />
+        <button type='button' id='popover' onClick={poggle}>
+          <img src={brightid}  className='brightid-logo' style={{ filter: e }} />
         </button>
-        <Link className="nav-link" to={`/profile/${account}`}>
-          <img className="nav-profile" src={makeBlockie(account)} />
+        <Link className='nav-link' to={`/profile/${account}`}>
+          <img className='nav-profile' src={makeBlockie(account)} />
         </Link>
       </Fragment>
     )
@@ -166,9 +166,9 @@ function Navigation(props) {
 
   function LoggedOut() {
     return(
-      <Link className="nav-link" to='/login'>
-        <div className="nav-profile-alt">
-          <i className="far fa-user-circle"></i>
+      <Link className='nav-link' to='/login'>
+        <div className='nav-profile-alt'>
+          <i className='far fa-user-circle'></i>
         </div>
       </Link>
     )
@@ -178,15 +178,15 @@ function Navigation(props) {
     return(
       <Modal isOpen={modal.create}>
         <ModalHeader>
-          <h5 className="modal-title align-left">Create</h5>
-          <button type="button" className="close" onClick={() => dismiss('create')}>
-            <span aria-hidden="true">&times;</span>
+          <h5 className='modal-title align-left'>Create</h5>
+          <button type='button' className='close' onClick={() => dismiss('create')}>
+            <span aria-hidden='true'>&times;</span>
           </button>
         </ModalHeader>
         <ModalBody>
-          <input name="question" ref={question} placeholder="Ask a question" className="create-poll-question" />
-          <textarea name="description" ref={description} placeholder="Description" className="create-poll-description" />
-          <button className="btn btn-primary button-poll" onClick={createPoll}> Create </button>
+          <input name='question' ref={question} placeholder='Ask a question' className='create-poll-question' />
+          <textarea name='description' ref={description} placeholder='Description' className='create-poll-description' />
+          <button className='btn btn-primary button-poll' onClick={createPoll}> Create </button>
         </ModalBody>
         <ModalFooter />
       </Modal>
@@ -197,7 +197,7 @@ function Navigation(props) {
     return(
       <Modal isOpen={modal.network}>
         <ModalHeader>
-          <h5 className="modal-title align-left">Incorrect Network</h5>
+          <h5 className='modal-title align-left'>Incorrect Network</h5>
         </ModalHeader>
         <ModalBody>
           Your web3 provider is on the incorrect network, please change to
@@ -209,14 +209,14 @@ function Navigation(props) {
   }
 
   const clearValues = () => {
-    document.getElementsByClassName("create-poll-description")[0].value = ""
-    document.getElementsByClassName("create-poll-question")[0].value = ""
+    document.getElementsByClassName('create-poll-description')[0].value = ''
+    document.getElementsByClassName('create-poll-question')[0].value = ''
   }
 
   const createPoll = async() => {
     let { web3, instance, accounts } = state
 
-    const recentBlock = await web3.eth.getBlock("latest")
+    const recentBlock = await web3.eth.getBlock('latest')
     const deadline = recentBlock.timestamp + 604800
 
     await instance.methods.newVoteProposal(
@@ -251,32 +251,32 @@ function Navigation(props) {
   }, [ props.location.pathname ])
 
   return(
-    <nav className="fixed-top">
+    <nav className='fixed-top'>
       <Container>
         <Row>
-          <Col sm="12" md={{ size: 6, offset: 3 }}>
-            <div className="navbar navbar-expand-lg">
-              <div className="navbar-wrapper">
-                <Link className="navbar-brand" to="/">
-                  <img className="navbar-logo" src={logo} />
-                  <span className="navbar-title"> Burn Signal </span>
+          <Col sm='12' md={{ size: 6, offset: 3 }}>
+            <div className='navbar navbar-expand-lg'>
+              <div className='navbar-wrapper'>
+                <Link className='navbar-brand' to='/'>
+                  <img className='navbar-logo' src={logo} />
+                  <span className='navbar-title'> Burn Signal </span>
                 </Link>
               </div>
-              <ul className="navbar-nav">
-              <li className="nav-item">
+              <ul className='navbar-nav'>
+              <li className='nav-item'>
                 {navComponent}
                 <Dropdown isOpen={dropdownOpen} toggle={toggle}>
                   <DropdownToggle caret>
-                    <i className="nav-login-icon tim-icons icon-minimal-down"></i>
+                    <i className='nav-login-icon tim-icons icon-minimal-down'></i>
                   </DropdownToggle>
                   <DropdownMenu>
-                    <Link to="/">
+                    <Link to='/'>
                       <DropdownItem> Home </DropdownItem>
                     </Link>
                     {dropdownComponent}
                     <DropdownItem divider />
-                    <DropdownItem type="button" onClick={() => selection('about')}>About</DropdownItem>
-                    <DropdownItem target="_" href="https://blog.burnsignal.io">Blog</DropdownItem>
+                    <DropdownItem type='button' onClick={() => selection('about')}>About</DropdownItem>
+                    <DropdownItem target='_' href='https://blog.burnsignal.io'>Blog</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
               </li>

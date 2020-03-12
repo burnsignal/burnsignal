@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import Chart from 'chart.js'
 
-import { WEEKDAYS, CHARTS } from "../../../constants/parameters.js"
-import { sortVotes } from "../../../constants/operatives.js"
+import { WEEKDAYS, CHARTS } from '../../../constants/parameters.js'
+import { sortVotes } from '../../../constants/operatives.js'
 
 const makeRepeated = (arr, repeats) =>
   [].concat(...Array.from({ length: repeats }, () => arr));
@@ -16,7 +16,7 @@ function Spline(props){
 
       var dataArray = sortVotes(yes, no)
 
-      const ctx = document.getElementById(chartId).getContext("2d")
+      const ctx = document.getElementById(chartId).getContext('2d')
 
       var gradientStroke = ctx.createLinearGradient(0,337.5,0, 25)
 

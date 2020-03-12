@@ -1,4 +1,4 @@
-const BRIGHTID_ENDPOINT = "http://node.brightid.org/brightid/v3/verifications/ethereum"
+const BRIGHTID_ENDPOINT = 'https://cors-anywhere.herokuapp.com/http://node.brightid.org/brightid/v3/verifications/ethereum'
 
 export async function getAuthenicated() {
   return await fetch(BRIGHTID_ENDPOINT,
