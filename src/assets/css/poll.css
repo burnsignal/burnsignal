@@ -11,7 +11,7 @@
 .poll-info {
   mix-blend-mode: normal;
   padding-top: 2.5px;
-  max-width: 85%;
+  width: 80%;
   float: left;
 }
 
@@ -34,6 +34,10 @@
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.feed-poll .poll-description {
+  -webkit-line-clamp: 1;
 }
 
 a .card {
@@ -122,16 +126,16 @@ a .card {
   transition: opacity .35s ease-in;
   position: absolute;
   visibility: hidden;
-  margin-top: 68.375px;
   margin-left: 80px;
   width: 83.75%;
+  transform: translateY(-127.5%);
   height: 130px;
   opacity: 0;
   z-index: 1;
   left: -.5%;
-  top: 0%;
 }
 
+.poll-result li:last-of-type:hover~.chart-container,
 .poll-result li:last-of-type:hover~.chart-container{
   background: #2a2b40;
   visibility: visible;

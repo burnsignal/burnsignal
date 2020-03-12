@@ -62,7 +62,7 @@ function Poll(props){
         let ethValue = parseInt(yes) + parseInt(no)
         let usdValue = state.price * ethValue/Math.pow(10,18)
         let records = await getRecords(state.authenicated, users)
-        let quadratics = getQuadratics(records)
+        let quadratics = await getQuadratics(records)
         let total = ETH(ethValue)
 
         setCount({ yes: quadratics[0], no: quadratics[1] })

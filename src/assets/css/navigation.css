@@ -140,7 +140,7 @@ a {
 }
 
 .dropdown .btn {
-  padding: 11px 22px 11px 0px !important;
+  padding: 10px 22px 11px 0px !important;
 }
 
 .dropdown .btn:hover, .dropdown .show  .btn:hover,
@@ -210,7 +210,7 @@ input:hover, textarea:hover {
 }
 
 .navbar-nav li i  {
-  margin-left: 5px;
+  margin-left: 7.5px;
   font-size: 15px;
 }
 
@@ -410,6 +410,26 @@ a a {
 @media screen and (min-width: 500px) and (max-width: 991px) {
 
 
+  .navbar .navbar-nav .btn {
+     margin-left: 5px;
+  }
+
+  .card .card-body {
+    padding: 5px;
+  }
+
+  .brightid-logo {
+    margin-right: 12.5px;
+  }
+
+  .dropdown .btn {
+    padding: 8.75px 22px 11px 0px !important;
+  }
+
+  .poll-info {
+    width: 75% !important;
+  }
+
   .dropdown-menu  {
     left: -62.5px !important;
     min-width: 2.5rem;
@@ -419,8 +439,8 @@ a a {
     padding: 0px !important;
   }
 
-  .navbar-nav .nav-link {
-    padding-right: 15px;
+  .nav .nav-link {
+      padding-right: 0.1rem !important;
   }
 
   .poll-result {
@@ -428,7 +448,7 @@ a a {
   }
 
   .create-poll-question, .create-poll-description {
-    width: 80% !important;
+    width: 77.5% !important;
   }
 
   .eth-icon {
