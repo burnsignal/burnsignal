@@ -47,16 +47,16 @@ function Feed() {
 
   return (
     <Fragment>
+      <MetaTags>
+        <title>Burn Signal</title>
+        <meta property="og:title" content="Burn Signal" />
+        <meta property="og:description" content="Got an opinion? Burn ETH to prove it." />
+        <meta property="twitter:title" content="Burn Signal" />
+        <meta property="twitter:description" content="Got an opinion? Burn ETH to prove it." />
+      </MetaTags>
       {state.web3 && (
         <div className="new-poll">
           <Row>
-            <MetaTags>
-              <title>Burn Signal</title>
-              <meta property="og:title" content="Burn Signal" />
-              <meta property="og:description" content="Got an opinion? Burn ETH to prove it." />
-              <meta property="twitter:title" content="Burn Signal" />
-              <meta property="twitter:description" content="Got an opinion? Burn ETH to prove it." />
-            </MetaTags>
             <Col sm="12" md={{ size: 6, offset: 3 }}>
               <div className="card">
                 <div className="card-header" />

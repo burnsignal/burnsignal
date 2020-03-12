@@ -70,34 +70,28 @@ export const sortVotes = (yes, no) => {
   return sortedVotes;
 }
 
-export const getRecords = async(users) => {
+export const getRecords = async(authenicated, users) => {
   var history = { yes: [], no: [], voters: [] }
 
   await Object.entries(users).map(async([ index, value ]) => {
     let { address, yes, no } = value
 
-    const positive = await pluckArray(yes, "yes", [])
-    const negative = await pluckArray(no, "no", [])
+    if(authenicated.indexOf(address) !== -1){
+      const positive = await pluckArray(yes, "yes", [])
+      const negative = await pluckArray(no, "no", [])
 
-    positive.sort((a,b) => { return a.x - b.x })
-    negative.sort((a,b) => { return a.x - b.x })
+      positive.sort((a,b) => { return a.x - b.x })
+      negative.sort((a,b) => { return a.x - b.x })
 
-    Object.assign(history.yes, history.yes.concat(positive))
-    Object.assign(history.no, history.no.concat(negative))
-    history.voters.push(address)
+      Object.assign(history.yes, history.yes.concat(positive))
+      Object.assign(history.no, history.no.concat(negative))
+      history.voters.push(address)
+    }
   })
-
   return history
 }
 
-export const getQuadratics = async(authenicated, records) => {
-  const iteratable = records.yes.concat(records.no)
-
-  await iteratable.forEach(value => {
-    var validity = records.no.indexOf(value) || records.yes.indexOf(value)
-    console.log(validity)
-  })
-
+export const getQuadratics = async(records) => {
   return [
     records.yes.reduce(reducer, 0),
     records.no.reduce(reducer, 0)
@@ -163,44 +157,6 @@ export const isChecksumAddress = (address) => {
     }
     return true;
 };
-
-
-// Code to process vote info. Should be easy to replace.
-// This is where BrightID check will be added.
-
-export async function getVoteInfo(proposalData){
-  var anonymousDeposits = proposalData.data.anonymousDeposits;
-  var noDeposits = anonymousDeposits.length;
-  var voters = {};
-  var totalValue = 0;
-
-  // Check all the deposits for proposal
-  for(var i = 0;i < noDeposits;i++){
-
-    var yesValue = 0, noValue = 0;
-
-    // Add BrightID check. Don't count vote if not.??
-
-    if(anonymousDeposits[i].Choice === 'yes'){
-      yesValue = parseFloat(anonymousDeposits[i].ContriValue);
-    } else {
-      noValue = parseFloat(anonymousDeposits[i].ContriValue);
-    }
-
-    // Check if address has already been counted & initialise if not
-    if(voters[anonymousDeposits[i].SenderAddr] === undefined){
-      voters[anonymousDeposits[i].SenderAddr] = { yesTotalValue: yesValue, noTotalValue: noValue };
-    }else{
-      var newYesValue = voters[anonymousDeposits[i].SenderAddr].yesTotalValue + yesValue;
-      var newNoValue = voters[anonymousDeposits[i].SenderAddr].noTotalValue + noValue;
-      voters[anonymousDeposits[i].SenderAddr] = { yesTotalValue: newYesValue, noTotalValue: newNoValue };
-    }
-
-    totalValue += parseFloat(anonymousDeposits[i].ContriValue);
-  }
-
-  return { voters: voters, totalValue: totalValue}
-}
 
 export const createURL = string => {
   string = string.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '');

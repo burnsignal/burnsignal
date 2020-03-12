@@ -45,6 +45,28 @@ a {
   border-radius: 40px;
 }
 
+#popover {
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+  padding: 0;
+  margin: 0;
+}
+
+.popover {
+  width: 125px;
+  top: 5px !important;
+}
+
+.brightid-logo {
+  margin-top: 6.75px;
+  height: 20px;
+  width: 20px;
+}
+
 .modal-content .create-poll-question, .modal-content .create-poll-description {
   width: 100%;
 }
@@ -93,10 +115,6 @@ a {
 .navbar-nav li a {
   color: inherit;
   font-weight: 500;
-}
-
-.nav-item .nav-link {
-  float: left;
 }
 
 .nav-item .dropdown {
@@ -252,7 +270,18 @@ input:hover, textarea:hover {
   width: 30px;
   height: 30px;
   border-radius: 20px;
+}
+
+.nav-profile, .nav-profile-alt {
+  margin-top: 5px !important;
+}
+
+.nav-profile-alt {
   float: left;
+}
+
+.nav-link {
+  float: inherit;
 }
 
  .card a:hover {
@@ -265,10 +294,6 @@ input:hover, textarea:hover {
 
 a a {
   z-index: 5;
-}
-
-.nav-profile-alt {
-  margin-right: 5px;
 }
 
 .nav-profile-alt .fa-user-circle {

@@ -1,6 +1,7 @@
 import React, { Fragment, useContext, useState, useEffect, useRef } from 'react'
 import { Dropdown, DropdownToggle, DropdownItem, DropdownMenu, DropdownItemButton,
-   Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+   Modal, ModalHeader, ModalBody, ModalFooter, UncontrolledPopover as Popover, PopoverHeader, PopoverBody
+  } from 'reactstrap';
 import makeBlockie from 'ethereum-blockies-base64'
 import { Link, useHistory, withRouter } from "react-router-dom"
 import { Col, Row, Container } from "reactstrap"
@@ -10,6 +11,7 @@ import { store } from '../../state'
 
 import getWeb3 from "../../utils/getWeb3"
 import profile from "../images/profile.png"
+import brightid from "../images/brightid.png"
 import logo from "../images/logo.png"
 
 function Navigation(props) {
@@ -19,11 +21,15 @@ function Navigation(props) {
   const [ dropdownOpen, setDropdownOpen ] = useState(false)
   const [ navComponent, setNav ] = useState(<LoggedOut />)
   const [ address, setAddress ] = useState("")
+  const [popoverOpen, setPopoverOpen] = useState(false);
   const description = useRef(null)
   const question = useRef(null)
 
   let { dispatch, state } = useContext(store)
   let history = useHistory()
+
+  const toggle = () => setDropdownOpen(prevState => !prevState)
+  const poggle = () => setPopoverOpen(!popoverOpen)
 
   const initialiseWeb3 = async() => {
     try {
@@ -52,19 +58,19 @@ function Navigation(props) {
  const providerConfig = async(web3) => {
     const accounts = await web3.eth.getAccounts()
     const network = await web3.eth.net.getId()
-    const instance = new web3.eth.Contract(
-      CONTRACT_ABI, CONTRACT_ADDRESS)
+    const validity = state.authenicated.indexOf(accounts[0]) != -1
+    const instance = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS)
 
     if(network !== 4){
       setModal({ ...modal, network: true  })
     }
 
+    setNav(<LoggedIn verified={validity} account={accounts[0]}/>)
     setDropdown(<Logout account={accounts[0]}/>)
-    setNav(<LoggedIn account={accounts[0]}/>)
 
     dispatch({
       payload: {
-        web3, accounts, instance, auth: true, verified: true
+        web3, accounts, instance, auth: true, verified: validity
       },
       type: "WEB3"
     })
@@ -134,11 +140,27 @@ function Navigation(props) {
     )
   }
 
-  function LoggedIn({ account }) {
+  function LoggedIn({ verified, account }) {
+    const e = verified === false ? "grayscale(1)" : "none"
+
     return(
-      <Link className="nav-link" to={`/profile/${account}`}>
-        <img className="nav-profile" src={makeBlockie(account)} />
-      </Link>
+      <Fragment>
+      <Popover placement="bottom" target="popover">
+        <PopoverHeader>
+        {verified && (<span> You're verified! </span> )}
+        {!verified && (<span> Please verify. </span> )}
+        </PopoverHeader>
+        {!verified && (<PopoverBody>
+          Please verify your account with <a href="https://ethereum.brightid.org" target="_target">BrightID</a>.
+        </PopoverBody>)}
+        </Popover>
+        <button type="button" id="popover" onClick={poggle}>
+          <img src={brightid}  className="brightid-logo" style={{ filter: e }} />
+        </button>
+        <Link className="nav-link" to={`/profile/${account}`}>
+          <img className="nav-profile" src={makeBlockie(account)} />
+        </Link>
+      </Fragment>
     )
   }
 
@@ -208,8 +230,6 @@ function Navigation(props) {
       clearValues()
     })
   }
-
-  const toggle = () => setDropdownOpen(prevState => !prevState);
 
   useEffect(() => {
     const checkRoute = async() => {

@@ -73,9 +73,9 @@ function Option(props) {
           Before casting your vote, you should verify your Ethereum account using BrightID.
         </ModalBody>
         <ModalFooter>
-          <button type="button" className="btn btn-primary btn-verify" data-dismiss="modal">
+          <a className="btn btn-primary btn-verify" href="https://ethereum.brightid.org/" target="_blank" >
             Verify
-          </button>
+          </a>
         </ModalFooter>
       </Fragment>
      )
@@ -121,7 +121,7 @@ function Option(props) {
   }
 
   useEffect(() => {
-    setQuery(false)
+    if(state.web3) setQuery(false)
   }, [ state.web3 ])
 
   return (

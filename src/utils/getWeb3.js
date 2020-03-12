@@ -7,7 +7,7 @@ const providerOptions = {
   walletconnect: {
     package: WalletConnectProvider,
     options: {
-      infuraId: "ec7ebabd867b43d0a2cf6d65a85b8ad1"
+      infuraId: "1a3489db693d46ceb5ef9006f5ada61f"
     }
   },
   authereum: {
@@ -27,11 +27,8 @@ const getWeb3 = () => (
       web3Modal.clearCachedProvider()
 
       const provider = await web3Modal.connect()
-      let web3
-
-      if(provider.authereum) web3 = new Web3(provider.authereum)
-      else web3 = new Web3(provider)
-
+      let web3 = new Web3(provider)
+      
       resolve(web3)
     } catch(e){
       resolve(e)
