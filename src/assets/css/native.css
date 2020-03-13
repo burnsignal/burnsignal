@@ -4,6 +4,10 @@
     top: 5px;
   }
 
+  .poll-title  {
+    font-size: 18.75px;
+  }
+
   .create-poll-inputs {
     width: 75%;
   }

@@ -49,6 +49,7 @@ export const sortVotes = (yes, no) => {
          } else {
            current = (running / sum) * 100
          } if(isMinus(current)) current = current * -1
+         if(isMinus(value.y) && current == 100) current =  0
 
          sortedVotes[sortedVotes.length-1] = { x: value.x, y: current }
          totalVotes[x-1] = { x: value.x, y: replacement + highlight }
@@ -57,11 +58,13 @@ export const sortVotes = (yes, no) => {
          current = ((running / sum) * 100)
 
          if(isMinus(current)) current = current * -1
+         if(isMinus(value.y) && current == 100) current =  0
 
          sortedVotes.push({ x: value.x,  y: current })
          x++
       }
     } else if(x == 0) {
+      if(isMinus(value.y) && current == 100) current =  0
 
       sortedVotes.push({ x: value.x,  y: current })
       x++
@@ -75,8 +78,9 @@ export const getRecords = async(authenicated, users) => {
 
   await Object.entries(users).map(async([ index, value ]) => {
     let { address, yes, no } = value
+    var voter = toChecksumAddress(address)
 
-    if(authenicated.indexOf(toChecksumAddress(address)) !== -1){
+    if(authenicated.indexOf(voter) !== -1){
       const positive = await pluckArray(yes, 'yes', [])
       const negative = await pluckArray(no, 'no', [])
 
@@ -85,7 +89,7 @@ export const getRecords = async(authenicated, users) => {
 
       Object.assign(history.yes, history.yes.concat(positive))
       Object.assign(history.no, history.no.concat(negative))
-      history.voters.push(address)
+      history.voters.push(voter)
     }
   })
   return history

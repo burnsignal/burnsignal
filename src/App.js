@@ -40,7 +40,7 @@ function App(props) {
   useEffect(() => {
     const retrievePolls = async() => {
       var authenicated = await getAuthenicated()
-      var price = 0
+      var price = await getETHPrice()
       var polls = await getPolls()
 
       dispatch({

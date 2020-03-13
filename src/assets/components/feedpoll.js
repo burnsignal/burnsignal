@@ -89,7 +89,6 @@ function Poll(props){
                 </Link>
                 <div className='poll-info'>
                   <span className='poll-title'>{pollTopic}</span>
-                  <span className='poll-description'>{pollDescription}</span>
                 </div>
               </div>
               <div className='card-body vote-body'>
