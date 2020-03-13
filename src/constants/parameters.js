@@ -1,4 +1,4 @@
-export const CONTRACT_ADDRESS = '0x61a8598eabb7bddca95d3783c228878cd788e0a9'
+export const CONTRACT_ADDRESS = '0x02fa40765725717f9476ebe80db1b98b4f3b2120'
 
 export const WEEKDAYS = ['Monday', 'Tuesday', 'Wendsday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ]
 export const CHARTS = {
@@ -189,82 +189,95 @@ export const CHARTS = {
 
 export const CONTRACT_ABI = [
 	{
-		'constant': false,
-		'inputs': [
+		"anonymous": false,
+		"inputs": [
 			{
-				'name': '_name',
-				'type': 'string'
+				"indexed": false,
+				"internalType": "address",
+				"name": "proposal",
+				"type": "address"
 			},
 			{
-				'name': '_data',
-				'type': 'string'
+				"indexed": false,
+				"internalType": "address",
+				"name": "issuer",
+				"type": "address"
 			},
 			{
-				'name': '_deadline',
-				'type': 'uint64'
-			}
-		],
-		'name': 'newVoteProposal',
-		'outputs': [
+				"indexed": false,
+				"internalType": "uint32",
+				"name": "deadline",
+				"type": "uint32"
+			},
 			{
-				'name': 'newProposal',
-				'type': 'address'
+				"indexed": false,
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "data",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "optionA",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "optionAaddr",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "optionB",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "optionBaddr",
+				"type": "address"
 			}
 		],
-		'payable': false,
-		'stateMutability': 'nonpayable',
-		'type': 'function'
+		"name": "newProposalIssued",
+		"type": "event"
 	},
 	{
-		'anonymous': false,
-		'inputs': [
+		"constant": false,
+		"inputs": [
 			{
-				'indexed': false,
-				'name': 'proposal',
-				'type': 'address'
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
 			},
 			{
-				'indexed': false,
-				'name': 'issuer',
-				'type': 'address'
+				"internalType": "string",
+				"name": "_data",
+				"type": "string"
 			},
 			{
-				'indexed': false,
-				'name': 'deadline',
-				'type': 'uint256'
-			},
-			{
-				'indexed': false,
-				'name': 'name',
-				'type': 'string'
-			},
-			{
-				'indexed': false,
-				'name': 'data',
-				'type': 'string'
-			},
-			{
-				'indexed': false,
-				'name': 'optionA',
-				'type': 'string'
-			},
-			{
-				'indexed': false,
-				'name': 'optionAaddr',
-				'type': 'address'
-			},
-			{
-				'indexed': false,
-				'name': 'optionB',
-				'type': 'string'
-			},
-			{
-				'indexed': false,
-				'name': 'optionBaddr',
-				'type': 'address'
+				"internalType": "uint32",
+				"name": "_deadline",
+				"type": "uint32"
 			}
 		],
-		'name': 'newProposalIssued',
-		'type': 'event'
+		"name": "newVoteProposal",
+		"outputs": [
+			{
+				"internalType": "contract VoteProposal",
+				"name": "newProposal",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
 	}
 ]

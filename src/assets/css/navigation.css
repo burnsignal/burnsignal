@@ -39,10 +39,20 @@ a {
 }
 
 .new-poll-profile {
-  float: left;
   width: 50px;
   height: 50px;
   border-radius: 40px;
+}
+
+.poll-profile-hyperlink {
+  width: 17.5%;
+  float: left;
+}
+
+.create-poll-inputs {
+  display: table;
+  width: 82.5%;
+  float: right;
 }
 
 #popover {
@@ -67,12 +77,12 @@ a {
   width: 20px;
 }
 
-.modal-content .create-poll-question, .modal-content .create-poll-description {
+.modal-content .create-poll-question,
+.modal-content .create-poll-description {
   width: 100%;
 }
 
 .create-poll-question, .create-poll-description  {
-  width: 85%;
   border: 2px solid #2B3553;
   box-sizing: border-box;
   background: rgba(256, 256 , 256, 0.025);
@@ -81,6 +91,8 @@ a {
   font-size: 17.5px;
   text-align: left;
   float: right;
+  display: table-cell;
+  width: 100%;
 }
 
 .create-poll-description {
@@ -108,7 +120,8 @@ a {
   border-radius: 25px;
   padding: 10px 30px;
   font-size: 14px;
-  margin-top: 12.5px;
+  margin-bottom: 2.5px;
+  margin-top: 17.5px;
   float: right;
 }
 
@@ -407,8 +420,7 @@ a a {
 
 /* Composable window */
 
-@media screen and (min-width: 500px) and (max-width: 991px) {
-
+@media screen and (min-width: 375px) and (max-width: 991px) {
 
   .navbar .navbar-nav .btn {
      margin-left: 5px;
@@ -447,10 +459,6 @@ a a {
     font-size: 12.5px;
   }
 
-  .create-poll-question, .create-poll-description {
-    width: 77.5% !important;
-  }
-
   .eth-icon {
     margin-bottom: 1.5px !important;
     height: 18.75px !important;
@@ -461,6 +469,24 @@ a a {
   }
 
 }
+
+@media screen and (min-width: 550px) and (max-width: 600px) {
+
+  .create-poll-inputs {
+    width: 82.5%;
+  }
+
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+
+  .create-poll-inputs {
+    width: 77.5%;
+  }
+
+}
+
 
 /* iPad Pro */
 
@@ -476,10 +502,6 @@ a a {
     margin-bottom: 5px;
     padding-left: 15px;
     font-size: 20px;
-  }
-
-  .create-poll-question, .create-poll-description {
-    width: 80% !important;
   }
 
 }

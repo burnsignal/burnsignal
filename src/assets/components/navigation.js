@@ -217,7 +217,7 @@ function Navigation(props) {
     let { web3, instance, accounts } = state
 
     const recentBlock = await web3.eth.getBlock('latest')
-    const deadline = recentBlock.timestamp + 604800
+    const deadline = recentBlock.timestamp + 607200
 
     await instance.methods.newVoteProposal(
       question.current.value,

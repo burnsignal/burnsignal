@@ -127,7 +127,7 @@ a .card {
   position: absolute;
   visibility: hidden;
   margin-left: 80px;
-  width: 83.75%;
+  width: calc(100% - 4.30em);
   transform: translateY(-127.5%);
   height: 130px;
   opacity: 0;

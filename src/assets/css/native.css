@@ -4,6 +4,10 @@
     top: 5px;
   }
 
+  .create-poll-inputs {
+    width: 75%;
+  }
+
   .feed-poll .chart-container {
     display: none;
   }
@@ -126,15 +130,6 @@
     padding-bottom: 12.5px;
   }
 
- .create-poll-question, .create-poll-description {
-    width: auto !important;
-  }
-
-  .modal-content .create-poll-question,
-  .modal-content .create-poll-description {
-     width: 100% !important;
-   }
-
   .modal-dialog {
     margin: 0rem 1.5rem
   }
@@ -170,29 +165,17 @@
       height: 15px;
     }
 
-    .create-poll-question, .create-poll-description {
-      width: 75% !important;
-    }
-
   }
 
   /* Pixel 2 */
 
   @media screen and (width: 411px) and (height: 731px) {
 
-    .create-poll-question, .create-poll-description {
-      width: 77.5% !important;
-    }
-
   }
 
   /* Pixel 2 XL */
 
   @media screen and (width: 411px) and (height: 823px) {
-
-    .create-poll-question, .create-poll-description {
-      width: 77.5% !important;
-    }
 
   }
 
@@ -210,10 +193,6 @@
   /* iPhone 6/7+ */
 
   @media screen and (width: 414px) and (height: 736px) {
-
-    .create-poll-question, .create-poll-description {
-      width: 77.5% !important;
-    }
 
   }
 
@@ -243,9 +222,6 @@
     font-size: 15px;
   }
 
-  .create-poll-question, .create-poll-description {
-    width: 72.5% !important;
-  }
 
 }
 
@@ -267,10 +243,6 @@
 
   .navbar-nav .nav-link {
     padding-right: 10px !important;
-  }
-
-  .create-poll-question, .create-poll-description {
-    width: 72.5% !important;
   }
 
   .nav-profile {
@@ -326,10 +298,6 @@
     font-size: 12.5px;
   }
 
-  .create-poll-question, .create-poll-description {
-    width: 70% !important;
-  }
-
   .poll-info {
     max-width: 40vw;
   }
@@ -381,10 +349,6 @@
   .fixed-top .container .row {
     margin-left: auto !important;
     margin-right: auto !important;
-  }
-
-  .create-poll-question, .create-poll-description {
-    width: 75% !important;
   }
 
   .profile-address{

@@ -16,8 +16,10 @@ function Feed() {
   function CreatePoll() {
     return(
       <Fragment>
-        <input ref={question} name='question' placeholder='Ask a question' className='create-poll-question' />
-        <textarea name='description' ref={description} placeholder='Description' className='create-poll-description' />
+        <div className="create-poll-inputs">
+          <input ref={question} name='question' placeholder='Ask a question' className='create-poll-question' />
+          <textarea name='description' ref={description} placeholder='Description' className='create-poll-description' />
+        </div>
         <button className='btn btn-primary button-poll' onClick={createPoll}> Create </button>
       </Fragment>
     )
@@ -32,7 +34,7 @@ function Feed() {
     let { web3, instance, accounts } = state
 
     const recentBlock = await web3.eth.getBlock('latest')
-    const deadline = recentBlock.timestamp + 604800
+    const deadline = recentBlock.timestamp + 607200
 
     await instance.methods.newVoteProposal(
       question.current.value,
@@ -61,9 +63,11 @@ function Feed() {
               <div className='card'>
                 <div className='card-header' />
                 <div className='card-body'>
-                  <Link to={`/profile/${state.accounts[0]}`}>
-                    <img className='new-poll-profile' src={makeBlockie(state.accounts[0])} />
-                  </Link>
+                  <div className="poll-profile-hyperlink">
+                    <Link to={`/profile/${state.accounts[0]}`}>
+                      <img className='new-poll-profile' src={makeBlockie(state.accounts[0])} />
+                    </Link>
+                  </div>
                   <CreatePoll />
                 </div>
               </div>
