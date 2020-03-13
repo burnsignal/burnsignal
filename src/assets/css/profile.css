@@ -7,6 +7,13 @@
   padding-bottom: -20px;
 }
 
+.profile .brightid-logo {
+  width: 15px;
+  height: 15px;
+  margin-left: 10px;
+  margin-top: -2.75px;
+}
+
 .profile .card li {
   transition: 0.35s;
 }
@@ -72,7 +79,7 @@ a .profile-traits {
 }
 
 .profile-address {
-  font-size: 17.5px;
+  font-size: 16.75px;
   padding-bottom: 7.5px;
   color: white;
   overflow-wrap: break-word;

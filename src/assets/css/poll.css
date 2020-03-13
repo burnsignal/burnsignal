@@ -28,12 +28,8 @@
 
 .feed-poll .poll-description,
 .feed-poll .poll-title {
-  text-overflow: ellipsis;
   display: block;
   overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
 }
 
 .feed-poll .poll-description {
@@ -127,8 +123,8 @@ a .card {
   position: absolute;
   visibility: hidden;
   margin-left: 80px;
-  width: calc(100% - 4.30em);
-  transform: translateY(-127.5%);
+  width: calc(100% - 4.5em);
+  transform: translateY(-128.5%);
   height: 130px;
   opacity: 0;
   z-index: 1;

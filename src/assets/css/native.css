@@ -135,7 +135,7 @@
   }
 
   .profile-address {
-    font-size: 17.5px;
+    font-size: 16.75px;
     display: block;
   }
 
@@ -163,6 +163,10 @@
     .eth-icon {
       margin-bottom: 0px;
       height: 15px;
+    }
+
+    .profile-address {
+      font-size: 15px;
     }
 
   }
@@ -352,7 +356,7 @@
   }
 
   .profile-address{
-    font-size: 13.5px;
+    font-size: 12.5px;
   }
 
   .poll-result li:first-of-type {

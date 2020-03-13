@@ -478,6 +478,21 @@ a a {
 
 }
 
+@media screen and (min-width: 550px) and (max-width: 975px) {
+
+  .vote-body .chart-container {
+    width: calc(100% - 5.5em) !important;
+    transform: translateY(-119.75%) !important;
+    height: 132.25px !important;
+  }
+
+
+  .profile-address {
+    font-size: 15.25px !important;
+  }
+
+}
+
 
 @media screen and (min-width: 768px) and (max-width: 991px) {
 
@@ -498,10 +513,10 @@ a a {
   }
 
   .profile-address{
-    width: 30vw;
+    width: 40vw;
     margin-bottom: 5px;
     padding-left: 15px;
-    font-size: 20px;
+    font-size: 22.5px !important;
   }
 
 }

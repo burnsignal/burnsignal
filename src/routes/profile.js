@@ -6,19 +6,22 @@ import MetaTags from 'react-meta-tags'
 
 import { ETH, toChecksumAddress, createURL } from '../constants/operatives'
 import { getProfileMetadata, getPollAddress } from '../constants/calls/GraphQL'
-import brightid from '../'
+import brightid from '../assets/images/brightid.png'
 import { store } from '../state'
 
 function Profile() {
+  const [ isAuthenicated, setAuth ] = useState(false)
   const [ totalBurned, setBurned ] = useState(0)
   const [ userPolls, setPolls ] = useState([])
   const [ totalVotes, setVotes ] = useState(0)
   const [ avgBurned, setAvg ] = useState(0)
 
+  let { state } = useContext(store)
   let { address } = useParams()
 
   useEffect(() => {
     const gatherProfile = async() => {
+      var auth = state.authenicated.indexOf(toChecksumAddress(address))
       var profileMetadata = await getProfileMetadata(address)
       var records = []
 
@@ -36,11 +39,12 @@ function Profile() {
       setAvg(ETH(parseInt(burned)/burns.length))
       setVotes(burns.length)
       setBurned(ETH(burned))
+      setAuth(auth != -1)
       setPolls(records)
     }
-    gatherProfile()
+    if(state.authenicated) gatherProfile()
    }
-  , [])
+  , [ state ])
 
   return (
     <div className='profile'>
@@ -62,6 +66,8 @@ function Profile() {
                   <a href={`https://etherscan.io/address/${address}`}>
                     {toChecksumAddress(address)}
                   </a>
+                  <img className='brightid-logo' src={brightid}
+                    style={{ filter: !isAuthenicated ? 'grayscale(100%)' : 'none' }}/>
                 </div>
               <div className='profile-traits'>
                 <ul>

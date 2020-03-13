@@ -1,4 +1,4 @@
-export const CONTRACT_ADDRESS = '0x02fa40765725717f9476ebe80db1b98b4f3b2120'
+export const CONTRACT_ADDRESS = '0xe83f7fffdd16dce2b9aeb7eb9892fb37e387a3cb'
 
 export const WEEKDAYS = ['Monday', 'Tuesday', 'Wendsday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ]
 export const CHARTS = {
