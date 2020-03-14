@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useState, useEffect, useRef } from 'react'
 import { Dropdown, DropdownToggle, DropdownItem, DropdownMenu, DropdownItemButton,
-   Modal, ModalHeader, ModalBody, ModalFooter, UncontrolledPopover as Popover, PopoverHeader, PopoverBody
-  } from 'reactstrap';
+   Modal, ModalHeader, ModalBody, ModalFooter, UncontrolledPopover as Popover,
+   PopoverHeader, PopoverBody, Alert } from 'reactstrap';
 import makeBlockie from 'ethereum-blockies-base64'
 import { Link, useHistory, withRouter } from 'react-router-dom'
 import { Col, Row, Container } from 'reactstrap'
@@ -20,8 +20,7 @@ function Navigation(props) {
   const [ dropdownComponent, setDropdown ] = useState(<Login />)
   const [ dropdownOpen, setDropdownOpen ] = useState(false)
   const [ navComponent, setNav ] = useState(<LoggedOut />)
-  const [ address, setAddress ] = useState('')
-  const [popoverOpen, setPopoverOpen] = useState(false);
+  const [ popoverOpen, setPopoverOpen ] = useState(false)
   const description = useRef(null)
   const question = useRef(null)
 
@@ -61,7 +60,7 @@ function Navigation(props) {
     const validity = state.authenicated.indexOf(accounts[0]) != -1
     const instance = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS)
 
-    if(network !== 4){
+    if(network !== 1){
       setModal({ ...modal, network: true  })
     }
 
@@ -190,7 +189,7 @@ function Navigation(props) {
         </ModalBody>
         <ModalFooter />
       </Modal>
-     )
+    )
   }
 
   function WrongNetwork() {
@@ -200,8 +199,7 @@ function Navigation(props) {
           <h5 className='modal-title align-left'>Incorrect Network</h5>
         </ModalHeader>
         <ModalBody>
-          Your web3 provider is on the incorrect network, please change to
-          Rinkeby testnet to proceed.
+          Your web3 provider is on the incorrect network, please change to Main-net to proceed.
         </ModalBody>
         <ModalFooter />
       </Modal>
@@ -214,8 +212,6 @@ function Navigation(props) {
   }
 
   const proofErrors = (question, description) => {
-    console.log(question.current.value.length)
-
     if((question.current.value.length < 4
       || question.current.value.length > 100)
       || (description.current.value.length > 1000)) {
@@ -244,7 +240,7 @@ function Navigation(props) {
       && question.current.value.length <= 100
       && description.current.value.length <= 1000){
       const recentBlock = await web3.eth.getBlock('latest')
-      const deadline = recentBlock.timestamp + 607200
+      const deadline = recentBlock.timestamp + 605000
 
       proofErrors(question, description)
 

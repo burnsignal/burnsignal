@@ -17,8 +17,8 @@ function Feed() {
     return(
       <Fragment>
         <div className="create-poll-inputs">
-          <input ref={question} name='question' placeholder='Ask a question' className='create-poll-question' />
-          <textarea name='description' ref={description} placeholder='Description' className='create-poll-description' />
+          <input ref={question} name='question' placeholder='Ask a question' className='create-poll-question feed-q' />
+          <textarea name='description' ref={description} placeholder='Description' className='create-poll-description feed-d' />
         </div>
         <button className='btn btn-primary button-poll' onClick={createPoll}> Create </button>
       </Fragment>
@@ -26,25 +26,55 @@ function Feed() {
   }
 
   const clearValues = () => {
-    document.getElementsByClassName('create-poll-description')[0].value = ''
-    document.getElementsByClassName('create-poll-question')[0].value = ''
+    document.getElementsByClassName('feed-d')[0].value = ''
+    document.getElementsByClassName('feed-q')[0].value = ''
+  }
+
+  const proofErrors = (question, description) => {
+    if((question.current.value.length < 4
+      || question.current.value.length > 100)
+      || (description.current.value.length > 1000)) {
+      if(description.current.value.length > 1000){
+        document.getElementsByClassName('feed-d')[0]
+        .style["border-color"] = "#ff0045"
+      } if(question.current.value.length < 4
+        || question.current.value.length > 100){
+        document.getElementsByClassName('feed-q')[0]
+        .style["border-color"] = "#ff0045"
+    }} else {
+      if(description.current.value.length <= 1000) {
+        document.getElementsByClassName('feed-d')[0]
+        .style["border-color"] = "#2B3553"
+      } if(question.current.value.length <= 100
+       && question.current.value.length >= 4){
+        document.getElementsByClassName('feed-q')[0]
+        .style["border-color"] = "#2B3553"
+      }
+    }
   }
 
   const createPoll = async() => {
     let { web3, instance, accounts } = state
+    if(question.current.value.length >= 4
+      && question.current.value.length <= 100
+      && description.current.value.length <= 1000){
+      const recentBlock = await web3.eth.getBlock('latest')
+      const deadline = recentBlock.timestamp + 605000
 
-    const recentBlock = await web3.eth.getBlock('latest')
-    const deadline = recentBlock.timestamp + 607200
+      proofErrors(question, description)
 
-    await instance.methods.newVoteProposal(
-      question.current.value,
-      description.current.value,
-      deadline
-    ).send({
-      from: accounts[0]
-    }).on('transactionHash', (hash) => {
-      clearValues()
-    })
+      await instance.methods.newVoteProposal(
+        question.current.value,
+        description.current.value,
+        deadline
+      ).send({
+        from: accounts[0]
+      }).on('transactionHash', (hash) => {
+        clearValues()
+      })
+    } else {
+      proofErrors(question, description)
+    }
   }
 
   return (

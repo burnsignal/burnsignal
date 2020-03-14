@@ -1,6 +1,5 @@
-export const CONTRACT_ADDRESS = '0xe83f7fffdd16dce2b9aeb7eb9892fb37e387a3cb'
+export const CONTRACT_ADDRESS = '0x42e36b2174273c148eb5122eee1ec1aad1c9daa9'
 
-export const WEEKDAYS = ['Monday', 'Tuesday', 'Wendsday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ]
 export const CHARTS = {
   BAR_CONFIG: (_data, _range, type) => {
 
