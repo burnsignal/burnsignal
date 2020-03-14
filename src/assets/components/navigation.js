@@ -196,10 +196,10 @@ function Navigation(props) {
     return(
       <Modal isOpen={modal.network}>
         <ModalHeader>
-          <h5 className='modal-title align-left'>Incorrect Network</h5>
+          <h5 className='modal-title align-left'>Incorrect network</h5>
         </ModalHeader>
         <ModalBody>
-          Your web3 provider is on the incorrect network, please change to Main-net to proceed.
+          Your web3 provider is on the incorrect network, please change to the main Ethereum network to proceed.
         </ModalBody>
         <ModalFooter />
       </Modal>
