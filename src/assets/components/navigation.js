@@ -240,7 +240,7 @@ function Navigation(props) {
       && question.current.value.length <= 100
       && description.current.value.length <= 1000){
       const recentBlock = await web3.eth.getBlock('latest')
-      const deadline = recentBlock.timestamp + 605000
+      const deadline = recentBlock.timestamp + 610000
 
       proofErrors(question, description)
 
