@@ -4,7 +4,7 @@ const QUERY_ISSUE = title => `{ issues(where: { title: "${title}" }) { poll } }`
 const QUERY_USER = user => `{ user(id: "${user.toLowerCase()}") { burns polls burned } }`
 const QUERY_USD = `{ exchanges(where: { id:"0x2a1530c4c41db0b0b2bb646cb5eb1a67b7158667"}) { price } } `
 
-const BURNGRAPH_ENDPOINT = 'https://api.thegraph.com/subgraphs/name/burnsignal/proof-of-concept'
+const BURNGRAPH_ENDPOINT = 'https://api.thegraph.com/subgraphs/name/burnsignal/burnsignal-rinkeby'
 const UNISWAP_ENDPOINT = 'https://api.thegraph.com/subgraphs/name/graphprotocol/uniswap'
 
 const requestHeaders = body => ({

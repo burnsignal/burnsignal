@@ -20,7 +20,7 @@ const getWeb3 = () => (
   new Promise(async(resolve, reject) => {
     try {
       const web3Modal = new Web3Modal({
-        network: 'mainnet',
+        network: 'rinkeby',
         cacheProvider: false,
         providerOptions
       })

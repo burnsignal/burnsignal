@@ -60,9 +60,9 @@ function Navigation(props) {
     const validity = state.authenicated.indexOf(accounts[0]) != -1
     const instance = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS)
 
-    if(network !== 1){
-      setModal({ ...modal, network: true  })
-    }
+    // if(network !== 1){
+    //   setModal({ ...modal, network: true  })
+    // }
 
     setNav(<LoggedIn verified={validity} account={accounts[0]}/>)
     setDropdown(<Logout account={accounts[0]}/>)
