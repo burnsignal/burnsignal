@@ -1,4 +1,4 @@
-export const CONTRACT_ADDRESS = '0x42e36b2174273c148eb5122eee1ec1aad1c9daa9'
+export const CONTRACT_ADDRESS = '0x12aa20de60ef8fdF51b3Bce43bAB5Ca07E0fF54b'
 
 export const CHARTS = {
   BAR_CONFIG: (_data, _range, type) => {
