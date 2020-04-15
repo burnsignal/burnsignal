@@ -1,0 +1,15 @@
+{
+  "short_name": "Burn Signal",
+  "name": "Burn Signal",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "500x500",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#d048b6",
+  "background_color": "#ffffff"
+}
