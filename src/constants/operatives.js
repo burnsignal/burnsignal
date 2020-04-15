@@ -26,6 +26,8 @@ export const sortVotes = (yes, no) => {
   var x = 0;
 
   totalVotes.sort((a,b) => { return a.x - b.x })
+  yes.sort((a,b) => { return a.x - b.x })
+  no.sort((a,b) => { return a.x - b.x })
 
   while(x < totalVotes.length){
     const value = totalVotes[x]
@@ -41,21 +43,26 @@ export const sortVotes = (yes, no) => {
 
        if((value.x - previous.x) <= timespan){
          var replacement = isMinus(previous.y) ? previous.y * -1 : previous.y
+         var subsitute;
 
-         if(isMinus(value.y) && !isMinus(previous.y)
+         if(isMinus(value.y) && isMinus(previous.y)
+           || !isMinus(value.y) && !isMinus(previous.y)) {
+           subsitute = highlight + replacement;
+           current = (running / sum) * 100;
+         } else if(isMinus(value.y) && !isMinus(previous.y)
            || !isMinus(value.y) && isMinus(previous.y)) {
-           current = ((running / sum) * 100)
-           current = current - ((replacement / sum) * 100)
-         } else {
-           current = (running / sum) * 100
+           subsitute = highlight - replacement;
+           current = (((running) / sum) * 100);
+
+           if(current < 15) current = 100 - current;
          } if(isMinus(current)) current = current * -1
          if(isMinus(value.y) && current == 100) current =  0
 
          sortedVotes[sortedVotes.length-1] = { x: value.x, y: current }
-         totalVotes[x-1] = { x: value.x, y: replacement + highlight }
+         totalVotes[x-1] = { x: value.x, y: subsitute }
          totalVotes.splice(x, 1)
        } else {
-         current = ((running / sum) * 100)
+         current = (running / sum) * 100
 
          if(isMinus(current)) current = current * -1
          if(isMinus(value.y) && current == 100) current =  0

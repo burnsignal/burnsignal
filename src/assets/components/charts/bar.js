@@ -14,6 +14,8 @@ function Bar(props) {
       const total = (value) => (value / (yes + no)) * 100
       const data = [ total(yes), total(no) ]
 
+      console.log(data);
+
       new Chart(ctx, { ...CHARTS.BAR_CONFIG(data, 100, props.type) })
     }
     composeAndRender()
