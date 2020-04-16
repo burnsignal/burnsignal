@@ -1,6 +1,6 @@
 import { toChecksumAddress } from '../operatives'
 
-const BRIGHTID_ENDPOINT = 'https://cors-anywhere.herokuapp.com/http://node.brightid.org/brightid/v3/verifications/ethereum'
+const BRIGHTID_ENDPOINT = 'http://node.brightid.org/brightid/v3/verifications/ethereum'
 
 export async function getAuthenicated() {
   var authenicated = await fetch(BRIGHTID_ENDPOINT,
@@ -14,6 +14,6 @@ export async function getAuthenicated() {
   await authenicated.forEach((address, i) =>
     authenicated[i] = toChecksumAddress(address)
   )
-  
+
   return authenicated
 }
