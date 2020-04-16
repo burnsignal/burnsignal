@@ -2,6 +2,7 @@ import Web3 from 'web3';
 import Web3Modal from 'web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import Authereum from 'authereum';
+import Fortmatic from "fortmatic";
 
 const providerOptions = {
   walletconnect: {
@@ -13,6 +14,12 @@ const providerOptions = {
   authereum: {
     package: Authereum,
     options: {}
+  },
+  fortmatic: {
+    package: Fortmatic, // required
+    options: {
+      key: "pk_live_74218A4E781C30F4" // required
+    }
   }
 };
 
@@ -21,7 +28,8 @@ const getWeb3 = () => (
     try {
       const web3Modal = new Web3Modal({
         network: 'mainnet',
-        cacheProvider: false,
+        cacheProvider: true,
+        theme: "dark",
         providerOptions
       })
       web3Modal.clearCachedProvider()

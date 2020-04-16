@@ -16,6 +16,7 @@
     "dotenv": "^8.2.0",
     "eslint-plugin-react-hooks": "^2.3.0",
     "ethereum-blockies-base64": "^1.0.2",
+    "fortmatic": "^2.0.6",
     "gh-pages": "^2.1.1",
     "install": "^0.13.0",
     "jquery": "^3.4.1",
