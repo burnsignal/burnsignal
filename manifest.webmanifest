@@ -1,0 +1,22 @@
+{
+  "short_name": "Burn Signal",
+  "name": "Burn Signal",
+  "description": "Got an opinion? Burn ETH to prove it.",
+  "icons": [
+    {
+      "src": "src/assets/images/logo_192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "src/assets/images/logo_192.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/?source=pwa",
+  "background_color": "#e14eca",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#e14eca"
+}
