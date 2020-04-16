@@ -268,10 +268,10 @@ function Navigation(props) {
           selection('create', true)
         } else if(props.location.pathname.match('login')) {
           await initialiseWeb3()
-          history.push('/')
+          history.goBack()
         } else if(props.location.pathname.match('logout')) {
           await signOut()
-          history.push('/')
+          history.goBack()
         }
       }
     }
