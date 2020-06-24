@@ -43,11 +43,12 @@ export async function getPollAddress(issueName){
 export async function getPollMetadata(pollName){
   const result = await makeRequest(QUERY_POLL(pollName), BURNGRAPH_ENDPOINT)
 
-  console.log(result.data)
-
-  if(result.data != undefined) return result.data.polls[0]
-  else return { yes: 0, no: 0, users: [] }
-
+  if(result.data != undefined){
+    if(result.data.polls.length != 0) return result.data.polls[0]
+    else return { yes: 0, no: 0, users: [] }
+  } else {
+    return { yes: 0, no: 0, users: [] }
+  }
 }
 
 export async function getProfileMetadata(profileAddress){

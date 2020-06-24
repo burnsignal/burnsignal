@@ -54,6 +54,8 @@ function Poll(props){
         let { title, body, issuer, optionAaddr, optionBaddr } = state.polls[id]
         var pollMetadata = await getPollMetadata(title)
 
+        console.log(pollMetadata)
+
         let { yes, users, no } = pollMetadata
         let ethValue = parseInt(yes) + parseInt(no)
         let usdValue = state.price * ethValue/Math.pow(10,18)
