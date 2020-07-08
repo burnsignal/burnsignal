@@ -17,15 +17,48 @@ function Feed() {
   let { state, dispatch } = useContext(store)
 
   function CreatePoll() {
-    return(
-      <Fragment>
-        <div className="create-poll-inputs">
-          <input ref={question} name='question' placeholder='Ask a question' className='create-poll-question feed-q' />
-          <textarea name='description' ref={description} placeholder='Description' className='create-poll-description feed-d' />
-        </div>
-        <button className='btn btn-primary button-poll' onClick={createPoll}> Create </button>
-      </Fragment>
-    )
+    const [ component, setComponent ] = useState(<span />)
+
+    const submitPoll = async() => {
+      await setComponent(<Pending />)
+      await createPoll()
+    }
+
+    function Pending() {
+      return (
+        <Fragment>
+          <div class="pending-state">
+            <div class="d-flex justify-content-center">
+              <div class="spinner-grow text-primary" role="status" />
+            </div>
+            <p class="pending-text"> Pending... </p>
+          </div>
+        </Fragment>
+      )
+    }
+
+    function Content() {
+      return (
+        <Fragment>
+          <div className="poll-profile-hyperlink">
+            <Link to={`/profile/${state.accounts[0]}`}>
+              <img className='new-poll-profile' src={makeBlockie(state.accounts[0])} />
+            </Link>
+          </div>
+          <div className="create-poll-inputs">
+            <input ref={question} name='question' placeholder='Ask a question' className='create-poll-question feed-q' />
+            <textarea name='description' ref={description} placeholder='Description' className='create-poll-description feed-d' />
+          </div>
+          <button className='btn btn-primary button-poll' onClick={submitPoll}> Create </button>
+        </Fragment>
+      )
+    }
+
+    useEffect(() => {
+      setComponent(<Content />)
+    }, [ ])
+
+    return component
   }
 
   const clearValues = () => {
@@ -110,11 +143,6 @@ function Feed() {
               <div className='card'>
                 <div className='card-header' />
                 <div className='card-body'>
-                  <div className="poll-profile-hyperlink">
-                    <Link to={`/profile/${state.accounts[0]}`}>
-                      <img className='new-poll-profile' src={makeBlockie(state.accounts[0])} />
-                    </Link>
-                  </div>
                   <CreatePoll />
                 </div>
               </div>

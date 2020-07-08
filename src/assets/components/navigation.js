@@ -24,6 +24,7 @@ function Navigation(props) {
   const [ dropdownOpen, setDropdownOpen ] = useState(false)
   const [ navComponent, setNav ] = useState(<LoggedOut />)
   const [ popoverOpen, setPopoverOpen ] = useState(false)
+  const [ pending, setPending ] = useState(false)
   const description = useRef(null)
   const question = useRef(null)
 
@@ -177,7 +178,44 @@ function Navigation(props) {
   }
 
   function Create() {
-    return(
+    const [ component, setComponent ] = useState(<span />)
+
+    const submitPoll = async() => {
+      await setComponent(<Pending />)
+      await createPoll()
+    }
+
+    function Pending() {
+      return (
+        <ModalBody>
+          <div class="pending-state">
+            <div class="d-flex justify-content-center">
+              <div class="spinner-grow text-primary" role="status" />
+            </div>
+            <p class="pending-text"> Pending... </p>
+          </div>
+        </ModalBody>
+      )
+    }
+
+    function Content() {
+      return (
+        <ModalBody>
+          <input name='question' ref={question} placeholder='Ask a question' className='create-poll-question modl-q' />
+          <textarea name='description' ref={description} placeholder='Description' className='create-poll-description modl-d' />
+          <button className='btn btn-primary button-poll' onClick={submitPoll}> Create </button>
+        </ModalBody>
+      )
+    }
+
+    useEffect(() => {
+      setComponent(<Content />)
+    }, [ ])
+
+    useEffect(() => {
+    }, [ component ])
+
+    return (
       <Modal isOpen={modal.create}>
         <ModalHeader>
           <h5 className='modal-title align-left'>Create</h5>
@@ -185,15 +223,12 @@ function Navigation(props) {
             <span aria-hidden='true'>&times;</span>
           </button>
         </ModalHeader>
-        <ModalBody>
-          <input name='question' ref={question} placeholder='Ask a question' className='create-poll-question modl-q' />
-          <textarea name='description' ref={description} placeholder='Description' className='create-poll-description modl-d' />
-          <button className='btn btn-primary button-poll' onClick={createPoll}> Create </button>
-        </ModalBody>
+        {component}
         <ModalFooter />
       </Modal>
     )
   }
+
 
   function WrongNetwork() {
     return(
@@ -329,8 +364,8 @@ function Navigation(props) {
            </div>
          </Col>
        </Row>
+       <Create pending={pending} />
        <WrongNetwork />
-       <Create />
        <About />
      </Container>
     </nav>

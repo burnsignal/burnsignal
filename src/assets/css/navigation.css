@@ -8,6 +8,24 @@
   margin-right: 0px !important;
 }
 
+.spinner-grow {
+  width: 3rem;
+  height: 3rem;
+}
+
+.pending-text {
+  padding-top: 17.5px;
+  text-align: center;
+  color: #525f7f;
+  font-size: 20px;
+  padding-left: 8.75px;
+}
+
+.pending-state {
+  padding-top: 42.5px;
+  padding-bottom: 42.5px;
+}
+
 .web3modal-modal-card {
   display: table !important;
 }
