@@ -39,6 +39,48 @@ function Option(props) {
    }
 
   function AuthenticatedAndVerified({ option }){
+    const [ component, setComponent ] = useState(<span />)
+
+    const submitPoll = async(option) => {
+      await setComponent(<Pending />)
+      await makeTransaction(option)
+    }
+
+    function Pending() {
+      return (
+        <Fragment>
+          <ModalBody>
+            <div class="pending-state">
+              <div class="d-flex justify-content-center">
+                <div class="spinner-grow text-primary" role="status" />
+              </div>
+              <p class="pending-text"> Pending... </p>
+            </div>
+          </ModalBody>
+        </Fragment>
+      )
+    }
+
+    function Content() {
+      return(
+        <Fragment>
+          <ModalBody>
+            <span className='vote-selection'> How much ETH will you burn to cast your vote? </span>
+            <input type='number' ref={burn} className='modal-input' placeholder='0.5 ETH'/>
+          </ModalBody>
+          <ModalFooter>
+            <button type='button' className='btn btn-primary btn-verify' data-dismiss='modal' onClick={() => submitPoll(option)}>
+              Vote {option}
+            </button>
+          </ModalFooter>
+        </Fragment>
+      )
+    }
+
+    useEffect(() => {
+      setComponent(<Content />)
+    }, [ ])
+
     return(
       <Fragment>
         <ModalHeader>
@@ -47,15 +89,7 @@ function Option(props) {
             <span aria-hidden='true'>&times;</span>
           </button>
         </ModalHeader>
-        <ModalBody>
-          <span className='vote-selection'> How much ETH will you burn to cast your vote? </span>
-          <input type='number' ref={burn} className='modal-input' placeholder='0.5 ETH'/>
-        </ModalBody>
-        <ModalFooter>
-          <button type='button' className='btn btn-primary btn-verify' data-dismiss='modal' onClick={() => makeTransaction(option)}>
-            Vote {option}
-          </button>
-        </ModalFooter>
+        {component}
       </Fragment>
     )
   }
