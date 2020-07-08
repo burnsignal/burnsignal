@@ -26,6 +26,7 @@ function Poll(props){
   const [ modalState, setModal ] = useState('')
   const [ pollTopic, setTopic ] = useState('')
   const [ pledgedUSD, setUSD ] = useState(0)
+  const [ metaState, setMeta ] = useState(false)
 
   let { state } = useContext(store)
   let { address } = useParams()
@@ -45,8 +46,11 @@ function Poll(props){
     toggle()
   }
 
-  function dismiss() {
+  function dismiss(transaction) {
     let route = props.location.pathname.replace('/yes', '')
+
+    if(transaction) setMeta(transaction)
+
     route = route.replace('/no', '')
     history.push(route)
     toggle()
@@ -75,10 +79,13 @@ function Poll(props){
         setGraphState(true)
         setPledged(total)
         setTopic(title)
+        setMeta(false)
         }
      }
     getMetadata()
-  }, [ state.polls ])
+  }, [ metaState,
+    state.polls ]
+  )
 
   useEffect(() => {
     if(props.location){

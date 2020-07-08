@@ -5,6 +5,9 @@ import { Row, Col } from 'reactstrap'
 import MetaTags from 'react-meta-tags'
 
 import FeedPoll from '../assets/components/feedpoll';
+
+import { getPolls, getETHPrice } from '../constants/calls/GraphQL'
+import { getAuthenicated } from '../constants/calls/REST'
 import { store } from '../state'
 
 function Feed() {
@@ -69,12 +72,26 @@ function Feed() {
         deadline
       ).send({
         from: accounts[0]
-      }).on('transactionHash', (hash) => {
+      }).on('transactionHash', async(hash) => {
+        await retrievePolls()
         clearValues()
       })
     } else {
       proofErrors(question, description)
     }
+  }
+
+  const retrievePolls = async() => {
+    var authenicated = await getAuthenicated()
+    var price = await getETHPrice()
+    var polls = await getPolls()
+
+    dispatch({
+      payload: {
+        authenicated, polls, price
+      },
+      type: 'INIT'
+    })
   }
 
   return (

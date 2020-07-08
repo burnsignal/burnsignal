@@ -105,18 +105,16 @@ function Option(props) {
  }
 
   const makeTransaction = async(option) => {
-    let { web3 } = state
-
     const amount = burn.current.value % 1 === 0 ?
-      web3.utils.toBN(parseFloat(burn.current.value)).mul(web3.utils.toBN(1e18)) :
+      state.web3.utils.toBN(parseFloat(burn.current.value)).mul(state.web3.utils.toBN(1e18)) :
       parseInt(burn.current.value*Math.pow(10,18))
 
-    await web3.eth.sendTransaction({
+    await state.web3.eth.sendTransaction({
         to: props.address[option],
         from: state.accounts[0],
         value: amount
       }).on('transactionHash' , () => {
-        props.modalToggle()
+        props.modalToggle(true)
       })
   }
 

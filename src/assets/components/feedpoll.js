@@ -25,6 +25,7 @@ function Poll(props){
   const [ modalState, setModal ] = useState('')
   const [ pollTopic, setTopic ] = useState('')
   const [ pledgedUSD, setUSD ] = useState(0)
+  const [ metaState, setMeta ] = useState(false)
 
   let { state } = useContext(store)
   let { address } = useParams()
@@ -43,7 +44,9 @@ function Poll(props){
     toggle()
   }
 
-  function dismiss() {
+  function dismiss(transaction) {
+    if(transaction) setMeta(transaction)
+
     history.goBack()
     toggle()
   }
@@ -53,8 +56,6 @@ function Poll(props){
       if(state.polls[id] !== undefined){
         let { title, body, issuer, optionAaddr, optionBaddr } = state.polls[id]
         var pollMetadata = await getPollMetadata(title)
-
-        console.log(pollMetadata)
 
         let { yes, users, no } = pollMetadata
         let ethValue = parseInt(yes) + parseInt(no)
@@ -73,10 +74,13 @@ function Poll(props){
         setGraphState(true)
         setPledged(total)
         setTopic(title)
+        setMeta(false)
         }
      }
     getMetadata()
-  }, [ state.polls ])
+  }, [ metaState,
+    state.polls ]
+  )
 
   return(
      <div className='feed-poll'>

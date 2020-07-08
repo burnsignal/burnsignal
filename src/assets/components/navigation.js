@@ -250,13 +250,27 @@ function Navigation(props) {
         deadline
       ).send({
         from: accounts[0]
-      }).on('transactionHash', (hash) => {
+      }).on('transactionHash', async(hash) => {
+        await retrievePolls()
         dismiss('create')
         clearValues()
       })
     } else {
       proofErrors(question, description)
     }
+  }
+
+  const retrievePolls = async() => {
+    var authenicated = await getAuthenicated()
+    var price = await getETHPrice()
+    var polls = await getPolls()
+
+    dispatch({
+      payload: {
+        authenicated, polls, price
+      },
+      type: 'INIT'
+    })
   }
 
   useEffect(() => {
