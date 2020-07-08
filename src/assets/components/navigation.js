@@ -7,6 +7,9 @@ import { Link, useHistory, withRouter } from 'react-router-dom'
 import { Col, Row, Container } from 'reactstrap'
 
 import { CONTRACT_ADDRESS, CONTRACT_ABI } from '../../constants/parameters'
+
+import { getPolls, getETHPrice } from '../../constants/calls/GraphQL'
+import { getAuthenicated } from '../../constants/calls/REST'
 import { store } from '../../state'
 
 import getWeb3 from '../../utils/getWeb3'

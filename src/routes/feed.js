@@ -14,7 +14,7 @@ function Feed() {
   const description = useRef(null)
   const question = useRef(null)
 
-  let { state } = useContext(store)
+  let { state, dispatch } = useContext(store)
 
   function CreatePoll() {
     return(

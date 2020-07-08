@@ -27,7 +27,7 @@ function Poll(props){
   const [ pledgedUSD, setUSD ] = useState(0)
   const [ metaState, setMeta ] = useState(false)
 
-  let { state } = useContext(store)
+  let { state, dispatch } = useContext(store)
   let { address } = useParams()
   let history = useHistory()
 
