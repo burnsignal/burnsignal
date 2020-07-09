@@ -35,7 +35,7 @@ function Feed() {
 
   let { state, dispatch } = useContext(store)
 
-  function CreatePoll({ show }) {
+  function CreatePoll({ show, conditioning }) {
     const [ component, setComponent ] = useState(<span />)
 
     function Pending() {
@@ -64,10 +64,37 @@ function Feed() {
       }
 
       const submitPoll = async() => {
-        await setComponent(<Pending />)
-        await createPoll(q, d)
-        await setDescription(null)
-        await setQuestion(null)
+        if(proofErrors(q, d)) {
+          await setComponent(<Pending />)
+          await createPoll(q, d)
+          await setDescription(null)
+          await setQuestion(null)
+        }
+      }
+
+      const proofErrors = (question, description) => {
+        if((question.length < 4
+          || question.length > 100)
+          || (description.length > 1000)) {
+          if(description.length > 1000){
+            document.getElementsByClassName('feed-d')[0]
+            .style["border-color"] = "#ff0045"
+          } if(question.length < 4
+            || question.length > 100){
+            document.getElementsByClassName('feed-q')[0]
+            .style["border-color"] = "#ff0045"
+            return false
+        }} else {
+          if(description.length <= 1000) {
+            document.getElementsByClassName('feed-d')[0]
+            .style["border-color"] = "#2B3553"
+          } if(question.length <= 100
+           && question.length >= 4){
+            document.getElementsByClassName('feed-q')[0]
+            .style["border-color"] = "#2B3553"
+          }
+          return true;
+         }
       }
 
       return (
@@ -99,9 +126,9 @@ function Feed() {
     function Success(){
       return (
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-          <h4 class="alert-heading"> Transaction confirmed </h4>
+          <h4 class="alert-heading"> Confirmation </h4>
           <hr />
-          This is a success alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+          Transaction {receipt.transactionHash} has successfully confirmed, <a href="#" class="alert-link">see more</a>.
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -112,9 +139,9 @@ function Feed() {
     function Revert(){
       return(
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-          <h4 class="alert-heading"> Transaction failed </h4>
+          <h4 class="alert-heading"> Error </h4>
           <hr />
-          This is a danger alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+           Transaction {receipt.transactionHash} has failed, <a href="#" class="alert-link">see more</a>.
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -125,9 +152,14 @@ function Feed() {
     useEffect(() => {
       if(receipt.status == 1){
         setComponent(<Success />)
-      } else if(receipt.status == 0){
+        } else if(receipt.status == 0){
         setComponent(<Revert />)
       }
+
+      const alert = setTimeout(() => {
+        setComponent(<span />)
+      }, 10000)
+      return () => clearTimeout(alert)
     }, [ receipt ])
 
     return (
@@ -137,68 +169,38 @@ function Feed() {
     )
   }
 
-  const proofErrors = (question, description) => {
-    if((question.length < 4
-      || question.length > 100)
-      || (description.length > 1000)) {
-      if(description.length > 1000){
-        document.getElementsByClassName('feed-d')[0]
-        .style["border-color"] = "#ff0045"
-      } if(question.length < 4
-        || question.length > 100){
-        document.getElementsByClassName('feed-q')[0]
-        .style["border-color"] = "#ff0045"
-    }} else {
-      if(description.length <= 1000) {
-        document.getElementsByClassName('feed-d')[0]
-        .style["border-color"] = "#2B3553"
-      } if(question.length <= 100
-       && question.length >= 4){
-        document.getElementsByClassName('feed-q')[0]
-        .style["border-color"] = "#2B3553"
-      }
-    }
+  const onHash = async(hash, title, body) => {
+    await setPending(false)
+    await dummyPoll(hash, title, body)
   }
 
-  const createPoll = async(title, body) => {
-    await setPending(true)
-    await dummyPoll('0x0', title, body)
+  const createPoll = async(q, d) => {
+    await setPending(false)
+    await dummyPoll('0x0', q, d)
     await transactionAlert({
       transactionHash: '0x0',
       status: 1
     })
   }
 
-  const onHash = async(hash, title, body) => {
-    await setPending(true)
-    await dummyPoll(hash, title, body)
-  }
-
   const transactPoll = async(question, description) => {
     let { web3, instance, accounts } = state
 
-    if(question.length >= 4
-      && question.length <= 100
-      && description.length <= 1000){
-      const recentBlock = await web3.eth.getBlock('latest')
-      const deadline = recentBlock.timestamp + 605000
+    const recentBlock = await web3.eth.getBlock('latest')
+    const deadline = recentBlock.timestamp + 605000
 
-      proofErrors(question, description)
-
-      await instance.methods.newVoteProposal(
-        question,
-        description,
-        deadline
-      ).send({
-        from: accounts[0]
-      }).on('confirmation', async(confNum, receipt) => {
-        await transactionAlert(receipt)
-      }).on('transactionHash', async(hash) => {
-        await onHash(hash, question, description)
-      })
-      } else {
-      proofErrors(question, description)
-    }
+    await instance.methods.newVoteProposal(
+      question,
+      description,
+      deadline
+    ).send({
+      from: accounts[0]
+    }).on('confirmation', async(confNum, receipt) => {
+      await transactionAlert(receipt)
+    }).on('transactionHash', async(hash) => {
+      await onHash(hash, question, description)
+      await setPending(true)
+    })
   }
 
   const transactionAlert = async(receipt) => {
