@@ -21,7 +21,15 @@ const dummyData = (issuer, title, body) => ({
   title
 })
 
+const receiptMapping = {
+  receipt: {
+    status: null,
+    transactionHash: null
+  }
+}
+
 function Feed() {
+  const [ alert, setAlert ] = useState({ ...receiptMapping })
   const [ pendingState, setPending ] = useState(false)
   const [ polls, setPolls ] = useState(<span/>)
 
@@ -85,6 +93,50 @@ function Feed() {
     return component
   }
 
+  function Alert({ receipt }) {
+    const [ component, setComponent ] = useState(<span />)
+
+    function Success(){
+      return (
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <h4 class="alert-heading"> Transaction confirmed </h4>
+          <hr />
+          This is a success alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      )
+    }
+
+    function Revert(){
+      return(
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <h4 class="alert-heading"> Transaction failed </h4>
+          <hr />
+          This is a danger alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      )
+    }
+
+    useEffect(() => {
+      if(receipt.status == 1){
+        setComponent(<Success />)
+      } else if(receipt.status == 0){
+        setComponent(<Revert />)
+      }
+    }, [ receipt ])
+
+    return (
+      <div class="alert-modal">
+        {component}
+      </div>
+    )
+  }
+
   const proofErrors = (question, description) => {
     if((question.length < 4
       || question.length > 100)
@@ -112,7 +164,8 @@ function Feed() {
     await setPending(true)
     await dummyPoll('0x0', title, body)
     await transactionAlert({
-      transactionHash: '0x0'
+      transactionHash: '0x0',
+      status: 1
     })
   }
 
@@ -149,17 +202,11 @@ function Feed() {
   }
 
   const transactionAlert = async(receipt) => {
-    let message = receipt.transactionHash
-    let label = ''
-
     await pluckDummy(receipt)
 
-    if(receipt.status == 1) {
-      await retrievePolls()
-      label = 'success'
-    } else {
-      label = 'warning'
-    }
+    if(receipt.status == 1) await retrievePolls()
+
+    setAlert(receipt)
   }
 
   const dummyPoll = (hash, title, description) => {
@@ -245,6 +292,7 @@ function Feed() {
         </div>
       )}
       {polls}
+      <Alert receipt={alert} />
     </Fragment>
   )
 }

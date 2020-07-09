@@ -8,6 +8,27 @@
   margin-right: 0px !important;
 }
 
+.alert-modal {
+  width: calc(25em - 50px);
+  position: fixed;
+  bottom: 5%;
+  left: 5%;
+}
+
+.alert h4 {
+  margin-bottom: 0px;
+}
+
+.alert button.close {
+  top: 17.5%;
+  right: 2.5%;
+}
+
+hr {
+  margin-top: 5px;
+  margin-bottom: 7.5px;
+}
+
 .spinner-grow {
   width: 2.75rem;
   height: 2.75rem;
