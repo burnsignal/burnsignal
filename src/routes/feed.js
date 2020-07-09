@@ -10,19 +10,25 @@ import { getPolls, getETHPrice } from '../constants/calls/GraphQL'
 import { getAuthenicated } from '../constants/calls/REST'
 import { store } from '../state'
 
+const dummyData = (issuer, title, body) => ({
+  deadline: (parseInt((new Date(Date.now())).getTime()/1000) + 605000).toString(),
+  optionAaddr: "0x0",
+  optionBaddr: "0x0",
+  poll: "0x0",
+  id: "0x0",
+  issuer,
+  body,
+  title
+})
+
 function Feed() {
-  const description = useRef(null)
-  const question = useRef(null)
+  const [ pendingState, setPending ] = useState(false)
+  const [ polls, setPolls ] = useState(<span/>)
 
   let { state, dispatch } = useContext(store)
 
-  function CreatePoll() {
+  function CreatePoll({ show }) {
     const [ component, setComponent ] = useState(<span />)
-
-    const submitPoll = async() => {
-      await setComponent(<Pending />)
-      await createPoll()
-    }
 
     function Pending() {
       return (
@@ -38,6 +44,24 @@ function Feed() {
     }
 
     function Content() {
+      const [ d, setDescription ] = useState(null)
+      const [ q, setQuestion ] = useState(null)
+
+      const handleDescription = (event) => {
+        setDescription(event.target.value)
+      }
+
+      const handleQuestion = (event) => {
+        setQuestion(event.target.value)
+      }
+
+      const submitPoll = async() => {
+        await setComponent(<Pending />)
+        await createPoll(q, d)
+        await setDescription(null)
+        await setQuestion(null)
+      }
+
       return (
         <Fragment>
           <div className="poll-profile-hyperlink">
@@ -46,8 +70,8 @@ function Feed() {
             </Link>
           </div>
           <div className="create-poll-inputs">
-            <input ref={question} name='question' placeholder='Ask a question' className='create-poll-question feed-q' />
-            <textarea name='description' ref={description} placeholder='Description' className='create-poll-description feed-d' />
+            <input value={q} onChange={handleQuestion} name='question' placeholder='Ask a question' className='create-poll-question feed-q' />
+            <textarea name='description' value={d} onChange={handleDescription} placeholder='Description' className='create-poll-description feed-d' />
           </div>
           <button className='btn btn-primary button-poll' onClick={submitPoll}> Create </button>
         </Fragment>
@@ -56,62 +80,119 @@ function Feed() {
 
     useEffect(() => {
       setComponent(<Content />)
-    }, [ ])
+    }, [ show ])
 
     return component
   }
 
-  const clearValues = () => {
-    document.getElementsByClassName('feed-d')[0].value = ''
-    document.getElementsByClassName('feed-q')[0].value = ''
-  }
-
   const proofErrors = (question, description) => {
-    if((question.current.value.length < 4
-      || question.current.value.length > 100)
-      || (description.current.value.length > 1000)) {
-      if(description.current.value.length > 1000){
+    if((question.length < 4
+      || question.length > 100)
+      || (description.length > 1000)) {
+      if(description.length > 1000){
         document.getElementsByClassName('feed-d')[0]
         .style["border-color"] = "#ff0045"
-      } if(question.current.value.length < 4
-        || question.current.value.length > 100){
+      } if(question.length < 4
+        || question.length > 100){
         document.getElementsByClassName('feed-q')[0]
         .style["border-color"] = "#ff0045"
     }} else {
-      if(description.current.value.length <= 1000) {
+      if(description.length <= 1000) {
         document.getElementsByClassName('feed-d')[0]
         .style["border-color"] = "#2B3553"
-      } if(question.current.value.length <= 100
-       && question.current.value.length >= 4){
+      } if(question.length <= 100
+       && question.length >= 4){
         document.getElementsByClassName('feed-q')[0]
         .style["border-color"] = "#2B3553"
       }
     }
   }
 
-  const createPoll = async() => {
+  const createPoll = async(title, body) => {
+    await setPending(true)
+    await dummyPoll('0x0', title, body)
+    await transactionAlert({
+      transactionHash: '0x0'
+    })
+  }
+
+  const onHash = async(hash, title, body) => {
+    await setPending(true)
+    await dummyPoll(hash, title, body)
+  }
+
+  const transactPoll = async(question, description) => {
     let { web3, instance, accounts } = state
-    if(question.current.value.length >= 4
-      && question.current.value.length <= 100
-      && description.current.value.length <= 1000){
+
+    if(question.length >= 4
+      && question.length <= 100
+      && description.length <= 1000){
       const recentBlock = await web3.eth.getBlock('latest')
       const deadline = recentBlock.timestamp + 605000
 
       proofErrors(question, description)
 
       await instance.methods.newVoteProposal(
-        question.current.value,
-        description.current.value,
+        question,
+        description,
         deadline
       ).send({
         from: accounts[0]
+      }).on('confirmation', async(confNum, receipt) => {
+        await transactionAlert(receipt)
       }).on('transactionHash', async(hash) => {
-        await retrievePolls()
-        clearValues()
+        await onHash(hash, question, description)
       })
-    } else {
+      } else {
       proofErrors(question, description)
     }
+  }
+
+  const transactionAlert = async(receipt) => {
+    let message = receipt.transactionHash
+    let label = ''
+
+    await pluckDummy(receipt)
+
+    if(receipt.status == 1) {
+      await retrievePolls()
+      label = 'success'
+    } else {
+      label = 'warning'
+    }
+  }
+
+  const dummyPoll = (hash, title, description) => {
+    let { polls, accounts } = state
+    let neophyte = {}
+
+    polls[hash] = {
+      ...dummyData(accounts[0], title, description)
+    }
+
+    neophyte = Object.entries(polls).sort((a, b) => {
+      return b[1].deadline - a[1].deadline
+    })
+
+    polls = {}
+
+    neophyte.forEach(value => polls[value[0]] = value[1])
+
+    dispatch({
+      payload: { polls },
+      type: 'INIT'
+    })
+  }
+
+  const pluckDummy = (receipt) => {
+    let { polls } = state
+
+    delete polls[receipt.transactionHash]
+
+    dispatch({
+      payload: { polls },
+      type: 'INIT'
+    })
   }
 
   const retrievePolls = async() => {
@@ -126,6 +207,19 @@ function Feed() {
       type: 'INIT'
     })
   }
+
+  useEffect(() => {
+    setPolls(
+      Object.keys(state.polls)
+        .map((id, index) => (
+          <FeedPoll key={id} id={id}/>
+      ))
+    )
+  }, [ state.polls ])
+
+  useEffect(() => {
+
+  }, [])
 
   return (
     <Fragment>
@@ -143,17 +237,14 @@ function Feed() {
               <div className='card'>
                 <div className='card-header' />
                 <div className='card-body'>
-                  <CreatePoll />
+                  <CreatePoll show={pendingState} />
                 </div>
               </div>
             </Col>
           </Row>
         </div>
       )}
-      {Object.keys(state.polls)
-        .map((id, index) => (
-        <FeedPoll key={id} id={id}/>
-      ))}
+      {polls}
     </Fragment>
   )
 }
