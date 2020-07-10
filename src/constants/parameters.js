@@ -1,5 +1,27 @@
 export const CONTRACT_ADDRESS = '0x12aa20de60ef8fdF51b3Bce43bAB5Ca07E0fF54b'
 
+export const initialState = {
+  receipt: {
+    status: null,
+    transactionHash: null
+ },
+ web3: undefined,
+ verified: false,
+ auth: false,
+ polls: [],
+}
+
+export const pollMapping = (issuer, title, body) => ({
+  deadline: (parseInt((new Date(Date.now())).getTime()/1000) + 605000).toString(),
+  optionAaddr: "0x0",
+  optionBaddr: "0x0",
+  poll: issuer,
+  id: issuer,
+  issuer,
+  body,
+  title
+})
+
 export const CHARTS = {
   BAR_CONFIG: (_data, _range, type) => {
 

@@ -12,7 +12,7 @@ import Spline from './charts/spline'
 import Bar from './charts/bar'
 import Option from './option'
 
-function Poll(props){
+export default function FeedPoll(props){
   const [ pollOptions, setOptions ] = useState({ yes: '', no : '' })
   const [ pollCount, setCount ] = useState({ yes: 0, no: 0 })
   const [ pollDescription , setDescription ] = useState('')
@@ -116,5 +116,3 @@ function Poll(props){
     </div>
   )
 }
-
-export default Poll

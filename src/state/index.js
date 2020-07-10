@@ -1,12 +1,15 @@
 import React, { createContext, useReducer } from 'react';
 
-const initialState = { polls: [], web3: undefined, auth: false, verified: false }
+import { initialState } from '../constants/parameters'
+
 const store = createContext(initialState)
 const { Provider } = store
 
 const StateProvider = ( { children } ) => {
   const [state, dispatch] = useReducer((state, action) => {
     switch(action.type) {
+      case 'TX':
+        return { ...state, receipt: { ...action.payload } }
       case 'INIT':
         return { ...state, ...action.payload }
       case 'WEB3':
