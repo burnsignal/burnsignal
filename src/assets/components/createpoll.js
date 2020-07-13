@@ -3,6 +3,8 @@ import React, { Fragment, useState, useEffect } from 'react';
 import makeBlockie from 'ethereum-blockies-base64'
 import { Link } from 'react-router-dom'
 
+import { proofErrors } from '../../constants/operatives'
+
 export default function CreatePoll({ account, show, submit }) {
   const [ component, setComponent ] = useState(<span />)
 
@@ -40,31 +42,6 @@ export default function CreatePoll({ account, show, submit }) {
         await setComponent(<Pending />)
         await submit(title, description)
       }
-    }
-
-    const proofErrors = (question, description) => {
-      if((question.length < 4
-        || question.length > 100)
-        || (description.length > 1000)) {
-        if(description.length > 1000){
-          document.getElementsByClassName('feed-d')[0]
-          .style["border-color"] = "#ff0045"
-        } if(question.length < 4
-          || question.length > 100){
-          document.getElementsByClassName('feed-q')[0]
-          .style["border-color"] = "#ff0045"
-          return false
-      }} else {
-        if(description.length <= 1000) {
-          document.getElementsByClassName('feed-d')[0]
-          .style["border-color"] = "#2B3553"
-        } if(question.length <= 100
-         && question.length >= 4){
-          document.getElementsByClassName('feed-q')[0]
-          .style["border-color"] = "#2B3553"
-        }
-        return true;
-       }
     }
 
     return (

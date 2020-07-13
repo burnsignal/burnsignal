@@ -8,8 +8,9 @@ import { Col, Row, Container } from 'reactstrap'
 
 import { CONTRACT_ADDRESS, CONTRACT_ABI } from '../../constants/parameters'
 
-import { getPolls, getETHPrice } from '../../constants/calls/GraphQL'
+import { onHash, retrievePolls } from '../../constants/requests'
 import { getAuthenicated } from '../../constants/calls/REST'
+import { proofErrors } from '../../constants/operatives'
 import { store } from '../../state'
 
 import getWeb3 from '../../utils/getWeb3'
@@ -25,8 +26,6 @@ function Navigation(props) {
   const [ navComponent, setNav ] = useState(<LoggedOut />)
   const [ popoverOpen, setPopoverOpen ] = useState(false)
   const [ pending, setPending ] = useState(false)
-  const description = useRef(null)
-  const question = useRef(null)
 
   let { dispatch, state } = useContext(store)
   let history = useHistory()
@@ -177,12 +176,24 @@ function Navigation(props) {
     )
   }
 
-  function Create() {
+  function Create({ pending, submit }) {
     const [ component, setComponent ] = useState(<span />)
+    const q = useRef()
+    const d = useRef()
+
+    const clearValues = () => {
+      document.getElementsByClassName('modl-d')[0].value = ''
+      document.getElementsByClassName('modl-q')[0].value = ''
+    }
 
     const submitPoll = async() => {
-      await setComponent(<Pending />)
-      await createPoll()
+      let [ question, description ] = [ q.current.value, d.current.value ]
+
+      if(proofErrors(question, description)) {
+        await clearValues()
+        await setComponent(<Pending />)
+        await submit(question, description)
+      }
     }
 
     function Pending() {
@@ -201,8 +212,8 @@ function Navigation(props) {
     function Content() {
       return (
         <ModalBody>
-          <input name='question' ref={question} placeholder='Ask a question' className='create-poll-question modl-q' />
-          <textarea name='description' ref={description} placeholder='Description' className='create-poll-description modl-d' />
+          <input name='question' ref={q} placeholder='Ask a question' className='create-poll-question modl-q' />
+          <textarea name='description' ref={d} placeholder='Description' className='create-poll-description modl-d' />
           <button className='btn btn-primary button-poll' onClick={submitPoll}> Create </button>
         </ModalBody>
       )
@@ -210,10 +221,7 @@ function Navigation(props) {
 
     useEffect(() => {
       setComponent(<Content />)
-    }, [ ])
-
-    useEffect(() => {
-    }, [ component ])
+    }, [ pending ])
 
     return (
       <Modal isOpen={modal.create}>
@@ -244,69 +252,46 @@ function Navigation(props) {
      )
   }
 
-  const clearValues = () => {
-    document.getElementsByClassName('modl-d')[0].value = ''
-    document.getElementsByClassName('modl-q')[0].value = ''
-  }
-
-  const proofErrors = (question, description) => {
-    if((question.current.value.length < 4
-      || question.current.value.length > 100)
-      || (description.current.value.length > 1000)) {
-      if(description.current.value.length > 1000){
-        document.getElementsByClassName('modl-d')[0]
-        .style["border-color"] = "#ff0045"
-      } if(question.current.value.length < 4
-        || question.current.value.length > 100){
-        document.getElementsByClassName('modl-q')[0]
-        .style["border-color"] = "#ff0045"
-    }} else {
-      if(description.current.value.length <= 1000) {
-        document.getElementsByClassName('modl-d')[0]
-        .style["border-color"] = "#2B3553"
-      } if(question.current.value.length <= 100
-       && question.current.value.length >= 4){
-        document.getElementsByClassName('modl-q')[0]
-        .style["border-color"] = "#2B3553"
-      }
-    }
-  }
-
-  const createPoll = async() => {
+  const createPoll = async(question, description) => {
     let { web3, instance, accounts } = state
-    if(question.current.value.length >= 4
-      && question.current.value.length <= 100
-      && description.current.value.length <= 1000){
-      const recentBlock = await web3.eth.getBlock('latest')
-      const deadline = recentBlock.timestamp + 610000
 
-      proofErrors(question, description)
+    const recentBlock = await web3.eth.getBlock('latest')
+    const deadline = recentBlock.timestamp + 605000
 
-      await instance.methods.newVoteProposal(
-        question.current.value,
-        description.current.value,
-        deadline
-      ).send({
-        from: accounts[0]
-      }).on('transactionHash', async(hash) => {
-        await retrievePolls()
-        dismiss('create')
-        clearValues()
-      })
-    } else {
-      proofErrors(question, description)
-    }
+    await instance.methods.newVoteProposal(
+      question,
+      description,
+      deadline
+    ).send({
+      from: accounts[0]
+    }).on('transactionHash', async(hash) => {
+      await onHash(state, dispatch, hash, question, description)
+    }).on('confirmation', async(confNum, receipt) => {
+      await transactionAlert(receipt)
+    })
   }
 
-  const retrievePolls = async() => {
-    var authenicated = await getAuthenicated()
-    var price = await getETHPrice()
-    var polls = await getPolls()
+  const transactionAlert = async(receipt) => {
+    await pluckDummy(receipt)
+    await setPending(true)
+
+    if(receipt.status == 1) {
+      await retrievePolls(dispatch)
+    }
+
+    await dispatch({
+      payload: { receipt },
+      type: 'TX'
+    })
+  }
+
+  const pluckDummy = (receipt) => {
+    let { polls } = state
+
+    delete polls[receipt.transactionHash]
 
     dispatch({
-      payload: {
-        authenicated, polls, price
-      },
+      payload: { polls },
       type: 'INIT'
     })
   }
@@ -364,7 +349,7 @@ function Navigation(props) {
            </div>
          </Col>
        </Row>
-       <Create pending={pending} />
+       <Create submit={createPoll} pending={pending} />
        <WrongNetwork />
        <About />
      </Container>

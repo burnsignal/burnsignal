@@ -153,3 +153,28 @@ export const createURL = string => {
     string = string.slice(0, string.length-1)
   } return string.replace('?', '');
 }
+
+export const proofErrors = (question, description) => {
+  if((question.length < 4
+    || question.length > 100)
+    || (description.length > 1000)) {
+      if(description.length > 1000){
+        document.getElementsByClassName('feed-d')[0]
+        .style["border-color"] = "#ff0045"
+      } if(question.length < 4
+        || question.length > 100){
+        document.getElementsByClassName('feed-q')[0]
+        .style["border-color"] = "#ff0045"
+        return false
+      }} else {
+        if(description.length <= 1000) {
+        document.getElementsByClassName('feed-d')[0]
+        .style["border-color"] = "#2B3553"
+        } if(question.length <= 100
+        && question.length >= 4){
+          document.getElementsByClassName('feed-q')[0]
+          .style["border-color"] = "#2B3553"
+        }
+        return true;
+    }
+}

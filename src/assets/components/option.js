@@ -160,7 +160,7 @@ function Option(props) {
     <Fragment>
       <Modal isOpen={!queryState && props.modalState}>
         { state.web3 && state.verified && (<AuthenticatedAndVerified option={props.modalOption} />) }
-        { !state.web3 && !state.verified && (< Unauthenticated option={props.modalOption} />) }
+        { !state.web3 && !state.verified && (<Unauthenticated option={props.modalOption} />) }
         { state.web3 && !state.verified && (<AuthenticatedAndUnverified />) }
       </Modal>
       <Modal isOpen={queryState && props.modalState}>

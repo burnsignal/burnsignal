@@ -5,13 +5,13 @@ import { HashRouter, Route } from 'react-router-dom'
 import * as serviceWorker from './serviceWorker'
 
 import { StateProvider } from './state'
-import App from './App';
+import Root from './routes/root';
 
 ReactDOM.render(
   <StateProvider>
     <HashRouter>
       <Fragment>
-        <App />
+        <Root />
       </Fragment>
     </HashRouter>
   </StateProvider>,
