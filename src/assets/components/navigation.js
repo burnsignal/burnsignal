@@ -221,7 +221,7 @@ function Navigation(props) {
 
     useEffect(() => {
       setComponent(<Content />)
-    }, [ pending ])
+    }, [ pending,  ])
 
     return (
       <Modal isOpen={modal.create}>
@@ -267,20 +267,24 @@ function Navigation(props) {
     }).on('transactionHash', async(hash) => {
       await onHash(state, dispatch, hash, question, description)
     }).on('confirmation', async(confNum, receipt) => {
-      await transactionAlert(receipt)
+      await transactionAlert(receipt, true)
+    }).catch(async(data) => {
+      await transactionAlert({
+         status: 2
+       }, false)
     })
   }
 
-  const transactionAlert = async(receipt) => {
-    await pluckDummy(receipt)
-    await setPending(true)
 
-    if(receipt.status == 1) {
-      await retrievePolls(dispatch)
-    }
+  const transactionAlert = async(receipt, broadcast) => {
+    if(receipt.status == 1) await retrievePolls(dispatch)
+    if(broadcast) await pluckDummy(receipt)
+
+    await setPending(!pending)
+    await dismiss('create')
 
     await dispatch({
-      payload: { receipt },
+      payload: { ...receipt },
       type: 'TX'
     })
   }

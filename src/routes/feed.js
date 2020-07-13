@@ -30,24 +30,23 @@ export default function Feed() {
       from: accounts[0]
     }).on('transactionHash', async(hash) => {
       await onHash(state, dispatch, hash, question, description)
-      await setPending(true)
     }).on('confirmation', async(confNum, receipt) => {
-      await transactionAlert(receipt)
-    }).on('error', async(err) => {
-      await setPending(true)
+      await transactionAlert(receipt, true)
+    }).catch(async(data) => {
+     await transactionAlert({
+        status: 2
+      }, false)
     })
   }
 
-  const transactionAlert = async(receipt) => {
-    await pluckDummy(receipt)
-    await setPending(true)
+  const transactionAlert = async(receipt, broadcast) => {
+    await setPending(!pendingState)
 
-    if(receipt.status == 1) {
-      await retrievePolls(dispatch)
-    }
+    if(receipt.status == 1) await retrievePolls(dispatch)
+    if(broadcast) await pluckDummy(receipt)
 
     await dispatch({
-      payload: { receipt },
+      payload: { ...receipt },
       type: 'TX'
     })
   }

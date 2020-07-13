@@ -33,20 +33,34 @@ export default function Alert() {
     )
   }
 
+  function Reject(){
+    return(
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <h4 class="alert-heading"> Rejected </h4>
+        <hr />
+         Transaction was rejected by provider.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    )
+  }
+
   useEffect(() => {
     let { receipt } = state
 
-    if(receipt.status == 1){
-      setComponent(<Success />)
-    } else if(receipt.status == 0){
-      setComponent(<Revert />)
-    }
+    if(receipt.status == 2) setComponent(<Reject />)
+    else if(receipt.status == 1) setComponent(<Success />)
+    else if(receipt.status == 0) setComponent(<Revert />)
 
     const alert = setTimeout(() => {
       setComponent(<span />)
     }, 10000)
     return () => clearTimeout(alert)
   }, [ state.receipt ])
+
+  useEffect(() => {
+  }, [ component ])
 
   return (
     <div class="alert-modal">
