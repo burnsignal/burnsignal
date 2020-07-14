@@ -22,7 +22,7 @@ export default function Alert() {
 
   function Revert(){
     return(
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <h4 class="alert-heading"> Error </h4>
         <hr />
          Transaction {state.receipt.transactionHash} has failed, <a href="#" class="alert-link">see more</a>.

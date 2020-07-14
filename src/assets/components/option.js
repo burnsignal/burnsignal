@@ -3,6 +3,7 @@ import { Dropdown, DropdownToggle, Col, Row, Button, Modal, ModalHeader,
   ModalBody, ModalFooter } from 'reactstrap'
 import { Link } from 'react-router-dom'
 
+import { retrievePolls } from '../../constants/requests'
 import { createURL } from '../../constants/operatives'
 import { store } from '../../state'
 
@@ -10,9 +11,9 @@ const QRCode = require('qrcode.react')
 
 function Option(props) {
   const [ queryState, setQuery ] = useState(true)
-  const burn = useRef(null)
+  const [ pendingState, setPending ] = useState(false)
 
-  let { state } = useContext(store)
+  let { state, dispatch } = useContext(store)
   let { title } = props
 
   function Unauthenticated({ option }){
@@ -38,12 +39,20 @@ function Option(props) {
      )
    }
 
-  function AuthenticatedAndVerified({ option }){
+  function AuthenticatedAndVerified({ option, pending }){
     const [ component, setComponent ] = useState(<span />)
+    const [ burn, setBurn ] = useState(null)
 
     const submitPoll = async(option) => {
+      let amount = burn
+
+      await setBurn(null)
       await setComponent(<Pending />)
-      await makeTransaction(option)
+      await makeTransaction(option, burn)
+    }
+
+    const handleBurn = event => {
+      setBurn(event.target.value)
     }
 
     function Pending() {
@@ -66,7 +75,7 @@ function Option(props) {
         <Fragment>
           <ModalBody>
             <span className='vote-selection'> How much ETH will you burn to cast your vote? </span>
-            <input type='number' ref={burn} className='modal-input' placeholder='0.5 ETH'/>
+            <input type='number' value={burn} onChange={handleBurn} className='modal-input' placeholder='0.5 ETH'/>
           </ModalBody>
           <ModalFooter>
             <button type='button' className='btn btn-primary btn-verify' data-dismiss='modal' onClick={() => submitPoll(option)}>
@@ -79,7 +88,7 @@ function Option(props) {
 
     useEffect(() => {
       setComponent(<Content />)
-    }, [ ])
+    }, [ pending,  ])
 
     return(
       <Fragment>
@@ -138,18 +147,35 @@ function Option(props) {
    )
  }
 
-  const makeTransaction = async(option) => {
-    const amount = burn.current.value % 1 === 0 ?
-      state.web3.utils.toBN(parseFloat(burn.current.value)).mul(state.web3.utils.toBN(1e18)) :
-      parseInt(burn.current.value*Math.pow(10,18))
+  const makeTransaction = async(option, burn) => {
+    const amount = parseFloat(burn) % 1 === 0 ?
+      state.web3.utils.toBN(parseFloat(burn).toString()).mul(state.web3.utils.toBN(1e18)) :
+      parseInt(burn * Math.pow(10,18)).toString()
 
     await state.web3.eth.sendTransaction({
         to: props.address[option],
         from: state.accounts[0],
         value: amount
-      }).on('transactionHash' , () => {
-        props.modalToggle(true)
+      }).on('transactionHash', async(hash) => {
+        await setPending(!pendingState)
+        await props.modalToggle()
+      }).on('confirmation', async(confNum, receipt) => {
+        await transactionAlert(receipt, true)
+      }).catch(async(data) => {
+        await transactionAlert({
+           status: 2
+         }, false)
       })
+  }
+
+  const transactionAlert = async(receipt, broadcast) => {
+    if(receipt.status == 1) await retrievePolls(dispatch)
+    if(!broadcast) await props.modalToggle()
+
+    await dispatch({
+      payload: { ...receipt },
+      type: 'TX'
+    })
   }
 
   useEffect(() => {
@@ -159,7 +185,7 @@ function Option(props) {
   return (
     <Fragment>
       <Modal isOpen={!queryState && props.modalState}>
-        { state.web3 && state.verified && (<AuthenticatedAndVerified option={props.modalOption} />) }
+        { state.web3 && state.verified && (<AuthenticatedAndVerified pending={pendingState} option={props.modalOption} />) }
         { !state.web3 && !state.verified && (<Unauthenticated option={props.modalOption} />) }
         { state.web3 && !state.verified && (<AuthenticatedAndUnverified />) }
       </Modal>
