@@ -3,6 +3,7 @@ import { Link, useParams, useHistory } from 'react-router-dom'
 import makeBlockie from 'ethereum-blockies-base64'
 import { Row, Col } from 'reactstrap'
 import MetaTags from 'react-meta-tags'
+import ReactMarkdown from 'react-markdown'
 
 import { getVoteInfo, getQuadratics, getRecords, ETH, chartId, toChecksumAddress } from '../constants/operatives'
 import { getPollMetadata } from '../constants/calls/GraphQL'
@@ -113,7 +114,7 @@ function Poll(props){
               </Link>
               <div className='poll-info'>
                 <div className='poll-title'>{pollTopic}</div>
-                <div className='poll-description'>{pollDescription}</div>
+                <div className='poll-description'><ReactMarkdown source={pollDescription} /></div>
               </div>
             </div>
             <div className='card-body vote-body'>
