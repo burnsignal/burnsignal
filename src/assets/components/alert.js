@@ -54,10 +54,11 @@ export default function Alert() {
     else if(receipt.status == 0) setComponent(<Revert />)
 
     const alert = setTimeout(() => {
-      let targetComponents = document.getElementsByClassName('alert')
+      let targetComponent = document.getElementsByClassName('alert')[0]
 
-      console.log(targetComponents)
-      setComponent(<span />)
+      if(targetComponent != undefined){
+        setComponent(<span />)
+      }
     }, 10000)
     return () => clearTimeout(alert)
   }, [ state.receipt ])

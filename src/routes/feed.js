@@ -40,7 +40,7 @@ export default function Feed() {
   }
 
   const transactionAlert = async(receipt, broadcast) => {
-    await setPending(!pendingState)
+    await setPending(false)
 
     if(receipt.status == 1) await retrievePolls(dispatch)
     if(broadcast) await pluckDummy(receipt)
@@ -91,6 +91,7 @@ export default function Feed() {
                     account={state.accounts[0]}
                     submit={createPoll}
                     show={pendingState}
+                    trigger={setPending}
                     />
                 </div>
               </div>
