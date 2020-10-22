@@ -1,6 +1,6 @@
 import { toChecksumAddress } from '../operatives'
 
-const BRIGHTID_ENDPOINT = 'https://sp.brightid.org/node/v4/verifications/ethereum'
+const BRIGHTID_ENDPOINT = 'https://sp.brightid.org/node/v5/verifications/ethereum'
 
 export async function getAuthenicated() {
   var authenicated = await fetch(BRIGHTID_ENDPOINT,
