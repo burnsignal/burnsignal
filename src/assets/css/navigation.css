@@ -1,6 +1,9 @@
+*{
+  color:white
+}
 .navbar .dropdown.show .dropdown-menu {
   position: absolute !important;
-  background-color: white;
+  background-color: #1e1e2f;
 }
 
 .container .row {
@@ -140,7 +143,7 @@ a {
 }
 
 .dropdown-item {
-  color: #2B3553 !important;
+  color: #fbfbff !important;
   font-weight: 500 !important;
 }
 
